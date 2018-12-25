@@ -1,0 +1,13 @@
+Página de eventos online.
+En la página principal aparecen dos tipos de eventos, patrocinados y creados por usuarios. Por defecto aparecen los patrocinados y mediante un botón se pueden ver los creados por personas.
+
+**********************USUARIOS***********************
+Tenemos dos tipos de perfil de usuario: el normal y el de administrador. El administrador tendrá acceso a un menu de gestión donde se podrán dar de alta tanto ciudades como calles pertenecientes a esas ciudades, además de patrocinadores nuevos.
+El usuario normal deberá ser capaz de crear eventos. Estos eventos tendrán un nombre, la localización y una descripción, adicionalmente se añadirá una imagen y un texto descriptivo para que pueda aparecer en la página principal a modo de resumen.
+Además un usuario puede realizar una reserva para quedar registrado como que asiste a un evento. Una vez realiza la reserva los usuarios apuntados podrán participar en un foro sobre esa actividad abriendo hilos y escribiendo mensajes en esos hilos..
+*************************EXTRA*************************
+La aplicación debe ser capaz de enviar un correo electrónico de confirmación de asistencias, además se incluirá un código QR para que se pueda compartir el enlace de la página de evento.
+Por otro lado tenemos que estudiar la inclusión de boostrap e investigar como podemos incluirla en una apk simple.
+
+Posibles cosas:
+Puntuacion tras finalizar el evento, saldria en el perfil de la persona, una media con las puntuaciones de eventos creados.
