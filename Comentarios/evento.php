@@ -6,6 +6,8 @@ and open the template in the editor.
 -->
 <?php
 session_start();
+//sesion iniciada
+$_SESSION['username'] = "irene";
 ?>
 <html>
     <head>
@@ -66,8 +68,10 @@ session_start();
                                 td1.appendChild(ul);
                                 tr.appendChild(td1);
 
+                                var td2 = document.createElement('td');
+                                //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data[i][1] === "<?php echo $_SESSION['username']; ?>") {
-                                    var td2 = document.createElement('td');
+
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
                                     div1.id = data[i][0];
@@ -82,9 +86,19 @@ session_start();
 
                                     td2.appendChild(div1);
                                     td2.appendChild(div2);
-
-                                    tr.appendChild(td2);
                                 }
+
+
+                                //responder
+//                                var div3 = document.createElement('div');
+//                                div3.className += "reply";
+//                                div3.id = data[i][0];
+//                                var text3 = document.createTextNode("Responder");
+//                                div3.appendChild(text3);
+//                                td2.appendChild(div3);
+//
+                                tr.appendChild(td2);
+
                             }
                         }
                     });
@@ -93,11 +107,10 @@ session_start();
                 $(document).on("click", ".delete", function () {
                     if (confirm("¿Seguro que quieres eliminar este comentario?")) {
                         var comment = $(this).attr('id');
-                        var DATA = 'comment=' + comment;
                         $.ajax({
                             type: "POST",
                             url: "deleteMessage.php",
-                            data: DATA,
+                            data: {"comment": comment},
                             cache: false,
                             success: function (data) {
                                 mostrarTabla();
@@ -112,7 +125,14 @@ session_start();
                         $(this).addClass("clicked");
                         var comment = $(this).attr('id');
                         $("#li" + comment).replaceWith('<textarea id="textArea' + comment + '">' + $("#li" + comment).text() + '</textarea>');
-                        $(document).on("click", ".clicked#" + comment, function () {
+                        var button = document.createElement('input');
+                        button.type = "submit";
+                        button.id = "editButton" + comment;
+                        button.value = "Editar"
+                        $("#textArea" + comment).after(button);
+                        $("#editButton" + comment).before("<br/>");
+
+                        $(document).on("click", "#editButton" + comment, function () {
                             var newComment = $("#textArea" + comment).val();
                             $.ajax({
                                 type: "POST",
@@ -128,6 +148,40 @@ session_start();
 
                     }
                 });
+
+//                $(document).on("click", ".reply", function () {
+//                    var comment = $(this).attr('id');
+//                    var div = document.createElement('div');
+//                    div.className += "replies" + comment;
+//                    var ul = document.createElement('ul');
+//                    var li = document.createElement('li');
+//                    //li.className += "";
+//                    ul.appendChild(li);
+//                    div.appendChild(ul);
+//
+//                    $("#li" + comment).after(div);
+//                    
+//                    var textReply = document.createElement('textarea');
+//                    textReply.className += "textReply";
+//                    $("#replies"+comment).append(textReply);
+//                    var button = document.createElement('input');
+//                    button.type = "submit";
+//                    button.id = "replyButton" + comment;
+//                    button.value = "Responder";
+//                    $(".textReply").after(button);
+//                    $("#replyButton" + comment).before("<br/>");
+//
+//                    /*$.ajax({
+//                        type: "POST",
+//                        url: "editMessage.php",
+//                        data: {"comment": comment, "newComment": newComment},
+//                        cache: false,
+//                        success: function (data) {
+//                            mostrarTabla();
+//                        }
+//                    });*/
+//
+//                });
             });
         </script>
     </head>
