@@ -12,7 +12,9 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
-        echo "Hola";
+        echo 'Hola<br/>';
+        echo '<a href="Suscripcion-Grupo/Grupo.php" >hola </a>';
         ?>
+        
     </body>
 </html>
