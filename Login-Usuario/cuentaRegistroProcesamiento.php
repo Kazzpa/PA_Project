@@ -26,11 +26,36 @@ if (preg_match_all("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/", $sanead
     $errores[] = "Hay un error en el mail";
 }
 
+if (isset($FILES["imagen"])) {
+    if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
+        $errores[] = "Hay un error con la imagen";
+    } else {
+        $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
+
+        if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
+            if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
+                $errores[] = "Hay un error con el size de imagen";
+            } else {
+                $nombreRuta = "userPhotos/" . time() . $_FILES["imagen"]["name"];
+                if (!file_exists("photos")) {
+                    mkdir("userPhotos");
+                }
+                move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
+            }
+        } else {
+            $errores[] = "Hay un error con el tipo de imagen";
+        }
+    }
+} else {
+    $nombreRuta = "userPhotos/default.png";
+}
+
 if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
     echo "Le redireccionaremos al registro en 3 segundos";
+    header("Refresh: 3; URL = cuentaRegistro.php");
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $nombre = $saneado['nombre']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $usuario = $saneado['username'];
@@ -49,7 +74,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     if (!(mysqli_num_rows($resultado) > 0)) {   //Si la consulta devuelve alguna fila es porque encontro alguna coincidencia
         $passwordHash = password_hash($password, PASSWORD_DEFAULT); //Encriptamos en la base de datos la contraseña para que nadie pueda verla
         //Hacemos una insercion en la base de datos, la fecha de registro es automatica
-        $consulta = "INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`) VALUES ('$usuario', '$nombre', '$passwordHash', '$email', CURRENT_TIMESTAMP,'0')";
+        $consulta = "INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`, `rutaimagen`) VALUES ('$usuario', '$nombre', '$passwordHash', '$email', CURRENT_TIMESTAMP,'0', '$nombreRuta')";
         $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
 
 

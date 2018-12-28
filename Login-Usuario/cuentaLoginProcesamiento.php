@@ -24,7 +24,8 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
-    echo "Le redireccionaremos al registro en 3 segundos";
+    header('Refresh: 3; URL = cuentaLogin.php');
+    echo "Le redireccionaremos al login en 3 segundos";
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $usuario = $saneado['username']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $password = $saneado['password'];
@@ -41,13 +42,15 @@ if (key_exists(0, $errores)) {  //Si hay algun error
 
     mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-    if ($fila) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+    if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
         if (password_verify($password, $fila['password'])) {    //si se verifica que son la misma password
             $_SESSION['login'] = "si";
             $_SESSION['username'] = $fila['username']; //Creamos la clave asociativa, asi ya sabemos que el usuario esta logueado
-            $_SESSION['nombre'] = $fila['nombre'];
-            $_SESSION['email'] = $fila['date_register'];
+            $_SESSION['name'] = $fila['name'];
+            $_SESSION['email'] = $fila['email'];
+            $_SESSION['date_register'] = $fila['date_register'];
             $_SESSION['tipo'] = $fila['tipo'];
+            $_SESSION['rutaimagen'] = $fila['rutaimagen'];
 
             if (isset($_SESSION["fallido"])) {  //Si el usuario habia fallado eliminamos la clave asociativa del fallo una vez se ha logueado correctamente
                 unset($_SESSION["fallido"]);
