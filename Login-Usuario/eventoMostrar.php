@@ -142,6 +142,12 @@ and open the template in the editor.
                         success: function (data) {
                             console.log(data);
                             data = JSON.parse(data);
+                            //FORMATO DE DATA:
+                            // $data = ['posts' => $fila_posts, 'imagenes' => $fila_imagen_format];
+                            //donde $fila_posts contiene todos los datos del post
+                            //y $fila_imagen_format contiene en un array asociativo 
+                            //username => rutaImagen los datos de cada usuario participante en la conversacion
+
                             var tbodyComments = document.getElementById("tbodyComments");
                             var table = document.getElementById("tableComments");
                             //si la tabla ya estaba creada, se borra
@@ -153,7 +159,7 @@ and open the template in the editor.
                             tbodyComments.id = "tbodyComments";
                             table.appendChild(tbodyComments);
 
-                            for (var i = 0; i < data.length; i++) {
+                            for (var i = 0; i < data['posts'].length; i++) {
 
                                 var tr = document.createElement('tr');
                                 tr.id = "tr" + i;
@@ -163,17 +169,11 @@ and open the template in the editor.
                                 var img = document.createElement('img');
 
                                 //obtenemos cada imagen de usuario
-                                var name = data[i][2];
-                                $.ajax({
-                                    type: "POST",
-                                    url: "cuentaGetImagen.php",
-                                    data: {"username": name},
-                                    async: false, //hay que poner la peticion al servidor sincrona para que no continue hasta que no obtenga respuesta (y pueda asi poner bien el src de la imagen)
-                                    success: function (userPhoto) {
-                                        img.src = userPhoto;
-                                        img.style = "width:50%;"
-                                    }
-                                });
+                                var name = data['posts'][i][2];
+                                console.log(name);
+                                img.src = data['imagenes'][data['posts'][i][2]];
+                                img.style = "width:50%;";
+                                img.alt = "imagen de usuario";
                                 td0.appendChild(img);
                                 tr.appendChild(td0);
 
@@ -183,15 +183,15 @@ and open the template in the editor.
                                 ul.style = "list-style:none";
                                 var li0 = document.createElement('li');
                                 var negrita = document.createElement('b');
-                                negrita.appendChild(document.createTextNode(data[i][2]));
-                                var li0Text = document.createTextNode(" - " + data[i][4]);
+                                negrita.appendChild(document.createTextNode(data['posts'][i][2]));
+                                var li0Text = document.createTextNode(" - " + data['posts'][i][4]);
                                 li0.appendChild(negrita);
                                 li0.appendChild(li0Text);
                                 ul.appendChild(li0);
 
                                 var li1 = document.createElement('li');
-                                li1.id = "li" + data[i][0];
-                                var li1Text = document.createTextNode(data[i][5]);
+                                li1.id = "li" + data['posts'][i][0];
+                                var li1Text = document.createTextNode(data['posts'][i][5]);
                                 li1.appendChild(li1Text);
                                 ul.appendChild(li1);
 
@@ -201,7 +201,7 @@ and open the template in the editor.
                                 var td2 = document.createElement('td');
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
-                                if (data[i][2] === "<?php
+                                if (data['posts'][i][2] === "<?php
         if (isset($_SESSION['username']))
             echo $_SESSION['username'];
         else
@@ -210,13 +210,13 @@ and open the template in the editor.
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
-                                    div1.id = data[i][0];
+                                    div1.id = data['posts'][i][0];
                                     var text1 = document.createTextNode("Editar");
                                     div1.appendChild(text1);
 
                                     var div2 = document.createElement('div');
                                     div2.className += "delete";
-                                    div2.id = data[i][0];
+                                    div2.id = data['posts'][i][0];
                                     var text2 = document.createTextNode("Eliminar");
                                     div2.appendChild(text2);
 
