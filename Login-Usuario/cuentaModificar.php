@@ -38,7 +38,7 @@ if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar
 
                     if ($resultado) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
                         //Si se actualizo correctamente borramos la anterior
-                        if ($rutaAntigua != "userPhotos/default")
+                        if ($rutaAntigua != "userPhotos/default.png")
                             unlink($rutaAntigua);
                         $_SESSION["rutaimagen"] = $nombreRuta;
                         echo "Se hizo el cambio de imagen correctamente";
@@ -60,7 +60,7 @@ if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar
         header("Refresh: 3; URL = cuentaLogin.php");
         exit();
     }
-} else if (isset($_POST["registro"])) { //Si queremos modificar otro campo
+} else if (isset($_POST["modificarDato"])) { //Si queremos modificar otro campo
     $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
         'campoTexto' => FILTER_SANITIZE_STRING,
     );

@@ -24,7 +24,7 @@ if (isset($_POST["modificarFoto"])) {
                         die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
                     }
                     //Evento al que hay que modificar la foto
-                    $id = $_POST["selectEventoModificar"];
+                    $id = $_POST["selectEvento"];
 
                     $username = $_SESSION["username"];
                     //Obtenemos la ruta antigua para eliminarla
@@ -69,7 +69,7 @@ if (isset($_POST["modificarFoto"])) {
 
     $saneado = filter_input_array(INPUT_POST, $saneamiento);
 
-    $id = $_POST["selectEventoModificar"];
+    $id = $_POST["selectEvento"];
     $value = $saneado["campoTexto"];
     $opcion = $_POST["selectCampoEventoModificar"];
 

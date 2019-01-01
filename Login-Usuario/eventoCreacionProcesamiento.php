@@ -8,22 +8,25 @@ session_start();
  * and open the template in the editor.
  */
 
+
+print_r($_POST);
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
-    'name' => FILTER_SANITIZE_STRING,
+    'nameEvent' => FILTER_SANITIZE_STRING,
     'description' => FILTER_SANITIZE_STRING,
 );
 
 //Primero saneamos
 $saneado = filter_input_array(INPUT_POST, $saneamiento); //saneado te devuelve un array asociativo clave valor con los campos del formulario
+print_r($saneado);
 
-if (preg_match_all("/^[[:alnum:]]+", $saneado["name"]) == 0) {
+if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
     $errores[] = "Hay un error en el nombre del evento";
 }
-if (preg_match_all("/^[[:alnum:]]+$/", $saneado["descripcion"]) == 0) {
+if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
     $errores[] = "Hay un error en la descripcion";
 }
 
-if (isset($FILES["imagen"])) {
+if (isset($_FILES["imagen"])) {
     if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
         $errores[] = "Hay un error con la imagen";
     } else {
@@ -34,7 +37,7 @@ if (isset($FILES["imagen"])) {
                 $errores[] = "Hay un error con el size de imagen";
             } else {
                 $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];
-                if (!file_exists("photos")) {
+                if (!file_exists("eventPhotos")) {
                     mkdir("userPhotos");
                 }
                 move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
@@ -44,7 +47,7 @@ if (isset($FILES["imagen"])) {
         }
     }
 } else {
-    $nombreRuta = "eventPhotos/default.png";
+    $nombreRuta = "eventPhotos/default.jpg";
 }
 if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
@@ -53,7 +56,10 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     echo "Le redireccionaremos a la creacion de evento en 3 segundos";
     header("Refresh: 3; URL = eventoCreacion.php");
 } else {
-    $name = $saneado["name"];
+    //primero insertamos la localizacion del evento
+    include("localizacionProcesamiento.php");
+    
+    $name = $saneado["nameEvent"];
     $description = $saneado["description"];
     $date_celebration = $_POST["date-celebration"];
     $host = $_SESSION["username"];
@@ -66,7 +72,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
     }
 
-    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host')";
+    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
 
     mysqli_close($con); // Cerramos la base de datos

@@ -37,13 +37,13 @@ if (isset($FILES["imagen"])) {
                 $errores[] = "Hay un error con el size de imagen";
             } else {
                 $nombreRuta = "userPhotos/" . time() . $_FILES["imagen"]["name"];
-                if (!file_exists("photos")) {
+                if (!file_exists("userPhotos")) {
                     mkdir("userPhotos");
                 }
                 move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
             }
         } else {
-            $errores[] = "Hay un error con el tipo de imagen";
+            $errores[] = "Hay un error con el formato de imagen";
         }
     }
 } else {

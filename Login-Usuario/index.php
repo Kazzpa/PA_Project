@@ -14,8 +14,21 @@ and open the template in the editor.
     <body>
         <?php include("header.php"); ?>
         <br />
-        <div id="eventos">
-            Explora|Conoce
+        <div class="container-fluid text-center">    
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                </div>
+                <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
+                    <h1>Welcome</h1>
+                    <p>Explora|Descubre</p>
+                </div>
+                <div class="col-sm-2 sidenav">
+                </div>
+            </div>
         </div>
+
+        <footer class="container-fluid text-center">
+            <p>Footer Text</p>
+        </footer>
     </body>
 </html>

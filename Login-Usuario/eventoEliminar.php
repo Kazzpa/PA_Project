@@ -2,7 +2,7 @@
 
 session_start();
 
-$evento_id = $_POST['selectEventoEliminar'];    //Obtenemos el evento seleccionado
+$evento_id = $_POST['selectEvento'];    //Obtenemos el evento seleccionado
 
 $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
 
