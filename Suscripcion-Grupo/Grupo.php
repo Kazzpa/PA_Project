@@ -56,6 +56,15 @@
         function printIMG($group) {
             return '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
         }
+        //Saca un formulario para buscar un grupo en caso de no encontrarlo
+        function printform(){
+            echo '<form method = "GET" action = "#">
+                            <div class="form-group form-control-lg">
+                        <input type = "text" class="form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
+                        <input type = "submit" class="btn btn-primary" value="Buscar grupo">
+                        </div>
+                        </form>';
+        }
 
         include 'functions.php';
         session_start();
@@ -121,12 +130,7 @@
                         echo (printDesc($info));
                     } else {
                         echo "<h2 class='alert alert-danger' width='30%'>No encontrado el grupo</h2>";
-                        echo '<form method = "GET" action = "#">
-                            <div class="form-group form-control-lg">
-                        <input type = "text" class="form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
-                        <input type = "submit" class="btn btn-primary" value="Buscar grupo">
-                        </div>
-                        </form>';
+                        printform();
                     }
                     ?>
                 </div>
