@@ -24,6 +24,11 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-2 sidenav">
                 </div>
+                
+                <!-- GESTION DE ANUNCIANTES-->
+                <a href="anunciante.php">GESTION DE ANUNCIANTES</a>
+                
+                
             </div>
         </div>
 

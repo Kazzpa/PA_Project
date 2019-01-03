@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-01-2019 a las 03:21:56
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 03-01-2019 a las 22:11:02
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `infinity`
 --
-CREATE DATABASE IF NOT EXISTS `infinity` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `infinity`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `advertisers`
+--
+
+CREATE TABLE `advertisers` (
+  `id` int(9) NOT NULL,
+  `name` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `organization` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `alias` varchar(12) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `advertisers`
+--
+
+INSERT INTO `advertisers` (`id`, `name`, `organization`, `alias`) VALUES
+(1, 'javier', 'organizacion1', 'alias1'),
+(8, 'Andres', 'organizacion2', 'alias2'),
+(9, 'Ander', 'organizacion3', 'alias3'),
+(10, 'Irene', 'organizacion4', 'alias4');
 
 -- --------------------------------------------------------
 
@@ -149,6 +170,12 @@ INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `
 --
 
 --
+-- Indices de la tabla `advertisers`
+--
+ALTER TABLE `advertisers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `events`
 --
 ALTER TABLE `events`
@@ -178,6 +205,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `advertisers`
+--
+ALTER TABLE `advertisers`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
@@ -193,7 +226,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=67;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

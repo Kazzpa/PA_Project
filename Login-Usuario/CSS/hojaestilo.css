@@ -133,3 +133,16 @@ footer {
 h1:first-letter{ /*Esto es un selector avanzado o pseudoclase*/
     font-size:1.5em;
 }
+
+.envoltura{      
+    width: 500px;
+    margin: 0 auto; 
+}
+
+.page-header h2{
+    margin-top: 0;
+}
+
+table tr td:last-child a{
+    margin-right: 15px;
+}
