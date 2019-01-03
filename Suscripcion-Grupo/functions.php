@@ -12,7 +12,8 @@ function connectDB() {
     }
     return $con;
 }
-
+//Devuelve un array con la informacion del grupo si existe, y si no falso
+// 0: ID    1:name  2:descripcion   3:rutaImagen
 function getGroup($getName) {
     $link = connectDB();
     $sql = "SELECT * FROM grupo WHERE name = '" . $getName . "'";
@@ -25,11 +26,31 @@ function getGroup($getName) {
         if ($row = mysqli_fetch_array($res)) {
             $i = 0;
             while ($i < 4) {
-                // DEBUG
-                //echo "<br/> " . $i . ": " . $row[$i];
                 $ret[] = $row[$i];
                 $i++;
             }
+        }
+        mysqli_close($link);
+    }
+    return $ret;
+}
+function getAllGroups(){
+    $link = connectDB();
+    $sql = "SELECT * FROM grupo";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if (!$res) {
+        mysqli_close($link);
+        die("ERROR: SELECT QUERY ERROR");
+    } else {
+        $i =0;
+        while ($row = mysqli_fetch_array($res)) {
+            $j = 0;
+            while ($j < 4) {
+                $ret[$i][$j] = $row[$j];
+                $j++;
+            }
+            $i++;
         }
         mysqli_close($link);
     }
@@ -59,3 +80,4 @@ function getUsersSubs($getName){
     }
     return $ret;
 }
+
