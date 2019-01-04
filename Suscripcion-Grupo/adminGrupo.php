@@ -59,7 +59,7 @@
 
         //Comprueba si existe el grupo especificado
         function mostrarGrupo() {
-            echo '<form action="" method="POST">
+            echo '<form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-control">
                     Modificar Nombre: <i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
                     <input type="text" name="grupoName" placeholder=""><br/>
@@ -90,52 +90,83 @@
                 } else {
                     return false;
                 }//modificar
-            } else if (isset($_POST['ModGrupo'])) {
-                if (isset($_POST['grupoName']) && isset($_POST['grupoDesc']) && isset($_FILES['grupoImg'])) {
+            } else if (isset($_POST['ModGrupo']) && isset($_SESSION['grupo'])) {
+                if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
                     $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
                         'grupoName' => FILTER_SANITIZE_STRING,
                         'grupoDesc' => FILTER_SANITIZE_STRING
                     );
                     $entradas = filter_input_array(INPUT_POST, $filtros);
-                    if (validarDesc($entradas['grupoDesc'])) {
-                        if (validarName($entradas['grupoName'])) {
-                            if (validarImg($_FILES['grupoImg'])) {
-                                
-                            }
+                    $name = false;
+                    $desc = false;
+                    $img = false;
+                    if (isset($_POST['grupoDesc'])) {
+                        if (validarDesc($entradas['grupoDesc'])) {
+                            $desc = $entradas['grupoDesc'];
                         }
+                    }
+                    if (isset($_POST['grupoName'])) {
+                        if (validarName($entradas['grupoName'])) {
+                            $name = $entradas['grupoName'];
+                        }
+                    }
+                    echo "Files:<br/>";
+                    print_r($_FILES);
+                    echo "<br/>Post:<br/>";
+                    print_r($_POST);
+                    if (isset($_FILES['grupoImg'])) {
+                        if (validarImg($_FILES['grupoImg'])) {
+                            $img = $_FILES['grupoImg'];
+                        }
+                    }
+                    if ($name != false || $desc != false || $img != false) {
+                        echo "<br/>hola3 " . "nombre:" . $name . " desc: " . $desc . " img: " . $img['name'];
+                        $test = modificarGrupo($_SESSION['grupo'][0], $name, $desc, $img);
+                        if ($test) {
+                            echo "<br/>ha funsionao";
+                        } else {
+                            echo "<br/>po no";
+                        }
+                        return true;
+                    } else {
+                        //Mostrar campos invalidos o advertencia para rellanar
+                        return false;
                     }
                 }
             }
+            //por defecto devolvemos falso
+            return false;
         }
 
         //comprueba que el nombre empiece por letras, pueda tener caraceters y maximo tamaño 140
         function validarName($name) {
-            echo "<br/>" . $name . "funciona: " . preg_match("^[0-9a-zñáéíóúü]+(.*|\s)*$", $name) . " <br/>";
-            return preg_match("^[0-9a-zñáéíóúü]+(.*|\s)*$", $name) && sizeof($name) < 140;
+            return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $name) && strlen($name) < 140 && !empty(trim($name));
         }
 
         //comprueba que la descripcion empiece por letras, pueda tener caraceters y maximo tamaño 300
         function validarDesc($desc) {
-            echo "<br/>" . $desc . "funciona: " . preg_match("^[0-9a-zñáéíóúü]+(.*|\s)*$", $desc) . " <br/>";
-            return preg_match("^[0-9a-zñáéíóúü]+(.*|\s)*$", $desc) && sizeof($desc) < 300;
+            return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $desc) && strlen($desc) < 300 && !empty(trim($desc));
         }
 
         $limite = 5 * 1024 * 1024; #5MB limite imagen
 
         function validarImg($img) {
             //comprueba si no hubo un error en la subida
-            if ($img["error"] > 0 && soloImg($img) && !limiteTamanyo($img, $limite)) {
-                guardarFoto($img);
+            
+            if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
+                saveToDisk($img);
+                return true;
             }
         }
 
         function soloImg($archivo) {
             $bool = False;
-            if (isset($archivo)) {
-                if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
-                    $bool = True;
-                }
+            echo "comprobamos tipo:<br/>";
+            if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
+                $bool = True;
+                echo "es valido tipo";
             }
+
             return $bool;
         }
 
@@ -143,10 +174,30 @@
             $bool = False;
             if (isset($archivo)) {
                 if ($archivo["size"] <= $limite) {
+                    echo "Es menor";
                     $bool = True;
                 }
             }
             return $bool;
+        }
+
+        //WIP comprueba si el hash de la imagen a subir coincide con el hash de la imagen anterior
+        function isUploaded($img) {
+            return true;
+        }
+
+        //guardamos la foto tanto como la ruta en la db como el propio archivo
+        function guardarFoto($img) {
+            
+        }
+
+        //guarda en ficheros la foto
+        function saveToDisk($archivo) {
+            $bol = False;
+            if (move_uploaded_file($archivo['tmp_name'], "img/".$archivo['name'])) {
+                $bol = True;
+            }
+            return $bol;
         }
 
         function validaForm() {
@@ -155,7 +206,7 @@
 
         session_start();
         include 'functions.php';
-
+        print_r($_SESSION);
 //DEBUG
         $bol = compruebaEnviado();
         ?>
@@ -173,8 +224,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Meets</a></li>
-                        <li><a href="#">Projects</a></li>
+                        <li><a href="adminGrupo.php">Meets</a></li>
+                        <li><a href="Grupo.php">Projects</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

@@ -76,7 +76,8 @@
             );
             $entradas = filter_input_array(INPUT_GET, $filtros);
             $info = getGroup($entradas['grupo']);
-            $info2 = getUsersSubs($entradas['grupo']);
+            $info2 = false; 
+            //$info2 = getUsersSubs($entradas['grupo']);
             //Grupo valido pero no registrado
             if(!$info){
                 $bol = false;
@@ -101,8 +102,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Meets</a></li>
-                        <li><a href="#">Projects</a></li>
+                        <li><a href="adminGrupo.php">Meets</a></li>
+                        <li><a href="Grupo.php">Projects</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
