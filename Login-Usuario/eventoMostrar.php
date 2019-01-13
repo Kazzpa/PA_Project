@@ -139,7 +139,7 @@ and open the template in the editor.
                             console.log(data);
                             data = JSON.parse(data);
                             //FORMATO DE DATA:
-                            // $data = ['posts' => $fila_posts, 'imagenes' => $fila_imagen_format];
+                            // $data = ['posts' => $posts, 'imagenes' => $fila_imagen_format];
                             //donde $fila_posts contiene todos los datos del post
                             //y $fila_imagen_format contiene en un array asociativo 
                             //username => rutaImagen los datos de cada usuario participante en la conversacion
@@ -165,9 +165,9 @@ and open the template in the editor.
                                 var img = document.createElement('img');
 
                                 //obtenemos cada imagen de usuario
-                                var name = data['posts'][i][2];
+                                var name = data['posts'][i]['postedBy'];
                                 console.log(name);
-                                img.src = data['imagenes'][data['posts'][i][2]];
+                                img.src = data['imagenes'][data['posts'][i]['postedBy']];
                                 img.style = "width:50%;";
                                 img.alt = "imagen de usuario";
                                 td0.appendChild(img);
@@ -179,15 +179,15 @@ and open the template in the editor.
                                 ul.style = "list-style:none";
                                 var li0 = document.createElement('li');
                                 var negrita = document.createElement('b');
-                                negrita.appendChild(document.createTextNode(data['posts'][i][2]));
-                                var li0Text = document.createTextNode(" - " + data['posts'][i][4]);
+                                negrita.appendChild(document.createTextNode(data['posts'][i]['postedBy']));
+                                var li0Text = document.createTextNode(" - " + data['posts'][i]['postedDate']);
                                 li0.appendChild(negrita);
                                 li0.appendChild(li0Text);
                                 ul.appendChild(li0);
 
                                 var li1 = document.createElement('li');
-                                li1.id = "li" + data['posts'][i][0];
-                                var li1Text = document.createTextNode(data['posts'][i][5]);
+                                li1.id = "li" + data['posts'][i]['id'];
+                                var li1Text = document.createTextNode(data['posts'][i]['message']);
                                 li1.appendChild(li1Text);
                                 ul.appendChild(li1);
 
@@ -197,7 +197,7 @@ and open the template in the editor.
                                 var td2 = document.createElement('td');
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
-                                if (data['posts'][i][2] === "<?php
+                                if (data['posts'][i]['postedBy'] === "<?php
         if (isset($_SESSION['username']))
             echo $_SESSION['username'];
         else
@@ -206,13 +206,13 @@ and open the template in the editor.
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
-                                    div1.id = data['posts'][i][0];
+                                    div1.id = data['posts'][i]['id'];
                                     var text1 = document.createTextNode("Editar");
                                     div1.appendChild(text1);
 
                                     var div2 = document.createElement('div');
                                     div2.className += "delete";
-                                    div2.id = data['posts'][i][0];
+                                    div2.id = data['posts'][i]['id'];
                                     var text2 = document.createTextNode("Eliminar");
                                     div2.appendChild(text2);
 
