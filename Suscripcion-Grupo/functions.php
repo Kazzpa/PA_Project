@@ -1,6 +1,8 @@
 <?php
+
 //variable global ruta de la carpeta donde guardar las imagenes
 $rutaImg = "img/";
+
 //crea la conexion con la base de datos y no la cierra.
 function connectDB() {
     $con = mysqli_connect("localhost", "root", "");
@@ -70,31 +72,53 @@ function modificarGrupo($id, $name, $desc, $img) {
     $bol = true;
     $bol2 = false;
     if ($name != false) {
-        $consulta = $consulta . "name = '" . $name."'";
+        $consulta = $consulta . "name = '" . $name . "'";
         $bol2 = true;
     }
     if ($desc != false) {
-        if($bol2){
-            $consulta = $consulta. ",";
+        if ($bol2) {
+            $consulta = $consulta . ",";
         }
         $bol2 = true;
-        $consulta = $consulta . " descripcion = '" . $desc."'";
+        $consulta = $consulta . " descripcion = '" . $desc . "'";
         echo "probao";
         echo $consulta;
     }
     if ($img != false) {
-        if($bol2){
-            $consulta = $consulta. ",";
+        if ($bol2) {
+            $consulta = $consulta . ",";
         }
         print_r($img);
         $hash = md5_file($img['tmp_name']);
         //usamos variable global por si queremos cambiar la ruta donde guardar las imagenes
-        $consulta = $consulta . " img = '".$GLOBALS['rutaImg'] . $img['name']."', imgHash = '" . $hash."'";
+        $consulta = $consulta . " img = '" . $GLOBALS['rutaImg'] . $img['name'] . "', imgHash = '" . $hash . "'";
     }
-    $consulta = $consulta." WHERE id = '" . $id."'";
-    echo "<br> consulta: <br/>".$consulta."<br/>";
+    $consulta = $consulta . " WHERE id = '" . $id . "'";
+    echo "<br> consulta: <br/>" . $consulta . "<br/>";
     $resultado = mysqli_query($con, $consulta);
-    if($resultado){
+    if ($resultado) {
+        echo "exito";
+    }
+    if (!$resultado) {
+        $bol = false;
+    }
+    mysqli_close($con);
+    return $bol;
+}
+
+//crear grupo en db
+function crearGrupo($name, $desc, $img) {
+    $bol = true;
+    $con = connectDB();
+//Hacemos una insercion en la base de datos, la fecha de registro es automatica
+
+    $hash = md5_file($img['tmp_name']);
+    $consulta = "INSERT INTO grupo ( id , name, descripcion, image_path) VALUES ( 'NULL' , '" . $name . "' , '" . $desc . "'"
+            . " , '" . $GLOBALS['rutaImg'] . $img['name'] . "' )";
+
+    echo "<br> consulta: <br/>" . $consulta . "<br/>";
+    $resultado = mysqli_query($con, $consulta);
+    if ($resultado) {
         echo "exito";
     }
     if (!$resultado) {

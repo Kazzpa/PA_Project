@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- WIP-->
-<html lang="en">
+<html lang="es">
     <head>
         <title>Panel admin grupo</title>
         <meta charset="utf-8">
@@ -49,7 +49,7 @@
         function formGrupo() {
             echo '
             <form action="" method="POST">
-                <div class="form-control">
+                <div class="form-group">
                     Buscar grupo a tratar:<br/>
                     Nombre:<input type="text" name="grupo" placeholder="Nombre grupo">
                     <input type="submit" name="BuscarGrupo" value="Buscar">
@@ -60,16 +60,37 @@
         //Comprueba si existe el grupo especificado
         function mostrarGrupo() {
             echo '<form action="" method="POST" enctype="multipart/form-data">
-                <div class="form-control">
+                <div class="form-group">
                     Modificar Nombre: <i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
                     <input type="text" name="grupoName" placeholder=""><br/>
+                    </div>
+                <div class="form-group">
                     Modificar descripcion: 
                     <br/><i>"' . utf8_decode($_SESSION['grupo'][2]) . '" </i><br/>
                     <input type="text" name="grupoDesc" placeholder="Descripcion"><br/>
+                    </div>
+                <div class="form-group">
                     Modificar Imagen: <br/>
                     <img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . '" width="10%"></img><br/>
                     <input type="file" name="grupoImg" placeholder="ruta imagen"><br/>
+                    </div>
                     <input type="submit" name="ModGrupo" value="Modificar">
+            </form>';
+        }
+
+        function formCrearGrupo() {
+            echo '<form action="" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    Nombre: <br/>
+                    <input type="text" name="grupoName" placeholder="Nombre de grupo"><br/>
+                    </div><div class="form-group">
+                    Descripcion: <br/>
+                    <input type="text" name="grupoDesc" placeholder="Descripcion"><br/>
+                    </div><div class="form-group">
+                    Imagen: <br/>
+                    <input type="file" name="grupoImg" placeholder="Seleccione imagen"><br/>
+                    </div>
+                    <input type="submit" name="crearGrupo" value="Crear">
                 </div>
             </form>';
         }
@@ -77,7 +98,8 @@
         //Devuelve falso si no se ha enviado, o si no esta el grupo registrado
         //si esta registrado, lo guarda en una variable de sesion
         function compruebaEnviado() {
-            if (isset($_POST['grupo']) || !isset($_SESSION['grupo'])) {
+            if (isset($_POST['grupo']) || !isset($_SESSION['grupo']) && !isset($_POST['crearGrupo'])) {
+                echo "caso 0";
                 $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
                     'grupo' => FILTER_SANITIZE_STRING
                 );
@@ -91,50 +113,88 @@
                     return false;
                 }//modificar
             } else if (isset($_POST['ModGrupo']) && isset($_SESSION['grupo'])) {
+                echo "caso 1";
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
-                    $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
-                        'grupoName' => FILTER_SANITIZE_STRING,
-                        'grupoDesc' => FILTER_SANITIZE_STRING
-                    );
-                    $entradas = filter_input_array(INPUT_POST, $filtros);
-                    $name = false;
-                    $desc = false;
-                    $img = false;
-                    if (isset($_POST['grupoDesc'])) {
-                        if (validarDesc($entradas['grupoDesc'])) {
-                            $desc = $entradas['grupoDesc'];
-                        }
-                    }
-                    if (isset($_POST['grupoName'])) {
-                        if (validarName($entradas['grupoName'])) {
-                            $name = $entradas['grupoName'];
-                        }
-                    }
-                    echo "Files:<br/>";
+                    trataGrupo();
+                }
+            } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
+                    echo "caso 2";
                     print_r($_FILES);
-                    echo "<br/>Post:<br/>";
-                    print_r($_POST);
-                    if (isset($_FILES['grupoImg'])) {
-                        if (validarImg($_FILES['grupoImg'])) {
-                            $img = $_FILES['grupoImg'];
-                        }
-                    }
-                    if ($name != false || $desc != false || $img != false) {
-                        echo "<br/>hola3 " . "nombre:" . $name . " desc: " . $desc . " img: " . $img['name'];
-                        $test = modificarGrupo($_SESSION['grupo'][0], $name, $desc, $img);
-                        if ($test) {
-                            echo "<br/>ha funsionao";
-                        } else {
-                            echo "<br/>po no";
-                        }
-                        return true;
-                    } else {
-                        //Mostrar campos invalidos o advertencia para rellanar
-                        return false;
-                    }
+                if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
+                    echo "creamos grupo";
+                    trataCrearGrupo();
                 }
             }
             //por defecto devolvemos falso
+            return false;
+        }
+
+        //Tratamiento del formulario de modificar grupo
+        function trataGrupo() {
+            $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
+                'grupoName' => FILTER_SANITIZE_STRING,
+                'grupoDesc' => FILTER_SANITIZE_STRING
+            );
+            $entradas = filter_input_array(INPUT_POST, $filtros);
+            $name = false;
+            $desc = false;
+            $img = false;
+            if (isset($_POST['grupoDesc'])) {
+                if (validarDesc($entradas['grupoDesc'])) {
+                    $desc = $entradas['grupoDesc'];
+                }
+            }
+            if (isset($_POST['grupoName'])) {
+                if (validarName($entradas['grupoName'])) {
+                    $name = $entradas['grupoName'];
+                }
+            }
+            if (isset($_FILES['grupoImg'])) {
+                if (validarImg($_FILES['grupoImg'])) {
+                    $img = $_FILES['grupoImg'];
+                }
+            }
+            if ($name != false || $desc != false || $img != false) {
+                echo "<br/>hola3 " . "nombre:" . $name . " desc: " . $desc . " img: " . $img['name'];
+                $test = modificarGrupo($_SESSION['grupo'][0], $name, $desc, $img);
+                if ($test) {
+                    echo "<br/>ha funsionao";
+                    saveToDisk($img);
+                } else {
+                    echo "<br/>po no";
+                }
+                return true;
+            } else {
+                //Mostrar campos invalidos o advertencia para rellenar
+                return false;
+            }
+        }
+
+        //Tratamiento formulario crear grupo
+        function trataCrearGrupo() {
+            $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
+                'grupoName' => FILTER_SANITIZE_STRING,
+                'grupoDesc' => FILTER_SANITIZE_STRING
+            );
+            $entradas = filter_input_array(INPUT_POST, $filtros);
+            $name = false;
+            $desc = false;
+            $img = false;
+            if (isset($_POST['grupoDesc']) && isset($_POST['grupoName']) && isset($_FILES['grupoImg'])) {
+                if (validarDesc($entradas['grupoDesc']) && validarName($entradas['grupoName']) && validarImg($_FILES['grupoImg'])) {
+                    $name = $entradas['grupoName'];
+                    $desc = $entradas['grupoDesc'];
+                    $img = $_FILES['grupoImg'];
+                    $test = crearGrupo( $name, $desc, $img);
+                    if ($test) {
+                        echo "<br/>ha funsionao";
+                        saveToDisk($img);
+                    } else {
+                        echo "<br/>po no";
+                    }
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -152,9 +212,7 @@
 
         function validarImg($img) {
             //comprueba si no hubo un error en la subida
-            
             if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
-                saveToDisk($img);
                 return true;
             }
         }
@@ -186,15 +244,10 @@
             return true;
         }
 
-        //guardamos la foto tanto como la ruta en la db como el propio archivo
-        function guardarFoto($img) {
-            
-        }
-
         //guarda en ficheros la foto
         function saveToDisk($archivo) {
             $bol = False;
-            if (move_uploaded_file($archivo['tmp_name'], "img/".$archivo['name'])) {
+            if (move_uploaded_file($archivo['tmp_name'], "img/" . $archivo['name'])) {
                 $bol = True;
             }
             return $bol;
@@ -207,6 +260,7 @@
         session_start();
         include 'functions.php';
         print_r($_SESSION);
+        print_r($_POST);
 //DEBUG
         $bol = compruebaEnviado();
         ?>
@@ -248,6 +302,8 @@
                     <?php
                     if (!$bol) {
                         formGrupo();
+                        echo "<br/>Panel creacion: </br>";
+                        formCrearGrupo();
                     } else {
                         mostrarGrupo();
                     }
