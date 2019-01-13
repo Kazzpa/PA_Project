@@ -62,11 +62,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $password = $saneado['password'];
     $email = $saneado['email'];
 
-    $con = mysqli_connect("localhost", "root", "", "infinity");
-
-    if (!$con) {
-        die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
-    }
+    include_once("conexion.php");
     //Comprobamos si el usuario introducido ya existe, pues este va a hacer de pk en nuestra base de datos
     $consulta = "SELECT `username` FROM `users` WHERE `username`='$usuario'";
     $resultado = mysqli_query($con, $consulta);

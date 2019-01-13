@@ -121,11 +121,7 @@ and open the template in the editor.
                             <div class="col-sm-12 text-left well" style="background-color: rgb(36,182,148); color:black">
                                 <p style="font-size: 2em; text-align: center;">Eventos creados</p>
                                 <?php
-                                $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
-
-                                if (!$con) {
-                                    die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-                                }
+                                include_once("conexion.php");
 
                                 $username = $_SESSION["username"];
                                 $consulta = "SELECT * FROM `events` WHERE host = '$username'"; //consulta SQL para obtener el usuario, luego comprobamos la password

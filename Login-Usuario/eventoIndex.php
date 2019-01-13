@@ -38,11 +38,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                     <?php
-                    $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
-
-                    if (!$con) {
-                        die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-                    }
+                    include_once("conexion.php");
 
                     $consulta = "SELECT * FROM `events`"; //consulta SQL para obtener el usuario, luego comprobamos la password
                     $resultado = mysqli_query($con, $consulta);

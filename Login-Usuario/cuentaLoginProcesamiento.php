@@ -30,11 +30,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $usuario = $saneado['username']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $password = $saneado['password'];
 
-    $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
-
-    if (!$con) {
-        die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-    }
+    include_once("conexion.php");
 
     $consulta = "SELECT * FROM `users` WHERE username = '$usuario'"; //consulta SQL para obtener el usuario, luego comprobamos la password
     $resultado = mysqli_query($con, $consulta);
