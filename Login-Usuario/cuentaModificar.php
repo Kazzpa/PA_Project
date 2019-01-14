@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar foto
-    if (isset($_FILES["imagen"])) {
+    if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
             echo "Hay un error con la imagen";
             header("Refresh: 3; URL = cuentaLogin.php");

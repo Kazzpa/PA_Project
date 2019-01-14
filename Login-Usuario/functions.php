@@ -5,14 +5,7 @@ $rutaImg = "img/";
 
 //crea la conexion con la base de datos y no la cierra.
 function connectDB() {
-    $con = mysqli_connect("localhost", "root", "");
-    if (!$con) {
-        die("ERROR: Can't connect to host");
-    }
-    $db = mysqli_select_db($con, "infinity");
-    if (!$db) {
-        die("ERROR: Can't connect to DB ");
-    }
+    include_once("conexion.php");
     return $con;
 }
 

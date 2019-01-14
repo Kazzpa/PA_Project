@@ -14,11 +14,7 @@ $message = $saneado['msgTextArea'];
 $postedBy = $_SESSION['username'];
 $eventId = $_GET['id'];
 
-$con = mysqli_connect("localhost", "root", "", "infinity");
-
-if (!$con) {
-    die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
-}
+include_once("conexion.php");
 
 $consulta = "INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '0', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
 $resultado = mysqli_query($con, $consulta);

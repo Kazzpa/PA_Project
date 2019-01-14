@@ -33,7 +33,7 @@ and open the template in the editor.
             <span id="place-address"></span>
         </div>
         <div class="container login-container">
-            <form action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
+            <form action = "eventoAnuncianteCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
                 <div class="row-eq-height">
                     <div class="col-md-6 login-form-1">
                         <h3>Datos del evento</h3>
@@ -41,11 +41,39 @@ and open the template in the editor.
                             <input type="text" class="form-control" name= "nameEvent" placeholder="Nombre evento" value="" required/>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name = "description" rows="6" style="resize: none;" id="comment" placeholder="Introduce una descripcion" required></textarea>
+                            <textarea class="form-control" name="eventDescription" rows="6" style="resize: none;" placeholder="Introduce una descripcion" required></textarea>
                         </div>
                         <div class="form-group">
                             <input type = "datetime-local" name = "date-celebration" required />
                         </div>
+                        <?php
+                        include_once("conexion.php");
+                        $consulta = "SELECT * FROM `advertisers`"; //consulta SQL para obtener el usuario, luego comprobamos la password
+                        $resultado = mysqli_query($con, $consulta);
+                        mysqli_close($con);
+
+                        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+                            $i = 0;
+                            while ($auxiliar = mysqli_fetch_array($resultado)) { /* Con esto retiramos todas las filas que hayan en la base de datos, como pueden ser muchas
+                              hay que ir leyendo fila a fila */
+                                $fila[$i] = $auxiliar; //este auxiliar es para evitar que se meta la ultima iteracion vacia
+                                $i++;
+                            }
+                            ?>
+                            <div class="form-group">
+                                <select name="selectAnunciante" class='form-control'>
+                                    <?php
+                                    for ($i = 0; $i < sizeof($fila); $i++) {
+                                        $nombreAnunciante = $fila[$i]['name'];
+                                        $idAnunciante = $fila[$i]['id'];
+                                        echo "<option value='$idAnunciante'>$nombreAnunciante</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <?php
+                        }
+                        ?>
                         <div class="form-group">
                             <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                         </div>
@@ -76,41 +104,9 @@ and open the template in the editor.
                             <input type="hidden" id="lngChange">
                         </div>
                     </div>
-                </div>
+                </div>>
             </form>
         </div>
-        <!--para que el mapa no se esconda, hace falta poner el style del form a 100% en altura y anchura-->
-        <!--
-        <form action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data" style="height:100%; width:100%;">
-            Nombre del evento: <input type = "text" name= "nameEvent" required/><br />
-            Descripcion: <br/>
-            <textarea rows="4" cols="50" name = "description" placeholder="Introduzca una breve descripcion sobre el evento a realizar" required/></textarea><br />
-        Foto: <input type="file" name="imagen" /> <br />
-        <br />
-        Fecha de celebracion: <input type = "datetime-local" name = "date-celebration" required /><br />
-        <label>Nombre: </label>
-        <input type="text" name="name" id="name" placeholder="Nombre del sitio" readonly="readonly"><br><br>
-        <input type="hidden" id="nameChange">
-
-        <label>Direccion: </label>
-        <input type="text" name="address" id="address" placeholder="Direccion del sitio" readonly="readonly"><br><br>
-        <input type="hidden" id="addressChange">
-
-        <label>Ciudad: </label>
-        <input type="text" name="city" id="city" placeholder="Ciudad del sitio" readonly="readonly"><br><br>
-        <input type="hidden" id="cityChange">
-
-        <label>Latitud: </label>
-        <input type="text" name="lat" id="lat" placeholder="Coordenadas de latitud" value="" readonly="readonly"><br><br>
-        <input type="hidden" id="latChange">
-
-        <label>Longitud: </label>
-        <input type="text" name="lng" id="lng" placeholder="Coordenadas de longitud" value=""readonly="readonly"><br><br>
-        <input type="hidden" id="lngChange">
-
-        <input type = "submit" value="Registro" name = "registroProcesamiento" />
-    </form>
-        -->
 
         <script type="text/javascript">
             nameLocation = '';
@@ -160,45 +156,45 @@ and open the template in the editor.
                     center: {lat: 40.4167, lng: -3.70325},
                     zoom: 5,
                 });
-//                var infoWindow = new google.maps.InfoWindow;
+                var infoWindow = new google.maps.InfoWindow;
 
                 // Change this depending on the name of your PHP or XML file
-//                downloadUrl('consultaLocalizaciones.php', function (data) {
-//                    var xml = data.responseXML;
-//                    var markers = xml.documentElement.getElementsByTagName('marker');
-//                    Array.prototype.forEach.call(markers, function (markerElem) {
-//                        var name = markerElem.getAttribute('name');
-//                        var address = markerElem.getAttribute('address');
-//                        var point = new google.maps.LatLng(
-//                                parseFloat(markerElem.getAttribute('lat')),
-//                                parseFloat(markerElem.getAttribute('lng')));
-//
-//                        var infowincontent = document.createElement('div');
-//                        var strong = document.createElement('strong');
-//                        strong.textContent = name
-//                        infowincontent.appendChild(strong);
-//                        infowincontent.appendChild(document.createElement('br'));
-//
-//                        var text = document.createElement('text');
-//                        text.textContent = address;
-//                        var div = document.createElement('div');
-//                        var a = document.createElement('a');
-//                        a.href = "www.google.es";
-//                        a.appendChild(document.createTextNode("Link"));
-//                        div.appendChild(a);
-//                        text.appendChild(div);
-//                        infowincontent.appendChild(text);
-//                        var marker = new google.maps.Marker({
-//                            map: map,
-//                            position: point,
-//                            animation: google.maps.Animation.DROP,
-//                        });
-//                        marker.addListener('click', function () {
-//                            infoWindow.setContent(infowincontent);
-//                            infoWindow.open(map, marker);
-//                        });
-//                    });
-//                });
+                downloadUrl('consultaLocalizaciones.php', function (data) {
+                    var xml = data.responseXML;
+                    var markers = xml.documentElement.getElementsByTagName('marker');
+                    Array.prototype.forEach.call(markers, function (markerElem) {
+                        var name = markerElem.getAttribute('name');
+                        var address = markerElem.getAttribute('address');
+                        var point = new google.maps.LatLng(
+                                parseFloat(markerElem.getAttribute('lat')),
+                                parseFloat(markerElem.getAttribute('lng')));
+
+                        var infowincontent = document.createElement('div');
+                        var strong = document.createElement('strong');
+                        strong.textContent = name
+                        infowincontent.appendChild(strong);
+                        infowincontent.appendChild(document.createElement('br'));
+
+                        var text = document.createElement('text');
+                        text.textContent = address;
+                        var div = document.createElement('div');
+                        var a = document.createElement('a');
+                        a.href = "www.google.es";
+                        a.appendChild(document.createTextNode("Link"));
+                        div.appendChild(a);
+                        text.appendChild(div);
+                        infowincontent.appendChild(text);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: point,
+                            animation: google.maps.Animation.DROP,
+                        });
+                        marker.addListener('click', function () {
+                            infoWindow.setContent(infowincontent);
+                            infoWindow.open(map, marker);
+                        });
+                    });
+                });
 
 
                 var card = document.getElementById('pac-card');

@@ -104,7 +104,7 @@ function comprobarFormularioEventos() {
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "modificarFoto";
         boton.value = "Modificar Foto";
-    } else if (valor = "eliminar") {
+    } else if (valor == "eliminar") {
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
         }
@@ -115,6 +115,26 @@ function comprobarFormularioEventos() {
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "modificarFoto";
         boton.value = "Eliminar evento";
+        
+    } else if (valor == "localizacion") {
+        if (document.getElementById("eventoACambiar")) {
+            zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
+        }
+
+        var formulario = document.getElementById("formModificacionEvento");
+        formulario.action = "localizacionModificar.php";
+        
+        var mapa = document.getElementById("location");
+        mapa.style="";
+
+        var mapsData = document.getElementById("mapsData");
+        mapsData.style="";
+
+        var boton = document.getElementById("botonEventoModificar");
+        boton.name = "modificarLocalizacion";
+        boton.value = "Modificar Localización";
+        
+        
     }
 }
 

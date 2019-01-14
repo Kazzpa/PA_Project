@@ -26,7 +26,7 @@ and open the template in the editor.
 
         mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-        if (mysqli_num_rows($resultado)) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
             $fila = mysqli_fetch_array($resultado);
 
             $nombreEvento = $fila['name'];
@@ -100,7 +100,8 @@ and open the template in the editor.
                     }
 
                     Array.prototype.forEach.call(markers, function (markerElem) {
-                        map.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCACpnp7KaVFiuYEfwaxiKS7OCgw0mQqcA&q=" + markerElem.getAttribute('name') + "," + markerElem.getAttribute('address') + "," + markerElem.getAttribute('ciudad');
+                        console.log(markerElem);
+                        map.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCACpnp7KaVFiuYEfwaxiKS7OCgw0mQqcA&q=" + markerElem.getAttribute('name') + "," + markerElem.getAttribute('address');
                     });
                 });
             }

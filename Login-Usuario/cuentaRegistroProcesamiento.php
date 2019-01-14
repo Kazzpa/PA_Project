@@ -26,7 +26,7 @@ if (preg_match_all("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/", $sanead
     $errores[] = "Hay un error en el mail";
 }
 
-if (isset($FILES["imagen"])) {
+if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
     if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
         $errores[] = "Hay un error con la imagen";
     } else {

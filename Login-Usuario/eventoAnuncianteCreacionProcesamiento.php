@@ -8,20 +8,20 @@ session_start();
  * and open the template in the editor.
  */
 
-
-print_r($_POST);
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'nameEvent' => FILTER_SANITIZE_STRING,
-    'description' => FILTER_SANITIZE_STRING,
+    'eventDescription' => FILTER_SANITIZE_STRING,
 );
 
 //Primero saneamos
 $saneado = filter_input_array(INPUT_POST, $saneamiento); //saneado te devuelve un array asociativo clave valor con los campos del formulario
 
+print_r($saneado);
+
 if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
     $errores[] = "Hay un error en el nombre del evento";
 }
-if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
+if (preg_match_all("/^[[:alnum:]]+/", $saneado["eventDescription"]) == 0) {
     $errores[] = "Hay un error en la descripcion";
 }
 
@@ -53,21 +53,21 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         echo "$valor <br/>";
     }
     echo "Le redireccionaremos a la creacion de evento en 3 segundos";
-    header("Refresh: 3; URL = eventoCreacion.php");
 } else {
     //primero insertamos la localizacion del evento
     include("localizacionProcesamiento.php");
 
     $name = $saneado["nameEvent"];
-    $description = $saneado["description"];
+    $description = $saneado["eventDescription"];
     $date_celebration = $_POST["date-celebration"];
+    $idAnunciante = $_POST["selectAnunciante"];
     $host = $_SESSION["username"];
 
     echo "$name $description $date_celebration $host";
 
     include_once("conexion.php");
 
-    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '0')";
+    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '$idAnunciante')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
 
     mysqli_close($con); // Cerramos la base de datos
@@ -81,9 +81,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         exit();
     } else {
         $_SESSION["rechazado"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver
-        header("Location: eventoCreacion.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+        header("Location: eventoAnuncianteCreacionProcesamiento.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
         exit();
     }
 }
-
-

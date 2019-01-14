@@ -13,11 +13,7 @@ $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los 
 $saneado = filter_input_array(INPUT_POST, $saneamiento);
 $newMessage = $saneado["newComment"];
 
-$con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
-
-if (!$con) {
-    die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-}
+include_once("conexion.php");
 
 
 //seleccionamos los mensajes del evento
