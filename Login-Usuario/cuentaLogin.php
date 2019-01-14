@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include("stylesheets.php"); ?>
-        <link rel="stylesheet" type="text/css" href="css/maps.css"/>
+        <link rel="stylesheet" type="text/css" href="css/mapsInsideDiv.css"/>
         <script type="text/javascript" src="js/modificarCuenta.js"></script>
     </head>
     <body> 
@@ -137,7 +137,7 @@ and open the template in the editor.
                                         $i++;
                                     }
                                     ?>
-                                    <p>Eliminaci&oacute;n de evento</p>
+                                    <p>Modificaci&oacute;n de evento</p>
                                     <form id="formModificacionEvento" action = "eventoModificar.php" method = "post" enctype="multipart/form-data">
                                         <select name='selectEvento'>
                                             <?php
@@ -164,26 +164,28 @@ and open the template in the editor.
                                             <br />
                                             <input type="text" name="campoTexto" placeholder="Nombre Evento" id="eventoACambiar">
 
-                                            <div style="position:absolute;top:-3000px" id="mapsData">
-                                                <div id = "location" style="display:none">
-                                                    <div id="map"></div>
-                                                    <div class="pac-card" id="pac-card">
-                                                        <div>
-                                                            <div id="title">
-                                                                Selecciona nueva localización
-                                                            </div>
-                                                        </div>
-                                                        <div id="pac-container">
-                                                            <input id="pac-input" type="text"
-                                                                   placeholder="Introduce una localización">
+                                            <!--GOOGLE MAPS-->
+                                            <div id = "location" style="display:none">
+                                                <div id="map"></div>
+                                                <div class="pac-card" id="pac-card">
+                                                    <div>
+                                                        <div id="title">
+                                                            Selecciona nueva localización
                                                         </div>
                                                     </div>
-                                                    <div id="infowindow-content">
-                                                        <img src="" width="16" height="16" id="place-icon">
-                                                        <span id="place-name"  class="title"></span><br>
-                                                        <span id="place-address"></span>
+                                                    <div id="pac-container">
+                                                        <input id="pac-input" type="text"
+                                                               placeholder="Introduce una localización">
                                                     </div>
                                                 </div>
+                                                <div id="infowindow-content">
+                                                    <img src="" width="16" height="16" id="place-icon">
+                                                    <span id="place-name"  class="title"></span><br>
+                                                    <span id="place-address"></span>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none" id="mapsData">
                                                 <div class="form-group">
                                                     Nombre:<br/><input type="text" name="name" id="name" placeholder="Nombre del sitio" readonly="readonly" class="form-control-file"><br><br>
                                                     <input type="hidden" id="nameChange">
