@@ -54,6 +54,14 @@ function comprobarFormularioEventos() {
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
         }
+        //para hacer desaparecer el mapa
+        if (document.getElementById("location").style.width == "62vw") {
+            document.getElementById("location").style = "display:none;";
+        }
+        if (document.getElementById("mapsData").style.display == "") {
+            document.getElementById("mapsData").style = "display:none;";
+        }
+        
         var dato = document.createElement("input");
         dato.id = "eventoACambiar";
         dato.type = "text";
@@ -70,6 +78,13 @@ function comprobarFormularioEventos() {
     } else if (valor == "description") {
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
+        }
+        //para hacer desaparecer el mapa
+        if (document.getElementById("location").style.width == "62vw") {
+            document.getElementById("location").style = "display:none;";
+        }
+        if (document.getElementById("mapsData").style.display == "") {
+            document.getElementById("mapsData").style = "display:none;";
         }
         var dato = document.createElement("textarea");
         dato.id = "eventoACambiar";
@@ -91,7 +106,13 @@ function comprobarFormularioEventos() {
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
         }
-
+        //para hacer desaparecer el mapa
+        if (document.getElementById("location").style.width == "62vw") {
+            document.getElementById("location").style = "display:none;";
+        }
+        if (document.getElementById("mapsData").style.display == "") {
+            document.getElementById("mapsData").style = "display:none;";
+        }
         var formulario = document.getElementById("formModificacionEvento");
         formulario.action = "eventoModificar.php";
 
@@ -108,7 +129,13 @@ function comprobarFormularioEventos() {
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
         }
-
+        //para hacer desaparecer el mapa
+        if (document.getElementById("location").style.width == "62vw") {
+            document.getElementById("location").style = "display:none;";
+        }
+        if (document.getElementById("mapsData").style.display == "") {
+            document.getElementById("mapsData").style = "display:none;";
+        }
         var formulario = document.getElementById("formModificacionEvento");
         formulario.action = "eventoEliminar.php";
 
@@ -125,7 +152,7 @@ function comprobarFormularioEventos() {
         formulario.action = "localizacionModificar.php";
         
         var mapa = document.getElementById("location");
-        mapa.style="";
+        mapa.style="width: 62vw; height:30vh";
 
         var mapsData = document.getElementById("mapsData");
         mapsData.style="";
@@ -133,8 +160,7 @@ function comprobarFormularioEventos() {
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "modificarLocalizacion";
         boton.value = "Modificar Localización";
-        
-        
+
     }
 }
 
