@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-01-2019 a las 16:57:06
+-- Tiempo de generación: 15-01-2019 a las 21:27:34
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -93,9 +93,9 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
-(2, 1, 'groupPhotos/1/1547516669_22126.jpg', 'evento 1 =P'),
-(3, 1, 'groupPhotos/1/1547516693P81024-192347.jpg', 'evento 2 =D'),
-(5, 1, 'groupPhotos/1/1547516715201279_ml.jpg', 'evento 3 =PS');
+(18, 1, 'groupPhotos/1/1547581387_22126.jpg', 'evento 1 =P'),
+(19, 1, 'groupPhotos/1/1547581401espectaculos-producciones-animacion-noche3.jpg', 'evento 2 =^D'),
+(20, 1, 'groupPhotos/1/1547581417201279_ml.jpg', 'evento 3 =S');
 
 -- --------------------------------------------------------
 
@@ -255,7 +255,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT de la tabla `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `locations`

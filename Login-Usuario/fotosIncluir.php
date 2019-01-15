@@ -59,5 +59,7 @@ include 'functions.php';
     } else {
         $nombreRuta = "groupPhotos/default.jpg";
     }
+    
+    
     header('Location: fotos.php');
 ?>
