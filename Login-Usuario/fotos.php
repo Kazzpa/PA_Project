@@ -55,7 +55,7 @@ and open the template in the editor.
                  */   
         
                 //Obtenemos imagenes de la base de datos
-                $query = $con->query("SELECT * FROM galery WHERE `grupo` = '$idGrupo'");
+                $query = $con->query("SELECT * FROM gallery WHERE `grupo` = '$idGrupo'");
 
                 if($query->num_rows > 0){
                     while($row = $query->fetch_assoc()){                      

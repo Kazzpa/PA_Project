@@ -3,7 +3,7 @@
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     require_once "conexion.php";  
     //Prepara sentencia sql de borrado
-    $sql = "DELETE FROM galery WHERE id = ?";   
+    $sql = "DELETE FROM gallery WHERE id = ?";   
     if($stmt = mysqli_prepare($con, $sql)){
         //Enlace de variables
         mysqli_stmt_bind_param($stmt, "i", $id_parametro);      

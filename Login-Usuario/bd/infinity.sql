@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2019 a las 00:41:27
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 15-01-2019 a las 16:57:06
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `infinity`
 --
-CREATE DATABASE IF NOT EXISTS `infinity` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `infinity`;
 
 -- --------------------------------------------------------
 
@@ -76,6 +74,28 @@ INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebr
 (9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0),
 (18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0),
 (19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `id` int(11) NOT NULL,
+  `grupo` int(11) NOT NULL,
+  `rutaImagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta de la imagen del grupo.',
+  `encabezado` text COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
+(2, 1, 'groupPhotos/1/1547516669_22126.jpg', 'evento 1 =P'),
+(3, 1, 'groupPhotos/1/1547516693P81024-192347.jpg', 'evento 2 =D'),
+(5, 1, 'groupPhotos/1/1547516715201279_ml.jpg', 'evento 3 =PS');
 
 -- --------------------------------------------------------
 
@@ -191,6 +211,12 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `locations`
 --
 ALTER TABLE `locations`
@@ -224,6 +250,12 @@ ALTER TABLE `advertisers`
 --
 ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `gallery`
+--
+ALTER TABLE `gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `locations`
