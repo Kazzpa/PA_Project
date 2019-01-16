@@ -1,6 +1,6 @@
 <?php
 include('conexion.php');
-include 'functions.php';
+include 'grupo_db.php';
     session_start();
     //Obtenemos el grupo seleccionado
     $idGrupo = 1;

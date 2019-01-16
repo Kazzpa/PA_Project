@@ -29,7 +29,7 @@ and open the template in the editor.
                 </form> 
             
                 <?php 
-                include 'functions.php';
+                include 'grupo_db.php';
                 include('conexion.php');
             
                 //Obtenemos el grupo seleccionado

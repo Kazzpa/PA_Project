@@ -46,11 +46,11 @@
         <?php
 
         function printName($group) {
-            return "<h1>" . utf8_decode($group[1]) . "</h1>";
+            return "<h1>" . $group[1] . "</h1>";
         }
 
         function printDesc($group) {
-            return "<h4>" . utf8_decode($group[2]) . "</h4>";
+            return "<h4>" . $group[2] . "</h4>";
         }
 
         function printIMG($group) {

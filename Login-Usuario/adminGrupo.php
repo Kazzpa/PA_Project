@@ -43,7 +43,10 @@
     </head>
     <body>
         <?php
+        
 
+        session_start();
+        include 'grupo_db.php';
         //imprime un formulario para buscar/seleccionar un grupo
         function formGrupo() {
             echo '
@@ -101,7 +104,6 @@
         //si esta registrado, lo guarda en una variable de sesion
         function compruebaEnviado() {
             if (isset($_POST['grupo']) || !isset($_SESSION['grupo']) && !isset($_POST['crearGrupo'])) {
-                echo "caso 0";
                 $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
                     'grupo' => FILTER_SANITIZE_STRING
                 );
@@ -115,18 +117,14 @@
                     return false;
                 }//modificar
             } else if (isset($_POST['ModGrupo']) && isset($_SESSION['grupo'])) {
-                echo "caso 1";
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
                     trataModGrupo();
                 }
             } else if (isset($_POST['EliminarGrupo']) && isset($_SESSION['grupo'])) {
-                echo "caso 2";
                 trataEliminarGrupo();
             } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
-                echo "caso 3";
                 print_r($_FILES);
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
-                    echo "creamos grupo";
                     trataCrearGrupo();
                 }
             }
@@ -160,13 +158,9 @@
                 }
             }
             if ($name != false || $desc != false || $img != false) {
-                echo "<br/>hola3 " . "nombre:" . $name . " desc: " . $desc . " img: " . $img['name'];
                 $test = modificarGrupo($_SESSION['grupo'][0], $name, $desc, $img);
                 if ($test) {
-                    echo "<br/>ha funsionao";
                     saveToDisk($img);
-                } else {
-                    echo "<br/>po no";
                 }
                 return true;
             } else {
@@ -179,9 +173,6 @@
         function trataEliminarGrupo() {
             $bol = eliminarGrupo($_SESSION['grupo'][0]);
             unset($_SESSION['grupo']);
-            if($bol){
-                echo "eliminado el grupo";
-            }
         }
 
         //Tratamiento formulario crear grupo
@@ -201,10 +192,7 @@
                     $img = $_FILES['grupoImg'];
                     $test = crearGrupo($name, $desc, $img);
                     if ($test) {
-                        echo "<br/>ha funsionao";
                         saveToDisk($img);
-                    } else {
-                        echo "<br/>po no";
                     }
                     return true;
                 }
@@ -214,7 +202,8 @@
 
         //comprueba que el nombre empiece por letras, pueda tener caraceters y maximo tamaño 140
         function validarName($name) {
-            return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $name) && strlen($name) < 140 && !empty(trim($name));
+            //regexp normal /^[0-9a-zñáéíóúü]+(.*|\s)*$/
+            return preg_match("/^[[:alnum:]]+/", $name) && strlen($name) < 140 && !empty(trim($name));
         }
 
         //comprueba que la descripcion empiece por letras, pueda tener caraceters y maximo tamaño 300
@@ -228,15 +217,15 @@
             //comprueba si no hubo un error en la subida
             if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
                 return true;
+            } else {
+                return false;
             }
         }
 
         function soloImg($archivo) {
             $bool = False;
-            echo "comprobamos tipo:<br/>";
             if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
                 $bool = True;
-                echo "es valido tipo";
             }
 
             return $bool;
@@ -246,7 +235,6 @@
             $bool = False;
             if (isset($archivo)) {
                 if ($archivo["size"] <= $limite) {
-                    echo "Es menor";
                     $bool = True;
                 }
             }
@@ -261,8 +249,13 @@
         //guarda en ficheros la foto
         function saveToDisk($archivo) {
             $bol = False;
-            if (move_uploaded_file($archivo['tmp_name'], "img/" . $archivo['name'])) {
-                $bol = True;
+            if (file_exists($archivo['tmp_name'])) {
+                if(!file_exists($GLOBALS['rutaImg'])){
+                    mkdir($GLOBALS['rutaImg']);
+                }
+                if (move_uploaded_file($archivo['tmp_name'], $GLOBALS['rutaImg'] . $archivo['name'])) {
+                    $bol = True;
+                }
             }
             return $bol;
         }
@@ -271,12 +264,10 @@
             
         }
 
-        session_start();
-        include 'grupo_db.php';
         //DEBUG 
         print_r($_SESSION);
         print_r($_POST);
-        
+
         $bol = compruebaEnviado();
         ?>
         <!-- Barra de navegacion superior -->
