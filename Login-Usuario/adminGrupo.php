@@ -5,9 +5,8 @@
         <title>Panel admin grupo</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <?php include 'stylesheets.php'; ?>
+
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
@@ -50,48 +49,51 @@
             echo '
             <form action="" method="POST">
                 <div class="form-group">
-                    Buscar grupo a tratar:<br/>
-                    Nombre:<input type="text" name="grupo" placeholder="Nombre grupo">
-                    <input type="submit" name="BuscarGrupo" value="Buscar">
+                    <b>Buscar grupo a tratar:<br/>
+                    Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo">
+                    <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
                 </div>
             </form>';
         }
 
         //Comprueba si existe el grupo especificado
-        function mostrarGrupo() {
+        function modGrupo() {
             echo '<form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    Modificar Nombre: <i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
-                    <input type="text" name="grupoName" placeholder=""><br/>
+                    <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
+                    <input type="text" class="form-control" name="grupoName" placeholder=""><br/>
                     </div>
                 <div class="form-group">
-                    Modificar descripcion: 
+                    <b>Modificar descripcion: </b>
                     <br/><i>"' . utf8_decode($_SESSION['grupo'][2]) . '" </i><br/>
-                    <input type="text" name="grupoDesc" placeholder="Descripcion"><br/>
+                    <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"><br/>
                     </div>
                 <div class="form-group">
-                    Modificar Imagen: <br/>
-                    <img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . '" width="10%"></img><br/>
-                    <input type="file" name="grupoImg" placeholder="ruta imagen"><br/>
+                    <b>Modificar Imagen: </b><br/>';
+            if (file_exists($_SESSION['grupo'][3])) {
+                echo '<img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . 'width="10%"></img><br/>';
+            }
+            echo'<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
                     </div>
-                    <input type="submit" name="ModGrupo" value="Modificar">
+                    <input type="submit" class="btn btn-primary" name="ModGrupo" value="Modificar">
+                    <input type="submit" class="btn btn-danger" name="EliminarGrupo" value="Eliminar">
             </form>';
         }
 
         function formCrearGrupo() {
             echo '<form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    Nombre: <br/>
-                    <input type="text" name="grupoName" placeholder="Nombre de grupo"><br/>
+                    <b>Nombre: </b><br/>
+                    <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"><br/>
                     </div><div class="form-group">
-                    Descripcion: <br/>
-                    <input type="text" name="grupoDesc" placeholder="Descripcion"><br/>
+                    <b>Descripcion: </b><br/>
+                    <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"><br/>
                     </div><div class="form-group">
-                    Imagen: <br/>
-                    <input type="file" name="grupoImg" placeholder="Seleccione imagen"><br/>
+                    <b>Imagen: </b><br/>
+                    <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen"><br/>
                     </div>
-                    <input type="submit" name="crearGrupo" value="Crear">
-                </div>
+                    <input type="submit" class="btn btn-primary" name="crearGrupo" value="Crear">
+                </div> 
             </form>';
         }
 
@@ -115,11 +117,14 @@
             } else if (isset($_POST['ModGrupo']) && isset($_SESSION['grupo'])) {
                 echo "caso 1";
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
-                    trataGrupo();
+                    trataModGrupo();
                 }
+            } else if (isset($_POST['EliminarGrupo']) && isset($_SESSION['grupo'])) {
+                echo "caso 2";
+                trataEliminarGrupo();
             } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
-                    echo "caso 2";
-                    print_r($_FILES);
+                echo "caso 3";
+                print_r($_FILES);
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
                     echo "creamos grupo";
                     trataCrearGrupo();
@@ -130,7 +135,7 @@
         }
 
         //Tratamiento del formulario de modificar grupo
-        function trataGrupo() {
+        function trataModGrupo() {
             $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
                 'grupoName' => FILTER_SANITIZE_STRING,
                 'grupoDesc' => FILTER_SANITIZE_STRING
@@ -170,6 +175,15 @@
             }
         }
 
+        //Tratamineto formulario EliminarGrupo
+        function trataEliminarGrupo() {
+            $bol = eliminarGrupo($_SESSION['grupo'][0]);
+            unset($_SESSION['grupo']);
+            if($bol){
+                echo "eliminado el grupo";
+            }
+        }
+
         //Tratamiento formulario crear grupo
         function trataCrearGrupo() {
             $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
@@ -185,7 +199,7 @@
                     $name = $entradas['grupoName'];
                     $desc = $entradas['grupoDesc'];
                     $img = $_FILES['grupoImg'];
-                    $test = crearGrupo( $name, $desc, $img);
+                    $test = crearGrupo($name, $desc, $img);
                     if ($test) {
                         echo "<br/>ha funsionao";
                         saveToDisk($img);
@@ -258,10 +272,11 @@
         }
 
         session_start();
-        include 'functions.php';
+        include 'grupo_db.php';
+        //DEBUG 
         print_r($_SESSION);
         print_r($_POST);
-//DEBUG
+        
         $bol = compruebaEnviado();
         ?>
         <!-- Barra de navegacion superior -->
@@ -305,7 +320,7 @@
                         echo "<br/>Panel creacion: </br>";
                         formCrearGrupo();
                     } else {
-                        mostrarGrupo();
+                        modGrupo();
                     }
                     ?>
                 </div>

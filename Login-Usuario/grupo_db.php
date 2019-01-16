@@ -102,7 +102,24 @@ function modificarGrupo($id, $name, $desc, $img) {
     mysqli_close($con);
     return $bol;
 }
-
+//Eliminar grupo
+function eliminarGrupo($id){
+    $bol = true;
+    $con = connectDB();
+    //Eliminamos el grupo con el id especificado
+    $consulta = 'DELETE FROM grupo WHERE id ="'.$id.'"';
+    $resultado = mysqli_query($con, $consulta);
+    if ($resultado) {
+        echo "exito";
+    }
+    if (!$resultado) {
+        $bol = false;
+        echo "<br/>".$resultado;
+        echo "error al eliminar";   
+    }
+    mysqli_close($con);
+    return $bol;
+}
 //crear grupo en db
 function crearGrupo($name, $desc, $img) {
     $bol = true;

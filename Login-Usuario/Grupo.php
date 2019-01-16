@@ -42,7 +42,7 @@
         </style>
     </head>
     <body>
-<!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
+        <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
 
         function printName($group) {
@@ -54,10 +54,14 @@
         }
 
         function printIMG($group) {
-            return '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
+            if (file_exists($group[3])) {
+                echo "existe la foto";
+                return '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
+            }
         }
+
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
-        function printform(){
+        function printform() {
             echo '<form method = "GET" action = "#">
                             <div class="form-group form-control-lg">
                         <input type = "text" class="form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
@@ -66,7 +70,7 @@
                         </form>';
         }
 
-        include 'functions.php';
+        include 'grupo_db.php';
         session_start();
         $bol = isset($_GET['grupo']) && $_GET['grupo'] != '';
         $bol2 = false;
@@ -76,13 +80,13 @@
             );
             $entradas = filter_input_array(INPUT_GET, $filtros);
             $info = getGroup($entradas['grupo']);
-            $info2 = false; 
+            $info2 = false;
             //$info2 = getUsersSubs($entradas['grupo']);
             //Grupo valido pero no registrado
-            if(!$info){
+            if (!$info) {
                 $bol = false;
             }
-            if($info2){
+            if ($info2) {
                 $bol2 = true;
             }
         }
@@ -144,14 +148,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            if($bol2){
-                                for( $i = 0 ; $i < sizeof($info2);$i++){
+                            <?php
+                            if ($bol2) {
+                                for ($i = 0; $i < sizeof($info2); $i++) {
                                     echo'<tr><td>';
-                                    if($info2[$i][1] >0){
+                                    if ($info2[$i][1] > 0) {
                                         echo '[MOD]';
                                     }
-                                    echo '</td><td>'.$info2[$i][0].'</td></tr>';
+                                    echo '</td><td>' . $info2[$i][0] . '</td></tr>';
                                 }
                             }
                             ?>
@@ -161,13 +165,13 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <!-- GALERIA -->
         <a href="fotos.php">GALERIA</a>
-        
-        
-        
+
+
+
         <footer class="container-fluid text-center">
             <!-- Footer -->
             Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
