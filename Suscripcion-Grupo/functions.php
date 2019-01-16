@@ -87,7 +87,11 @@ function modificarGrupo($id, $name, $desc, $img) {
             $consulta = $consulta. ",";
         }
         print_r($img);
+        if(file_exists($img['tmp_name'])){
         $hash = md5_file($img['tmp_name']);
+        }else{
+            echo "no existe el archivo";
+        }
         //usamos variable global por si queremos cambiar la ruta donde guardar las imagenes
         $consulta = $consulta . " img = '".$GLOBALS['rutaImg'] . $img['name']."', imgHash = '" . $hash."'";
     }
