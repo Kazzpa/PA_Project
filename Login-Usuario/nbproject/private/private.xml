@@ -3,38 +3,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/mapsScript.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/anuncianteBorrar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/mensajeMostrar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/conexion.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/eventoModificar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaRegistroProcesamiento.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/eventoMostrar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/anuncianteLectura.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaModificar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/CSS/hojaestilo.css</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/mensajeProcesamiento.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/bd/infinity.sql</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/eventoCreacion.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/stylesheets.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/infinity.sql</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/CSS/maps.css</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/anuncianteCrear.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/eventoIndex.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/localizacionMostrar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/index.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/mensajeEliminar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaRegistro.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaEliminar.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaGetImagen.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaLogin.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/header.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/paginaAdmin.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/localizacionProcesamiento.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/cuentaLoginProcesamiento.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/eventoCreacionProcesamiento.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/anuncianteAUXview.php</file>
-            <file>file:/C:/Users/cerbe/Documents/NetBeansProjects/PA_Project/Login-Usuario/mensajeModificar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/paginaAdmin.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoMostrar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/cuentaRegistroProcesamiento.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoEliminar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/adminGrupo.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/conexion.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/anuncianteCrear.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoModificar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/cuentaLoginProcesamiento.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/header.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/anunciante.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoIndex.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/cuentaLogout.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/Grupo.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/js/index.js</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/functions.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoAnuncianteCreacion.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/anuncianteLectura.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoCreacionProcesamiento.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/anuncianteModificar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/index.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/cuentaRegistro.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/cuentaModificar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoAnuncianteCreacionProcesamiento.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/anuncianteBorrar.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/eventoCreacion.php</file>
+            <file>file:/E:/Tercero/Semestre%201/Programacion%20Avanzada/EPD/Final%20Work/PA_infinity/js/jquery-3.3.1.min.js</file>
         </group>
     </open-files>
 </project-private>

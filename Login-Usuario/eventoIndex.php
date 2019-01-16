@@ -38,18 +38,14 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                     <?php
-                    $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
+                    include_once("conexion.php");
 
-                    if (!$con) {
-                        die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-                    }
-
-                    $consulta = "SELECT * FROM `events`"; //consulta SQL para obtener el usuario, luego comprobamos la password
+                    $consulta = "SELECT * FROM `events` WHERE date_celebration>CURRENT_TIMESTAMP ORDER BY date_celebration"; //consulta SQL para obtener el usuario, luego comprobamos la password
                     $resultado = mysqli_query($con, $consulta);
 
                     mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-                    if ($resultado) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+                    if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
                         $i = 0;
                         while ($auxiliar = mysqli_fetch_array($resultado)) { /* Con esto retiramos todas las filas que hayan en la base de datos, como pueden ser muchas
                           hay que ir leyendo fila a fila */
@@ -110,6 +106,7 @@ and open the template in the editor.
 
                 downloadUrl('localizacionMostrar.php', function (data) {
                     var xml = data.responseXML;
+                    console.log(xml);
                     var markers = xml.documentElement.getElementsByTagName('marker');
                     Array.prototype.forEach.call(markers, function (markerElem) {
                         var name = markerElem.getAttribute('name');

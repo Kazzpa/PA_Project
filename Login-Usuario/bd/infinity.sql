@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2019 a las 22:11:02
+-- Tiempo de generación: 15-01-2019 a las 21:27:34
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -42,7 +42,7 @@ CREATE TABLE `advertisers` (
 INSERT INTO `advertisers` (`id`, `name`, `organization`, `alias`) VALUES
 (1, 'javier', 'organizacion1', 'alias1'),
 (8, 'Andres', 'organizacion2', 'alias2'),
-(9, 'Ander', 'organizacion3', 'alias3'),
+(9, 'Ander', 'The Coca Cola Company', 'alias3'),
 (10, 'Irene', 'organizacion4', 'alias4');
 
 -- --------------------------------------------------------
@@ -59,18 +59,43 @@ CREATE TABLE `events` (
   `date_celebration` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Fecha cuando se celebrara el evento',
   `host` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Usuario creador del evento',
   `rutaimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta de la imagen de un evento',
-  `idLocation` int(11) NOT NULL COMMENT 'id de la localizacion donde se celebra el evento'
+  `idLocation` int(11) NOT NULL COMMENT 'id de la localizacion donde se celebra el evento',
+  `idAdvertisers` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `events`
 --
 
-INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`) VALUES
-(2, 'Fiestecilla en la playa', 'A disfrutar del veranito gente!', '2018-12-25 16:17:50', '2018-01-01 23:00:00', 'irelia', 'eventPhotos/1546308720pexels-photo-1117256.jpeg', 1),
-(5, 'El cielo del mes de enero 2019', 'Charla sobre las efemÃ©rides del mes de enero de 2019', '2018-12-30 04:24:45', '2019-01-10 18:00:00', 'irelia', 'eventPhotos/1546143885nebula_pequeÃ±a.jpg', 16),
-(6, 'Concierto Musica Clasica', 'Temazos Beethoven', '2018-12-30 16:13:14', '2019-01-04 18:00:00', 'irene', 'eventPhotos/1546186394dopany91na411_reduc.jpg', 18),
-(9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21);
+INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES
+(2, 'Fiestecilla en la playa', 'A disfrutar del veranito gente!', '2018-12-25 16:17:50', '2019-01-14 23:00:00', 'irelia', 'eventPhotos/1546308720pexels-photo-1117256.jpeg', 1, 0),
+(5, 'El cielo del mes de enero 2019', 'Charla sobre las efemÃ©rides del mes de enero de 2019', '2018-12-30 04:24:45', '2019-01-18 18:00:00', 'irelia', 'eventPhotos/1546143885nebula_pequeÃ±a.jpg', 16, 0),
+(6, 'Concierto Musica Clasica', 'Temazos Beethoven', '2018-12-30 16:13:14', '2019-01-04 18:00:00', 'irene', 'eventPhotos/1546186394dopany91na411_reduc.jpg', 18, 0),
+(9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0),
+(18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0),
+(19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `id` int(11) NOT NULL,
+  `grupo` int(11) NOT NULL,
+  `rutaImagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta de la imagen del grupo.',
+  `encabezado` text COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
+(18, 1, 'groupPhotos/1/1547581387_22126.jpg', 'evento 1 =P'),
+(19, 1, 'groupPhotos/1/1547581401espectaculos-producciones-animacion-noche3.jpg', 'evento 2 =^D'),
+(20, 1, 'groupPhotos/1/1547581417201279_ml.jpg', 'evento 3 =S');
 
 -- --------------------------------------------------------
 
@@ -98,7 +123,11 @@ INSERT INTO `locations` (`id`, `name`, `address`, `city`, `lat`, `lng`) VALUES
 (12, 'Sevilla (Plaza de Armas)', 's/n Puente del Cristo de la ExpiraciÃ³n el Cachorro', 'Sevilla', 37.391872, -6.003953),
 (15, 'Bar Galleta', '31 Calle Corredera Baja de San Pablo', 'Madrid', 40.422684, -3.703638),
 (16, 'Casa de la Ciencia', '8 Av. de MarÃ­a Luisa', 'Sevilla', 37.377518, -5.991264),
-(21, 'Sala X', '7 Calle JosÃ© DÃ­az', 'Sevilla', 37.408699, -5.990033);
+(21, 'Sala X', '7 Calle JosÃ© DÃ­az', 'Sevilla', 37.408699, -5.990033),
+(22, 'Ashford', 'Ashford Ashford', 'Kent', 51.146465, 0.875019),
+(23, 'Principado de Asturias', 'Principado de Asturias O', 'ES', 43.361397, -5.859327),
+(24, 'Leonberg', 'Leonberg BB', 'SÃ¼d', 48.796043, 9.009571),
+(25, 'Torre del Oro', 's/n Paseo de CristÃ³bal ColÃ³n', 'Sevilla', 37.382412, -5.996490);
 
 -- --------------------------------------------------------
 
@@ -182,6 +211,12 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `locations`
 --
 ALTER TABLE `locations`
@@ -214,13 +249,19 @@ ALTER TABLE `advertisers`
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `gallery`
+--
+ALTER TABLE `gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`

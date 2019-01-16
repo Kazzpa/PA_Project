@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 include_once("conexion.php");
 
 //Recibimos los datos del formulario
@@ -25,10 +24,10 @@ if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $
 
         //obtenemos la id de la localizacion creada
         $idLocalizacion = $con->insert_id;
-        mysqli_close($con);
+        
     } else { //Si la consulta devuelve alguna fila es porque encontro alguna coincidencia, en cuyo caso no se insertaría la localizacion otra vez en la bd
         $fila = mysqli_fetch_assoc($resultado);
         $idLocalizacion = $fila['id'];
     }
+     mysqli_close($con);
 }
-?>

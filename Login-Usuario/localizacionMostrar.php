@@ -14,8 +14,7 @@ function parseToXML($htmlStr) {
 // Select all the rows in the markers table
 //si no nos dan ningun id de evento, seleccionamos todas las localizaciones y las mostramos
 if (!isset($_GET['id'])) {
-    $result_markers = "SELECT * FROM locations";
-    $eventos = "SELECT `id`, `name`,`idLocation`,`date_celebration` FROM `events`";
+    $eventos = "SELECT `id`,`name`,`idLocation`,`date_celebration` FROM `events` WHERE `date_celebration`>CURRENT_TIMESTAMP";
 } else {
     $idEvento = $_GET['id'];
 //primero seleccionamos la localizacion del evento
@@ -23,21 +22,35 @@ if (!isset($_GET['id'])) {
     $resultado_evento = mysqli_query($con, $queryEvento);
     $fila = mysqli_fetch_array($resultado_evento);
     $idLocation = $fila['idLocation'];
-    
+
 //recogemos los datos de la localizacion de ese evento
     $result_markers = "SELECT * FROM `locations` WHERE `id` = '$idLocation' ";
 //buscamos cuantos eventos tienen ese idLocation
     $eventos = "SELECT `id`, `name`,`idLocation`,`date_celebration` FROM `events` WHERE `idLocation`='$idLocation'";
 }
 //guardamos los resultados de las consultas en un array auxiliar (el fech_assoc recorre y va perdiendo la info, por lo que al recorrer por segunda vez no encuentra nada)
-$resultado_markers = mysqli_query($con, $result_markers);
-while ($row_markers = mysqli_fetch_assoc($resultado_markers)) {
-    $arrayLocalizacion[] = $row_markers;
-}
 $resultado_eventos = mysqli_query($con, $eventos);
 while ($fila_eventos = mysqli_fetch_assoc($resultado_eventos)) {
     $arrayEventos[] = $fila_eventos;
 }
+
+if (!isset($_GET['id'])) {
+    //nos quedamos solo con los id de los eventos
+    foreach ($arrayEventos as $evento) {
+        $idArrayEventos[] = $evento['idLocation'];
+    }
+    //eliminamos valores duplicados del array
+    $idArrayEventos = array_unique($idArrayEventos);
+    //preparamos el formato del IN del statement
+    $in = '("' . implode('","', $idArrayEventos) . '")';
+    $result_markers = "SELECT * FROM locations WHERE `id` IN " . $in;
+}
+
+$resultado_markers = mysqli_query($con, $result_markers) or die("Error en la consulta " . $result_markers);
+while ($row_markers = mysqli_fetch_assoc($resultado_markers)) {
+    $arrayLocalizacion[] = $row_markers;
+}
+
 
 //comienzo del archivo XML
 header("Content-type: text/xml");

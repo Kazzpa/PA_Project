@@ -1,0 +1,11 @@
+Hay que hacer el menu principal, donde estaran los botones que cambia el javascript que se muestra, es decir, los eventos de anunciantes y usuarios. Habra que incorporar a evento en la implementacion existente
+las nuveas entidades, tanto grupo como anunciante.
+Hay que hacer entidad grupo, logro, fotos. Se deben terminar las tablas intermedias de reserva y suscripcion.
+Repasar funcionalidad javascript relevante de cada uno.
+Todo lo nuevo tendra que concordar con la implementacion previa y debera integrarse, tanto en diseño como en codigo.
+
+Terminar la documentacion.
+
+Adicional: compartir, correo electronico, qr code, apk.  
+
+Hablar de donde estara todo, el menu de usuario de cambios se puede integrar tmb los grupos.

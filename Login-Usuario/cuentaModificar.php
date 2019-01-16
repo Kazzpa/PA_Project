@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar foto
-    if (isset($_FILES["imagen"])) {
+    if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
             echo "Hay un error con la imagen";
             header("Refresh: 3; URL = cuentaLogin.php");
@@ -18,11 +18,7 @@ if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar
                     $nombreRuta = "userPhotos/" . time() . $_FILES["imagen"]["name"];
                     move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
 
-                    $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia
-
-                    if (!$con) {
-                        die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
-                    }
+                    include_once("conexion.php");
                     $username = $_SESSION["username"];
                     //Obtenemos la ruta antigua para eliminarla
                     $consulta = "SELECT rutaimagen FROM `users` WHERE username = '$username'"; //consulta SQL para obtener el usuario, luego comprobamos la password
@@ -87,11 +83,7 @@ if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar
     } else {
         $username = $_SESSION["username"];
 
-        $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia
-
-        if (!$con) {
-            die("Conexion fallida: " . mysqli_connect_error()); // Si la conexion ha fallado
-        }
+        include_once("conexion.php");
 
         if ($opcion == "password") {
             $value = password_hash($value, PASSWORD_DEFAULT);
