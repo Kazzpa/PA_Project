@@ -69,7 +69,7 @@
                     </div>
                 <div class="form-group">
                     <b>Modificar descripcion: </b>
-                    <br/><i>"' . utf8_decode($_SESSION['grupo'][2]) . '" </i><br/>
+                    <br/><i>"' . $_SESSION['grupo'][2]   . '" </i><br/>
                     <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"><br/>
                     </div>
                 <div class="form-group">
