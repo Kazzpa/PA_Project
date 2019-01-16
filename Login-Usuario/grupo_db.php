@@ -120,7 +120,6 @@ function crearGrupo($name, $desc, $img) {
     $con = connectDB();
 //Hacemos una insercion en la base de datos, la fecha de registro es automatica
 
-    $hash = md5_file($img['tmp_name']);
     $consulta = "INSERT INTO grupo ( id , name, descripcion, image_path) VALUES ( 'NULL' , '" . $name . "' , '" . $desc . "'"
             . " , '" . $GLOBALS['rutaImg'] . $img['name'] . "' )";
 
@@ -128,8 +127,7 @@ function crearGrupo($name, $desc, $img) {
     $resultado = mysqli_query($con, $consulta);
     if ($resultado) {
         echo "exito";
-    }
-    if (!$resultado) {
+    }else {
         $bol = false;
     }
     mysqli_close($con);

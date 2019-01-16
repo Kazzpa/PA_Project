@@ -47,6 +47,7 @@
 
         session_start();
         include 'grupo_db.php';
+        $limite = 5 * 1024 * 1024; #5MB limite imagen
         //imprime un formulario para buscar/seleccionar un grupo
         function formGrupo() {
             echo '
@@ -123,7 +124,6 @@
             } else if (isset($_POST['EliminarGrupo']) && isset($_SESSION['grupo'])) {
                 trataEliminarGrupo();
             } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
-                print_r($_FILES);
                 if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
                     trataCrearGrupo();
                 }
@@ -173,6 +173,7 @@
         function trataEliminarGrupo() {
             $bol = eliminarGrupo($_SESSION['grupo'][0]);
             unset($_SESSION['grupo']);
+            return $bol;
         }
 
         //Tratamiento formulario crear grupo
@@ -211,7 +212,6 @@
             return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $desc) && strlen($desc) < 300 && !empty(trim($desc));
         }
 
-        $limite = 5 * 1024 * 1024; #5MB limite imagen
 
         function validarImg($img) {
             //comprueba si no hubo un error en la subida
@@ -259,14 +259,6 @@
             }
             return $bol;
         }
-
-        function validaForm() {
-            
-        }
-
-        //DEBUG 
-        print_r($_SESSION);
-        print_r($_POST);
 
         $bol = compruebaEnviado();
         ?>

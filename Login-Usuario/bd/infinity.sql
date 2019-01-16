@@ -193,6 +193,20 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`, `rutaimagen`) VALUES
 ('irelia', 'Pepe Lolo', '$2y$10$rgxbLk/J7MesYi3gZkyY0Oon1i3WS7Lp0QHBOfn54ixQjG4JtmGhK', 'pepeyu@hotmail.com', '2018-12-24 23:41:32', 0, 'userPhotos/default.png'),
 ('irene', 'Irene Glez', '$2y$10$GpTL5a3SmldpvhC8ZY/a4OzUE0nhIcpeLuuphI8XhGNHX02AsocWC', 'irene@irene.com', '2018-12-30 15:59:42', 0, 'userPhotos/default.png');
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grupo`
+--
+
+CREATE TABLE `grupo` (
+  `id` int(11) NOT NULL,
+  `name` varchar(140) COLLATE utf8_spanish_ci NOT NULL COMMENT 'nombe grupo',
+  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `image_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
 
 --
 -- Índices para tablas volcadas
@@ -236,6 +250,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`username`);
 
 --
+-- Indices de la tabla `grupo`
+--
+ALTER TABLE `grupo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -268,6 +288,13 @@ ALTER TABLE `locations`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=67;
+COMMIT;
+
+--
+-- AUTO_INCREMENT de la tabla `grupo`
+--
+ALTER TABLE `grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
