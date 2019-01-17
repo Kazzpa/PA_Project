@@ -3,6 +3,7 @@
         <title>Admin-Logros</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <?php include 'stylesheets.php'; ?>
     </head>
     <body>
@@ -12,20 +13,22 @@
         $limite = 5 * 1024 * 1024;
 
         function formCrearLogro() {
-            echo '<form action="" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
+            echo '</form>
+                <form action="" method="POST" enctype="multipart/form-data" >
+            
+            <div class="form-group col-md-4">
                 <b>Nombre logro: </b>
                 <input type="text" class="form-control" name="logroname" placeholder="Nombre icono" required><br/>
             </div>
-            <div class="form-group">
-                <b>Descripcion del logro(ej: 100 miembros en el grupo):</b>
-                <input type="text" class="form-control" name="logrodesc" placeholder="Descripcion" required><br/>
-            </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <b>Icono del logro: </b><br/>
                 <input type="file" class="form-control custom-file-input" name="logroicon" accept="image/x-png,image/gif,image/jpeg" placeholder="ruta icono" required>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
+                <b>Descripcion del logro</b>(ej: 100 miembros en el grupo):
+                <input type="text" class="form-control" name="logrodesc" placeholder="Descripcion" required><br/>
+            </div>
+            <div class="form-group col-md-4">
                 <b>Tipo de logro</b>
                 <select class="custom-select" name="logrotipo" required>
                 <option value="0" selected>N&uacute;mero de miembros</option>
@@ -36,13 +39,13 @@
                 <option value="5">Rey de la web o especial</option>
               </select>
             </div>
-            <div class="form-group">
-                <b>Valor para conseguir el logro</b>
+            <div class="form-group col-md-4">
+                <b>Valor necesario para conseguirlo</b>
                 <input type="number" class="form-control" name="logrovalor" min="1" max="" placeholder="valor" required><br/>
             </div>
-            <div class="form-group">
-                <b>Puntos del logro</b>
-                <input type="number" class="form-control" name="logropuntos" placeholder="valor" required><br/>
+            <div class="form-group col-md-4">
+                <b>Puntos a obtener</b>
+                <input type="number" class="form-control" name="logropuntos" placeholder="puntos" required><br/>
             </div>
             <input type="submit" class="btn btn-primary" name="logrocrear" value="Crear">
             </form>
