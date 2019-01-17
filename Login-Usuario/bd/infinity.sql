@@ -119,6 +119,23 @@ CREATE TABLE `grupo` (
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
 (3, 'Hack and Beers', 'españa y el bétis', 'img/memecia.jpg');
 
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `logro`
+--
+
+CREATE TABLE `logro` (
+  `id` int(10) NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `icon_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo` int(2) NOT NULL COMMENT 'especificar que relacion consultar',
+  `valor` int(10) NOT NULL COMMENT 'limite para activar el logro',
+  `puntos` int(10) NOT NULL COMMENT 'añadidos para medalla especial tiers'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -274,6 +291,13 @@ ALTER TABLE `grupo`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indices de la tabla `logro`
+--
+ALTER TABLE `logro`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
 -- Indices de la tabla `locations`
 --
 ALTER TABLE `locations`
@@ -326,6 +350,13 @@ ALTER TABLE `gallery`
 --
 ALTER TABLE `grupo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `logro`
+--
+ALTER TABLE `logro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
 
 --
 -- AUTO_INCREMENT de la tabla `locations`
