@@ -43,12 +43,11 @@
     </head>
     <body>
         <?php
-        
-
         session_start();
         include 'grupo_db.php';
         $limite = 5 * 1024 * 1024; #5MB limite imagen
         //imprime un formulario para buscar/seleccionar un grupo
+
         function formGrupo() {
             echo '
             <form action="" method="POST">
@@ -69,7 +68,7 @@
                     </div>
                 <div class="form-group">
                     <b>Modificar descripcion: </b>
-                    <br/><i>"' . $_SESSION['grupo'][2]   . '" </i><br/>
+                    <br/><i>"' . $_SESSION['grupo'][2] . '" </i><br/>
                     <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"><br/>
                     </div>
                 <div class="form-group">
@@ -124,7 +123,7 @@
             } else if (isset($_POST['EliminarGrupo']) && isset($_SESSION['grupo'])) {
                 trataEliminarGrupo();
             } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
-                if (isset($_POST['grupoName']) || isset($_POST['grupoDesc']) || isset($_FILES['grupoImg'])) {
+                if (isset($_POST['grupoName']) && isset($_POST['grupoDesc']) && isset($_FILES['grupoImg'])) {
                     trataCrearGrupo();
                 }
             }
@@ -186,21 +185,20 @@
             $name = false;
             $desc = false;
             $img = false;
-            if (isset($_POST['grupoDesc']) && isset($_POST['grupoName']) && isset($_FILES['grupoImg'])) {
-                if (validarDesc($entradas['grupoDesc']) && validarName($entradas['grupoName']) && validarImg($_FILES['grupoImg'])) {
-                    $name = $entradas['grupoName'];
-                    $desc = $entradas['grupoDesc'];
-                    $img = $_FILES['grupoImg'];
-                    $test = crearGrupo($name, $desc, $img);
-                    if ($test) {
-                        saveToDisk($img);
-                    }
-                    return true;
+            if (validarDesc($entradas['grupoDesc']) && validarName($entradas['grupoName']) && validarImg($_FILES['grupoImg'])) {
+                $name = $entradas['grupoName'];
+                $desc = $entradas['grupoDesc'];
+                $img = $_FILES['grupoImg'];
+                $test = crearGrupo($name, $desc, $img);
+                if ($test) {
+                    saveToDisk($img);
                 }
+                return true;
             }
             return false;
         }
 
+        //---------COMPROBACIONES COMUNES---------------
         //comprueba que el nombre empiece por letras, pueda tener caraceters y maximo tamaño 140
         function validarName($name) {
             //regexp normal /^[0-9a-zñáéíóúü]+(.*|\s)*$/
@@ -211,7 +209,6 @@
         function validarDesc($desc) {
             return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $desc) && strlen($desc) < 300 && !empty(trim($desc));
         }
-
 
         function validarImg($img) {
             //comprueba si no hubo un error en la subida
@@ -241,16 +238,11 @@
             return $bool;
         }
 
-        //WIP comprueba si el hash de la imagen a subir coincide con el hash de la imagen anterior
-        function isUploaded($img) {
-            return true;
-        }
-
         //guarda en ficheros la foto
         function saveToDisk($archivo) {
             $bol = False;
             if (file_exists($archivo['tmp_name'])) {
-                if(!file_exists($GLOBALS['rutaImg'])){
+                if (!file_exists($GLOBALS['rutaImg'])) {
                     mkdir($GLOBALS['rutaImg']);
                 }
                 if (move_uploaded_file($archivo['tmp_name'], $GLOBALS['rutaImg'] . $archivo['name'])) {
@@ -297,15 +289,15 @@
                 </div>
                 <div class="col-sm-8 text-center"> 
                     <!-- Parte central -->
-                    <?php
-                    if (!$bol) {
-                        formGrupo();
-                        echo "<br/>Panel creacion: </br>";
-                        formCrearGrupo();
-                    } else {
-                        modGrupo();
-                    }
-                    ?>
+<?php
+if (!$bol) {
+    formGrupo();
+    echo "<br/>Panel creacion: </br>";
+    formCrearGrupo();
+} else {
+    modGrupo();
+}
+?>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <!-- Parte derecha -->
