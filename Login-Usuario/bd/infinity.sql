@@ -240,6 +240,19 @@ INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `mess
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `suscripcion_grupo`
+--
+
+CREATE TABLE `suscripcion_grupo` (
+  `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id usuario que se suscribe',
+  `grupo_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id del grupo suscrito',
+  `id` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'GUID de la relación',
+  `tipo_notificacion` int(11) NOT NULL DEFAULT '0' COMMENT 'tipo notificacion 0, no notificiar,1 notificar por email?'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -316,6 +329,13 @@ ALTER TABLE `logro`
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `postedBy` (`postedBy`);
+
+--
+-- Indices de la tabla `suscripcion_grupo`
+--
+ALTER TABLE `suscripcion_grupo`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
 
 --
 -- Indices de la tabla `users`
