@@ -46,7 +46,7 @@ and open the template in the editor.
                                 $fechaCelebracion = $fila[$i]['date_celebration'];
                                 $organization = $fila[$i]['organization'];
                                 $descripcion = $fila[$i]['description'];
-                                $evento_id = $fila[$i]['id'];
+                                $evento_id = $fila[$i][0];  
                                 $rutaimagen = $fila[$i]['rutaimagen'];
 
                                 echo "<div class='text-center well'>

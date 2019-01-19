@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start(); No se puede incluir desde aqui
 ?>
 <div id="header">
     <header>
