@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -18,7 +21,7 @@ and open the template in the editor.
         include("header.php");
         $evento_id = $_GET['id'];
 
-        include_once("conexion.php");
+        include("conexion.php");
 
         $consulta = "SELECT * FROM `events` WHERE id = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
@@ -52,6 +55,40 @@ and open the template in the editor.
                     <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                         <?php
                         echo "<h1 style='color:white;'>$nombreEvento</h1>";
+                        if (isset($_SESSION["login"])) {    //Si el usuario esta logado podra apuntarse al evento
+                            //Hacemos una consulta para saber si ya esta suscrito o no al evento
+                            include("conexion.php");
+                            $user = $_SESSION['username'];
+                            $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id' AND username= '$user'"; //consulta SQL para obtener el usuario, luego comprobamos la password
+
+                            $resultado = mysqli_query($con, $consulta);
+
+                            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
+
+                            if (mysqli_num_rows($resultado) > 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
+                                ?>
+                                <form action="reservaBaja.php" method = "post">
+                                    <input type='submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;color: #0062cc;background-color: #fff;' /><br />
+                                    <?php
+                                    echo "<input type='hidden' name='user' value=$user>
+                                <input type='hidden' name='event_id' value=$evento_id>";
+                                    $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
+                                    ?>
+                                </form>
+                                <?php
+                            } else {   //Si el usuario no esta apuntado le damos la opcion de hacerlo
+                                ?>
+                                <form action="reservaAlta.php" method = "post">
+                                    <input type='submit' value="Reservar" class='btnSubmit' style='font-weight: 600;color: #0062cc;background-color: #fff;' /><br />
+                                    <?php
+                                    echo "<input type='hidden' name='user' value=$user>
+                                <input type='hidden' name='event_id' value=$evento_id>";
+                                    $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
+                                    ?>
+                                </form>
+                                <?php
+                            }
+                        }
                         echo "<img src='$rutaimagen' alt='imagen del evento' style='width:30%;'><br />";
                         echo "Creado el dia: $fechaCreacion<br />";
                         echo "Su host sera: $creador y se celebrara el dia: $fechaCelebracion<br />";

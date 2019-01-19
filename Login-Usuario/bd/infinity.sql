@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2019 a las 18:59:18
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.2.5
+-- Tiempo de generación: 19-01-2019 a las 20:35:37
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -119,23 +119,6 @@ CREATE TABLE `grupo` (
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
 (3, 'Hack and Beers', 'españa y el bétis', 'img/memecia.jpg');
 
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `logro`
---
-
-CREATE TABLE `logro` (
-  `id` int(10) NOT NULL,
-  `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `icon_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo` int(2) NOT NULL COMMENT 'especificar que relacion consultar',
-  `valor` int(10) NOT NULL COMMENT 'limite para activar el logro',
-  `puntos` int(10) NOT NULL COMMENT 'añadidos para medalla especial tiers'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -175,7 +158,7 @@ INSERT INTO `locations` (`id`, `name`, `address`, `city`, `lat`, `lng`) VALUES
 --
 
 CREATE TABLE `logro` (
-  `id` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `id` int(10) NOT NULL,
   `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `icon_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
@@ -236,6 +219,18 @@ INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `mess
 (64, 0, 'irene', 2, '2018-12-30 16:00:02', 'me apunto'),
 (65, 0, 'irene', 5, '2018-12-30 16:06:02', 'heyyy que pasa'),
 (66, 0, 'irene', 6, '2018-12-30 16:13:48', 'espero la 5Âª sinfonia');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `id_evento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -304,13 +299,6 @@ ALTER TABLE `grupo`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indices de la tabla `logro`
---
-ALTER TABLE `logro`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
 -- Indices de la tabla `locations`
 --
 ALTER TABLE `locations`
@@ -331,11 +319,16 @@ ALTER TABLE `posts`
   ADD KEY `postedBy` (`postedBy`);
 
 --
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `suscripcion_grupo`
 --
 ALTER TABLE `suscripcion_grupo`
   ADD PRIMARY KEY (`id`);
-COMMIT;
 
 --
 -- Indices de la tabla `users`
@@ -372,23 +365,28 @@ ALTER TABLE `grupo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `logro`
---
-ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-COMMIT;
-
---
 -- AUTO_INCREMENT de la tabla `locations`
 --
 ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT de la tabla `logro`
+--
+ALTER TABLE `logro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
