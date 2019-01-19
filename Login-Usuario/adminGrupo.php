@@ -7,53 +7,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php include 'stylesheets.php'; ?>
 
-        <style>
-            /* Remove the navbar's default margin-bottom and rounded borders */ 
-            .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-            }
-
-            /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-            .row.content {height: 450px}
-
-            /* Set gray background color and 100% height */
-            .sidenav {
-                padding-top: 20px;
-                background-color: #f1f1f1;
-                height: 100%;
-            }
-
-            /* Set black background color, white text and some padding */
-            footer {
-                background-color: #555;
-                color: white;
-                padding: 15px;
-            }
-
-            /* On small screens, set height to 'auto' for sidenav and grid */
-            @media screen and (max-width: 767px) {
-                .sidenav {
-                    height: auto;
-                    padding: 15px;
-                }
-                .row.content {height:auto;} 
-            }
-        </style>
     </head>
     <body>
         <?php
-        session_start();
+        include 'header.php';
         include 'grupo_db.php';
-        $limite = 5 * 1024 * 1024; #5MB limite imagen
+        include 'validation.php';
+
         //imprime un formulario para buscar/seleccionar un grupo
 
         function formGrupo() {
-            echo '
+            return '<h4> Buscar Grupo a tratar </h4>
             <form action="" method="POST">
                 <div class="form-group">
-                    <b>Buscar grupo a tratar:<br/>
-                    Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo">
+                    <b>Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo">
                     <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
                 </div>
             </form>';
@@ -61,7 +28,8 @@
 
         //Comprueba si existe el grupo especificado
         function modGrupo() {
-            echo '<form action="" method="POST" enctype="multipart/form-data">
+            $str = '<h4> Panel Modificar grupo </h4>
+                <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
                     <input type="text" class="form-control" name="grupoName" placeholder=""><br/>
@@ -74,17 +42,19 @@
                 <div class="form-group">
                     <b>Modificar Imagen: </b><br/>';
             if (file_exists($_SESSION['grupo'][3])) {
-                echo '<img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . 'width="10%"></img><br/>';
+                $str .= '<img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . 'width="10%"></img><br/>';
             }
-            echo'<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
+            $str .='<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
                     </div>
                     <input type="submit" class="btn btn-primary" name="ModGrupo" value="Modificar">
                     <input type="submit" class="btn btn-danger" name="EliminarGrupo" value="Eliminar">
             </form>';
+            return $str;
         }
 
         function formCrearGrupo() {
-            echo '<form action="" method="POST" enctype="multipart/form-data">
+            return '<h4> Panel Creacion de Grupo </h4>
+                <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <b>Nombre: </b><br/>
                     <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"><br/>
@@ -142,12 +112,12 @@
             $desc = false;
             $img = false;
             if (isset($_POST['grupoDesc'])) {
-                if (validarDesc($entradas['grupoDesc'])) {
+                if (validarString($entradas['grupoDesc'], 300)) {
                     $desc = $entradas['grupoDesc'];
                 }
             }
             if (isset($_POST['grupoName'])) {
-                if (validarName($entradas['grupoName'])) {
+                if (validarString($entradas['grupoName'], 140)) {
                     $name = $entradas['grupoName'];
                 }
             }
@@ -185,7 +155,7 @@
             $name = false;
             $desc = false;
             $img = false;
-            if (validarDesc($entradas['grupoDesc']) && validarName($entradas['grupoName']) && validarImg($_FILES['grupoImg'])) {
+            if (validarString($entradas['grupoDesc'], 300) && validarString($entradas['grupoName'], 140) && validarImg($_FILES['grupoImg'])) {
                 $name = $entradas['grupoName'];
                 $desc = $entradas['grupoDesc'];
                 $img = $_FILES['grupoImg'];
@@ -198,110 +168,29 @@
             return false;
         }
 
-        //---------COMPROBACIONES COMUNES---------------
-        //comprueba que el nombre empiece por letras, pueda tener caraceters y maximo tamaño 140
-        function validarName($name) {
-            //regexp normal /^[0-9a-zñáéíóúü]+(.*|\s)*$/
-            return preg_match("/^[[:alnum:]]+/", $name) && strlen($name) < 140 && !empty(trim($name));
-        }
-
-        //comprueba que la descripcion empiece por letras, pueda tener caraceters y maximo tamaño 300
-        function validarDesc($desc) {
-            return preg_match("/^[0-9a-zñáéíóúü]+(.*|\s)*$/", $desc) && strlen($desc) < 300 && !empty(trim($desc));
-        }
-
-        function validarImg($img) {
-            //comprueba si no hubo un error en la subida
-            if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function soloImg($archivo) {
-            $bool = False;
-            if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
-                $bool = True;
-            }
-
-            return $bool;
-        }
-
-        function limiteTamanyo($archivo, $limite) {
-            $bool = False;
-            if (isset($archivo)) {
-                if ($archivo["size"] <= $limite) {
-                    $bool = True;
-                }
-            }
-            return $bool;
-        }
-
-        //guarda en ficheros la foto
-        function saveToDisk($archivo) {
-            $bol = False;
-            if (file_exists($archivo['tmp_name'])) {
-                if (!file_exists($GLOBALS['rutaImg'])) {
-                    mkdir($GLOBALS['rutaImg']);
-                }
-                if (move_uploaded_file($archivo['tmp_name'], $GLOBALS['rutaImg'] . $archivo['name'])) {
-                    $bol = True;
-                }
-            }
-            return $bol;
-        }
 
         $bol = compruebaEnviado();
         ?>
-        <!-- Barra de navegacion superior -->
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                    <a class="navbar-brand" href="index.html">Logo</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="adminGrupo.php">Meets</a></li>
-                        <li><a href="Grupo.php">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
 
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <!-- Barra navegacion izquierda -->
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
                 </div>
-                <div class="col-sm-8 text-center"> 
+                <div class="col-sm-8 text-center well" > 
                     <!-- Parte central -->
-<?php
-if (!$bol) {
-    formGrupo();
-    echo "<br/>Panel creacion: </br>";
-    formCrearGrupo();
-} else {
-    modGrupo();
-}
-?>
+                    <?php
+                    if (!$bol) {
+                        echo (formGrupo());
+                        echo (formCrearGrupo());
+                    } else {
+                        echo (modGrupo());
+                    }
+                    ?>
                 </div>
                 <div class="col-sm-2 sidenav">
-                    <!-- Parte derecha -->
-                </div>
+                    
+                </div>                 
             </div>
         </div>
 

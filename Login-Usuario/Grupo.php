@@ -4,65 +4,29 @@
         <title>Visualizacion grupo WIP</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-            /* Remove the navbar's default margin-bottom and rounded borders */ 
-            .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-            }
-
-            /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-            .row.content {height: 450px}
-
-            /* Set gray background color and 100% height */
-            .sidenav {
-                padding-top: 20px;
-                background-color: #f1f1f1;
-                height: 100%;
-            }
-
-            /* Set black background color, white text and some padding */
-            footer {
-                background-color: #555;
-                color: white;
-                padding: 15px;
-            }
-
-            /* On small screens, set height to 'auto' for sidenav and grid */
-            @media screen and (max-width: 767px) {
-                .sidenav {
-                    height: auto;
-                    padding: 15px;
-                }
-                .row.content {height:auto;} 
-            }
-        </style>
+        <?php include 'stylesheets.php';
+        ?>
     </head>
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
+        include 'header.php';
+        include 'grupo_db.php';
+        include 'validation.php';
+        include 'logros_db.php';
 
-        function printName($group) {
-            return "<h1>" . $group[1] . "</h1>";
-        }
-
-        function printDesc($group) {
-            return "<h4>" . $group[2] . "</h4>";
-        }
-
-        function printIMG($group) {
+        function printGrupo($group) {
+            $str = "<h1>" . $group[1] . "</h1>"
+                    . "<h4>" . $group[2] . "</h4>";
             if (file_exists($group[3])) {
-                echo "existe la foto";
-                return '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
+                $str = $str . '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
             }
+            return $str;
         }
 
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
         function printform() {
-            echo '<form method = "GET" action = "#">
+            return '<form method = "GET" action = "#">
                             <div class="form-group form-control-lg">
                         <input type = "text" class="form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
                         <input type = "submit" class="btn btn-primary" value="Buscar grupo">
@@ -70,8 +34,6 @@
                         </form>';
         }
 
-        include 'grupo_db.php';
-        session_start();
         $bol = isset($_GET['grupo']) && $_GET['grupo'] != '';
         $bol2 = false;
         if ($bol) {
@@ -79,11 +41,11 @@
                 'grupo' => FILTER_SANITIZE_STRING
             );
             $entradas = filter_input_array(INPUT_GET, $filtros);
-            $info = getGroup($entradas['grupo']);
+            $groupInfo = getGroup($entradas['grupo']);
             $info2 = false;
             //$info2 = getUsersSubs($entradas['grupo']);
             //Grupo valido pero no registrado
-            if (!$info) {
+            if (!$groupInfo) {
                 $bol = false;
             }
             if ($info2) {
@@ -92,50 +54,20 @@
         }
         ?>
 
-        <!-- Barra de navegacion superior -->
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                    <a class="navbar-brand" href="index.html">Logo</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="adminGrupo.php">Meets</a></li>
-                        <li><a href="Grupo.php">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <!-- Barra navegacion izquierda -->
-                    Ultimos eventos
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
                 </div>
-                <div class="col-sm-8 text-center"> 
+                <div class="col-sm-8 text-center well" >
                     <?php
                     //Comprobamos que haya un grupo registrado
                     if ($bol) {
-                        echo (printName($info));
-                        echo (printIMG($info));
-                        echo (printDesc($info));
+                        echo (printGrupo($groupInfo));
                     } else {
-                        echo "<h2 class='alert alert-danger' width='30%'>No encontrado el grupo</h2>";
-                        printform();
+                        if (isset($_GET['grupo']) && $_GET['grupo'] != '') {
+                            echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
+                        }
+                        echo (printform());
                     }
                     ?>
                 </div>
@@ -161,11 +93,9 @@
                             ?>
                         </tbody>
                     </table>
-                    <!-- Parte derecha -->
-                </div>
+                </div>                 
             </div>
         </div>
-
 
         <!-- GALERIA -->
         <a href="fotos.php">GALERIA</a>

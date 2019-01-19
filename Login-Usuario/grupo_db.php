@@ -1,8 +1,5 @@
 <?php
 
-//variable global ruta de la carpeta donde guardar las imagenes
-$rutaImg = "img/";
-
 //crea la conexion con la base de datos y no la cierra.
 function connectDB() {
     include_once("conexion.php");

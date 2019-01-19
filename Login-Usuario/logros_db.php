@@ -6,7 +6,7 @@ $rutaImg = "img/";
 //chequear http://php.net/manual/en/function.mysql-real-escape-string.php
 //logroname  logrodesc logroicon logrotipo logrovalor logropuntos
 //crea la conexion con la base de datos y no la cierra.
-function connectDB() {
+function conectarDB() {
     include_once("conexion.php");
     if ($con_error) {
         return false;
@@ -15,7 +15,7 @@ function connectDB() {
 }
 
 function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
-    $link = connectDB();
+    $link = conectarDB();
     $bol = false;
     if ($link !== false) {
         $name = mysqli_real_escape_string($link, $name);

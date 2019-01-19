@@ -10,19 +10,20 @@
         <?php
         include 'header.php';
         include 'logros_db.php';
+        include 'validation.php';
         $limite = 5 * 1024 * 1024;
 
         function formCrearLogro() {
-            echo '</form>
+            return '</form>
                 <form action="" method="POST" enctype="multipart/form-data" >
             
             <div class="form-group col-md-4">
                 <b>Nombre logro: </b>
                 <input type="text" class="form-control" name="logroname" placeholder="Nombre icono" required><br/>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4 custom-file">
                 <b>Icono del logro: </b><br/>
-                <input type="file" class="form-control custom-file-input" name="logroicon" accept="image/x-png,image/gif,image/jpeg" placeholder="ruta icono" required>
+                <input type="file" class="custom-file-input" id="customFile" name="logroicon" accept="image/x-png,image/gif,image/jpeg"required>
             </div>
             <div class="form-group col-md-4">
                 <b>Descripcion del logro</b>(ej: 100 miembros en el grupo):
@@ -91,53 +92,6 @@
             return $bol;
         }
 
-        function validarString($name, $size) {
-            //regexp normal /^[0-9a-zñáéíóúü]+(.*|\s)*$/
-            return preg_match("/^[[:alnum:]]+/", $name) && strlen($name) < $size && !empty(trim($name));
-        }
-
-        function validarImg($img) {
-            //comprueba si no hubo un error en la subida
-            if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function soloImg($archivo) {
-            $bool = False;
-            if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
-                $bool = True;
-            }
-
-            return $bool;
-        }
-
-        function limiteTamanyo($archivo, $limite) {
-            $bool = False;
-            if (isset($archivo)) {
-                if ($archivo["size"] <= $limite) {
-                    $bool = True;
-                }
-            }
-            return $bool;
-        }
-
-        //guarda en ficheros la foto
-        function saveToDisk($archivo) {
-            $bol = False;
-            if (file_exists($archivo['tmp_name'])) {
-                if (!file_exists($GLOBALS['rutaImg'])) {
-                    mkdir($GLOBALS['rutaImg']);
-                }
-                if (move_uploaded_file($archivo['tmp_name'], $GLOBALS['rutaImg'] . $archivo['name'])) {
-                    $bol = True;
-                }
-            }
-            return $bol;
-        }
-
         //Comprobaciones usuario sea admin si no redirigir a home
         // WIP
 
@@ -150,8 +104,9 @@
                 <div class="col-sm-8 text-center well" >
                     <?php
                     if (!$bol) {
-                        formCrearLogro();
+                        echo (formCrearLogro());
                     } else {
+                        //si el logro se creo con exito
                         echo '<h3 class="alert alert-success" role="alert">
                             Logro creado con exito!
                           </h3>';
