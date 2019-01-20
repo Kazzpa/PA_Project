@@ -8,8 +8,6 @@ session_start();
  * and open the template in the editor.
  */
 
-
-print_r($_POST);
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'nameEvent' => FILTER_SANITIZE_STRING,
     'description' => FILTER_SANITIZE_STRING,
@@ -23,6 +21,12 @@ if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
 }
 if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
     $errores[] = "Hay un error en la descripcion";
+}
+
+$date_celebration = $_POST["date-celebration"];
+echo $date_celebration;
+if (preg_match_all("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/", $date_celebration) == 0) {
+    $errores[] = "Hay un error en el formato de la fecha";
 }
 
 if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
@@ -60,7 +64,6 @@ if (key_exists(0, $errores)) {  //Si hay algun error
 
     $name = $saneado["nameEvent"];
     $description = $saneado["description"];
-    $date_celebration = $_POST["date-celebration"];
     $host = $_SESSION["username"];
 
     echo "$name $description $date_celebration $host";

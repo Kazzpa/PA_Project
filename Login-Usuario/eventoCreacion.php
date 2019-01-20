@@ -45,7 +45,7 @@ and open the template in the editor.
                             <textarea class="form-control" name = "description" rows="6" style="resize: none;" id="comment" placeholder="Introduce una descripcion" required></textarea>
                         </div>
                         <div class="form-group">
-                            <input type = "datetime-local" name = "date-celebration" required />
+                            <input type = "datetime-local" name = "date-celebration" required placeholder="2018-06-12T19:30"/>
                         </div>
                         <div class="form-group">
                             <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
