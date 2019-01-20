@@ -18,7 +18,7 @@
         include 'grupo_db.php';
         include 'validation.php';
         include 'logros_db.php';
-
+        
         function printGrupo($group, $logrosInfo, $suscritos) {
             $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
             if (file_exists($group[3])) {

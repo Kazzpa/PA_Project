@@ -21,23 +21,57 @@ and open the template in the editor.
 
         include("conexion.php");
 
+        function printCardGrupo($grupoInfo) {
+            $str ="";
+                $str = '<div class="card" style="width: 18rem;">';
+                if (file_exists($grupoInfo[3])) {
+                    $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
+                            . '" alt="imagen de grupo ' . $grupoInfo[1]
+                            . '" style="max-width:100%;"></img>';
+                }else{
+                    
+                    echo "no existe foto ".$grupoInfo[3];
+                }
+                $str .= ' <div class="card-body">
+                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1] . '</h5>
+                <p class="card-text">' . substr($grupoInfo[2],0,100) . '</p>
+                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]). '" class="btn btn-primary">Más informacion del grupo</a>
+              </div>
+            </div>';
+            return $str;
+        }
+
         $consulta = "SELECT * FROM `events` WHERE id = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
         $resultado = mysqli_query($con, $consulta);
 
-        mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
-
-        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+        if (mysqli_num_rows($resultado) > 0) {   //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
             $fila = mysqli_fetch_array($resultado);
 
             $nombreEvento = $fila['name'];
             $fechaCreacion = $fila['date_creation'];
-            $fechaCelebracion = $fila['date_creation'];
+            $fechaCelebracion = $fila['date_celebration'];
             $creador = $fila['host'];
             $descripcion = $fila['description'];
             $evento_id = $fila['id'];
             $rutaimagen = $fila['rutaimagen'];
+            $grupoEvento = $fila['group_id'];
+
+            $consulta = 'SELECT * FROM grupo WHERE grupo.id = "' . $grupoEvento . '"';
+            $resultado = mysqli_query($con, $consulta);
+            $grupoInfo = false;
+            if ($resultado) {
+                if ($row = mysqli_fetch_array($resultado)) {
+                    $i = 0;
+                    while ($i < 4) {
+                        $grupoInfo[] = $row[$i];
+                        $i++;
+                    }
+                }
+            }
+            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
             ?>
+
             <!--Google Maps API-->
             <iframe
                 id="map"
@@ -52,7 +86,8 @@ and open the template in the editor.
                     </div>
                     <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                         <?php
-                        echo "<h1 style='color:white;'>$nombreEvento</h1>";
+                        echo "<h1 style=' color:white;
+                            '>$nombreEvento</h1>";
                         if (isset($_SESSION["login"])) {    //Si el usuario esta logado podra apuntarse al evento
                             //Hacemos una consulta para saber si ya esta suscrito o no al evento
                             include("conexion.php");
@@ -66,12 +101,13 @@ and open the template in the editor.
                             if (mysqli_num_rows($resultado) > 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
                                 <form action="reservaBaja.php" method = "post">
-                                    <input type='submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;color: #0062cc;background-color: #fff;' /><br />
-                                    <?php
-                                    echo "<input type='hidden' name='user' value=$user>
+                                    <input type=' submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
+                                           color: #0062cc;background-color: #fff;' /><br />
+                                           <?php
+                                           echo "<input type='hidden' name='user' value=$user>
                                 <input type='hidden' name='event_id' value=$evento_id>";
-                                    $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
-                                    ?>
+                                           $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
+                                           ?>
                                 </form>
                                 <?php
                             } else {   //Si el usuario no esta apuntado le damos la opcion de hacerlo
@@ -91,6 +127,7 @@ and open the template in the editor.
                         echo "Creado el dia: $fechaCreacion<br />";
                         echo "Su host sera: $creador y se celebrara el dia: $fechaCelebracion<br />";
                         echo "Su host cree que necesitara saber lo siguiente: $descripcion";
+                        echo (printCardGrupo($grupoInfo));
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
@@ -112,8 +149,7 @@ and open the template in the editor.
                     </div>
                 </div>
             </div> 
-            <?php
-        } else {
+        <?php } else {
             ?>
             <p style="text-align: center;">La pagina a la que intenta acceder no existe</p>
             <?php
