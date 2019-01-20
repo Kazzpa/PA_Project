@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-01-2019 a las 20:35:37
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 20-01-2019 a las 01:25:49
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -117,7 +117,7 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
-(3, 'Hack and Beers', 'españa y el bétis', 'img/memecia.jpg');
+(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png');
 
 -- --------------------------------------------------------
 
@@ -167,17 +167,30 @@ CREATE TABLE `logro` (
   `puntos` int(10) NOT NULL COMMENT 'añadidos para medalla especial tiers'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `logro`
+--
+
+INSERT INTO `logro` (`id`, `name`, `icon_path`, `descripcion`, `tipo`, `valor`, `puntos`) VALUES
+(1, 'Medalla Oro', 'img/cup.png', 'otener 1000 puntos', 4, 1000, 50);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logros_usuario`
+-- Estructura de tabla para la tabla `logros_grupo`
 --
 
-CREATE TABLE `logros_usuario` (
-  `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `grupo_id` int(11) NOT NULL,
-  `logro_id` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+CREATE TABLE `logros_grupo` (
+  `group_id` int(11) NOT NULL,
+  `logro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `logros_grupo`
+--
+
+INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -374,7 +387,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logro`
 --
 ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`
