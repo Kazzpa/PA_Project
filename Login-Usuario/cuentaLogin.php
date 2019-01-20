@@ -222,6 +222,34 @@ and open the template in the editor.
                                     </form>
                                 </div>
                             </div>
+                        
+                        <!--
+                        -----------------------------------------------------
+                        Panel de administrar grupos
+                        -----------------------------------------------------
+                        -->
+                            <div class="row">
+                                <div class="col-sm-12 text-left well">
+                                    <?php
+                                    include 'adminGrupo.php';
+                                    ?>
+
+                                </div>
+                            </div>
+
+                        <!--
+                        -----------------------------------------------------
+                        Panel de administrar logros
+                        -----------------------------------------------------
+                        -->
+                            <div class="row">
+                                <div class="col-sm-12 text-left well">
+                                    <?php
+                                    include 'logros_admin.php';
+                                    ?>
+
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-2 sidenav">
                         </div>
@@ -237,7 +265,7 @@ and open the template in the editor.
             function modificarLocalizacion() {
                 setInterval(lookForCityChange, 100);
             }
-			nameLocation = '';
+            nameLocation = '';
             addressLocation = '';
             city = "";
             lat = 0;
@@ -386,6 +414,6 @@ and open the template in the editor.
 
         </script>
         <?php include("mapsScript.php"); ?>
-		<?php include("placeholder.php"); ?>
+        <?php include("placeholder.php"); ?>
     </body>
 </html>
