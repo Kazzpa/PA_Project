@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,6 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php include 'stylesheets.php';
         ?>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <link type='text/css' rel='stylesheet' href='css/gallery.css'>
+        <link type="text/css" rel="stylesheet" href="css/lightGallery.css" /> 
     </head>
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
@@ -60,7 +64,7 @@
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
         function printform() {
             return '<form method = "GET" action = "#">
-        <div class = "form-group form-control-lg">
+                            <div class = "form-group form-control-lg">
             <input type = "text" class = "form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
             <input type = "submit" class = "btn btn-primary" value = "Buscar grupo">
         </div>
@@ -104,22 +108,85 @@
                         echo (printform());
                     }
                     ?>
-                </div>
-                <div class="col-sm-2 sidenav">
 
-                </div>                 
+
+                    <!--GALERIA DEL GRUPO-->
+                    <?php if ($bol) { ?>
+                        <div class="container">
+                            <?php include('fotoMostrar.php'); ?>
+                        </div>
+                    <?php } ?>
+                    <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
+                    <?php
+                    if (isset($_SESSION['username']) && isset($_GET['grupo'])) {
+                        include('grupoIsAdmin.php');
+                        if ($admin) {
+                            ?>
+                            <h3>Sube una imagen: </h3>
+                            <form action = "fotosIncluir.php" method = "post" enctype="multipart/form-data">          
+                                <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
+                                <p>Descripci&oacute;n de la imagen:</p>
+                                <input type = "text" name = "encabezado" class="form-control-file" />
+                                <input type="hidden"  value="<?php echo $_GET['grupo']; ?>" name= "grupoId"  />
+                                <input type="submit"  value="Subir" name= "fotosIncluir" class = "brn btn-primary" />
+                            </form> 
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
 
-        <!-- GALERIA -->
-        <a href="fotos.php">GALERIA</a>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#lightgallery").lightGallery();
+                $(document).on("click", ".edit", function () {
 
+                    $(this).addClass("clicked");
+                    var encabezado = $(this).attr('id');
+                    $("#img" + encabezado).replaceWith('<textarea id="textArea' + encabezado + '" style="color:black;">' + $("#img" + encabezado).text() + '</textarea>');
+                    var button = document.createElement('input');
+                    button.type = "submit";
+                    button.id = "editButton" + encabezado;
+                    button.value = "Editar"
+                    button.style = "color:black;"
+                    $("#textArea" + encabezado).after(button);
+                    $("#editButton" + encabezado).before("<br/>");
 
+                    $(document).on("click", "#editButton" + encabezado, function () {
+                        var newEncabezado = $("#textArea" + encabezado).val();
+                        $.ajax({
+                            type: "POST",
+                            url: "fotoModificar.php",
+                            data: {"encabezado": encabezado, "newEncabezado": newEncabezado},
+                            cache: false,
+                            success: function (data) {
+                                location.reload();
+                            }
+                        });
 
-        <footer class="container-fluid text-center">
-            <!-- Footer -->
-            Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-        </footer>
+                    });
+                });
+                $(document).on("click", ".delete", function () {
+                    if (confirm("¿Seguro que quieres eliminar esta imagen?")) {
+                        var foto = $(this).attr('id');
+                        $.ajax({
+                            type: "POST",
+                            url: "fotoEliminar.php",
+                            data: {"foto": foto},
+                            cache: false,
+                            success: function (data) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
 
+        </script>
+        <script src="js/picturefill.min.js"></script>
+        <script src="js/lightgallery-all.js"></script>
+        <script src="js/jquery.mousewheel.min.js"></script>
     </body>
 </html>

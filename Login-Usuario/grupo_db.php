@@ -80,6 +80,7 @@ function modificarGrupo($id, $name, $desc, $img) {
     }
     $consulta = $consulta . " WHERE id = '" . $id . "'";
     $resultado = mysqli_query($con, $consulta);
+
     if (!$resultado) {
         $bol = false;
     }
