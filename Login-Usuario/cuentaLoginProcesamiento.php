@@ -38,7 +38,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
 
     mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-    if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+    if (!(mysqli_num_rows($resultado)) == 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
         if ($fila['tipo'] == 0) {   //Si es un usuario normal
             if (password_verify($password, $fila['password'])) {    //si se verifica que son la misma password
                 $_SESSION['login'] = "si";

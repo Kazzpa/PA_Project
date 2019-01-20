@@ -23,6 +23,4 @@ if(strtolower($fila['grupo_id']) == $grupoId && $fila['rol'] == 1){
     $admin = false;
 }
 
-//print_r($fila);
-
 mysqli_close($con);

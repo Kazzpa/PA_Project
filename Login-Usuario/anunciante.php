@@ -26,7 +26,7 @@
                     $sql = "SELECT * FROM advertisers";
                     
                     if($resultado = mysqli_query($con, $sql)){
-                        if(mysqli_num_rows($resultado) > 0){
+                        if(!(mysqli_num_rows($resultado)) == 0){
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";                       
                                     echo "<tr><th>ID</th><th>Nombre</th><th>Organizacion</th><th>Alias</th><th>Acción</th></tr>";                                                                   

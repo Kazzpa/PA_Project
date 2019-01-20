@@ -21,9 +21,6 @@ if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $
     //Comprobamos si existe mas de un evento con esa idLocation en eventos
     $consulta = "SELECT `id` FROM `events` WHERE `idLocation`='$idLocalizacion'";
     $resultado = mysqli_query($con, $consulta);
-    print_r($resultado);
-    print_r($datos);
-    echo mysqli_num_rows($resultado);
     if (mysqli_num_rows($resultado) < 2) { //si la consulta devuelve menos de 2 valores es porque solo está registrado 1 vez
         //En cuyo caso no se insertaría la localizacion otra vez en la bd sino que se modifica esa localizacion con los nuevos datos
         $modificacion = "UPDATE `locations` SET `name` = '" . $datos['name'] . "',`address` = '" . $datos['address'] . "',`city` = '" . $datos['city'] . "',`lat` = '" . $datos['lat'] . "',`lng` = '" . $datos['lng'] . "'  WHERE `locations`.`id` =" . $idLocalizacion;

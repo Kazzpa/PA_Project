@@ -16,8 +16,6 @@ $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los 
 //Primero saneamos
 $saneado = filter_input_array(INPUT_POST, $saneamiento); //saneado te devuelve un array asociativo clave valor con los campos del formulario
 
-print_r($saneado);
-
 if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
     $errores[] = "Hay un error en el nombre del evento";
 }

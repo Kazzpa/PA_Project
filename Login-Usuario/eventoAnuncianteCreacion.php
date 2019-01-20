@@ -53,7 +53,7 @@ and open the template in the editor.
                         $resultado = mysqli_query($con, $consulta);
                         mysqli_close($con);
 
-                        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+                        if (!(mysqli_num_rows($resultado)) == 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
                             $i = 0;
                             while ($auxiliar = mysqli_fetch_array($resultado)) { /* Con esto retiramos todas las filas que hayan en la base de datos, como pueden ser muchas
                               hay que ir leyendo fila a fila */

@@ -45,7 +45,7 @@ and open the template in the editor.
 
         $resultado = mysqli_query($con, $consulta);
 
-        if (mysqli_num_rows($resultado) > 0) {   //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+        if (!(mysqli_num_rows($resultado)) == 0) {   //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
             $fila = mysqli_fetch_array($resultado);
 
             $nombreEvento = $fila['name'];
@@ -60,7 +60,7 @@ and open the template in the editor.
             $consulta = 'SELECT * FROM grupo WHERE grupo.id = "' . $grupoEvento . '"';
             $resultado = mysqli_query($con, $consulta);
             $grupoInfo = false;
-            if ($resultado) {
+            if (!(mysqli_num_rows($resultado)) == 0) {
                 if ($row = mysqli_fetch_array($resultado)) {
                     $i = 0;
                     while ($i < 4) {
@@ -98,7 +98,7 @@ and open the template in the editor.
 
                             mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-                            if (mysqli_num_rows($resultado) > 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
+                            if (!(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
                                 <form action="reservaBaja.php" method = "post">
                                     <input type=' submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
