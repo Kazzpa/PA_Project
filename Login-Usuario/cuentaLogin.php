@@ -234,14 +234,15 @@ and open the template in the editor.
         }
         ?>
         <script type="text/javascript">
-            nameLocation = '';
+            function modificarLocalizacion() {
+                setInterval(lookForCityChange, 100);
+            }
+			nameLocation = '';
             addressLocation = '';
             city = "";
             lat = 0;
             lng = 0;
 
-
-            setInterval(lookForCityChange, 100);
 
             function lookForCityChange() {
                 var newName = document.getElementById("nameChange").value;
@@ -385,5 +386,6 @@ and open the template in the editor.
 
         </script>
         <?php include("mapsScript.php"); ?>
+		<?php include("placeholder.php"); ?>
     </body>
 </html>
