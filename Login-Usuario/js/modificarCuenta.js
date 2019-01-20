@@ -144,6 +144,7 @@ function comprobarFormularioEventos() {
         boton.value = "Eliminar evento";
         
     } else if (valor == "localizacion") {
+        modificarLocalizacion();
         if (document.getElementById("eventoACambiar")) {
             zonaAdicion.removeChild(document.getElementById("eventoACambiar"));
         }
