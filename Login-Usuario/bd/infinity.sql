@@ -123,7 +123,7 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
-(3, 'Hack and Beers', 'españa y el bétis', 'img/memecia.jpg');
+(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png');
 
 -- --------------------------------------------------------
 
@@ -176,14 +176,20 @@ CREATE TABLE `logro` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logros_usuario`
+-- Estructura de tabla para la tabla `logros_grupo`
 --
 
-CREATE TABLE `logros_usuario` (
-  `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `grupo_id` int(11) NOT NULL,
-  `logro_id` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+CREATE TABLE `logros_grupo` (
+  `group_id` int(11) NOT NULL,
+  `logro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `logros_grupo`
+--
+
+INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -370,7 +376,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logro`
 --
 ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`
