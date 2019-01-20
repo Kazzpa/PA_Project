@@ -25,6 +25,11 @@ if (preg_match_all("/^[[:alnum:]]+/", $saneado["eventDescription"]) == 0) {
     $errores[] = "Hay un error en la descripcion";
 }
 
+$date_celebration = $_POST["date-celebration"];
+if (preg_match_all("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/", $date_celebration) == 0) {
+    $errores[] = "Hay un error en el formato de la fecha";
+}
+
 if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
     if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
         $errores[] = "Hay un error con la imagen";

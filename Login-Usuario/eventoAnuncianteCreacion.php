@@ -45,7 +45,7 @@ and open the template in the editor.
                             <textarea class="form-control" name="eventDescription" rows="6" style="resize: none;" placeholder="Introduce una descripcion" required></textarea>
                         </div>
                         <div class="form-group">
-                            <input type = "datetime-local" name = "date-celebration" required />
+                            <input type = "datetime-local" name = "date-celebration" required placeholder="2018-06-12T19:30"/>
                         </div>
                         <?php
                         include_once("conexion.php");
