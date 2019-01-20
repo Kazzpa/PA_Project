@@ -70,9 +70,6 @@ function modificarGrupo($id, $name, $desc, $img) {
             $consulta = $consulta . ",";
         }
         $bol2 = true;
-        $consulta = $consulta . " descripcion = '" . $desc . "'";
-        echo "probao";
-        echo $consulta;
     }
     if ($img != false) {
         if ($bol2) {
@@ -82,35 +79,34 @@ function modificarGrupo($id, $name, $desc, $img) {
         $consulta = $consulta . " image_path = '" . $GLOBALS['rutaImg'] . $img['name'] . "'";
     }
     $consulta = $consulta . " WHERE id = '" . $id . "'";
-    echo "<br> consulta: <br/>" . $consulta . "<br/>";
     $resultado = mysqli_query($con, $consulta);
-    if ($resultado) {
-        echo "exito";
-    }
+
     if (!$resultado) {
         $bol = false;
     }
     mysqli_close($con);
     return $bol;
 }
+
 //Eliminar grupo
-function eliminarGrupo($id){
+function eliminarGrupo($id) {
     $bol = true;
     $con = connectDB();
     //Eliminamos el grupo con el id especificado
-    $consulta = 'DELETE FROM grupo WHERE id ="'.$id.'"';
+    $consulta = 'DELETE FROM grupo WHERE id ="' . $id . '"';
     $resultado = mysqli_query($con, $consulta);
     if ($resultado) {
         echo "exito";
     }
     if (!$resultado) {
         $bol = false;
-        echo "<br/>".$resultado;
-        echo "error al eliminar";   
+        echo "<br/>" . $resultado;
+        echo "error al eliminar";
     }
     mysqli_close($con);
     return $bol;
 }
+
 //crear grupo en db
 function crearGrupo($name, $desc, $img) {
     $bol = true;
@@ -124,7 +120,7 @@ function crearGrupo($name, $desc, $img) {
     $resultado = mysqli_query($con, $consulta);
     if ($resultado) {
         echo "exito";
-    }else {
+    } else {
         $bol = false;
     }
     mysqli_close($con);
@@ -146,6 +142,34 @@ function getUsersSubs($getName) {
             while ($j < 2) {
                 //DEBUG
                 //echo "<br/> " . $j . ": " . $row[$j];
+                $ret[$i][] = $row[$j];
+                $j++;
+            }
+            $i++;
+        }
+        mysqli_close($link);
+    }
+    return $ret;
+}
+
+//devolvemos un array con los logros obtenidos icono,descripcion y nombre
+//  0:nombre_logro 1: icon_path 2:descripcion 3:puntos
+function getGroupLogros($groupId) {
+    $link = connectDB();
+    $sql = "SELECT logro.name, logro.icon_path, logro.descripcion, logro.puntos"
+            . " FROM logro, logros_grupo, grupo WHERE   logro.id=logros_grupo.logro_id "
+            . "  AND logros_grupo.group_id = " . $groupId;
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if (!$res) {
+        mysqli_close($link);
+        //No deberia haber un die
+        die("ERROR: SELECT QUERY ERROR");
+    } else {
+        $i = 0;
+        while ($row = mysqli_fetch_array($res)) {
+            $j = 0;
+            while ($j < 4) {
                 $ret[$i][] = $row[$j];
                 $j++;
             }
