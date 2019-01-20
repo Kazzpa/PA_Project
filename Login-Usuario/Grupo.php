@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,6 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php include 'stylesheets.php';
         ?>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <link type='text/css' rel='stylesheet' href='css/gallery.css'>
+        <link type="text/css" rel="stylesheet" href="css/lightGallery.css" /> 
     </head>
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
@@ -15,44 +19,11 @@
         include 'validation.php';
         include 'logros_db.php';
 
-        function printGrupo($group, $logrosInfo, $suscritos) {
-            $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
+        function printGrupo($group) {
+            $str = "<h1>" . $group[1] . "</h1>"
+                    . "<h4>" . $group[2] . "</h4>";
             if (file_exists($group[3])) {
-                $str .= '<img class="col-md-9 img-fluid" src="' . $group[3]
-                        . '" alt="imagen de ' . $group[1]
-                        . '" style="height:auto;max-width: 100%;"></img>';
-            }
-            $str .= '<div class="col-md-3" >'
-                    . printLogros($logrosInfo) . printSuscritos($suscritos)
-                    . '</div></div><h4>' . $group[2] . "</h4>";
-            return $str;
-        }
-
-        function printSuscritos($suscritos) {
-            $str = '<table class="table"><thead><tr><th></th>'
-                    . '<th>Usuarios suscritos</th></tr></thead><tbody>';
-
-            if ($suscritos) {
-                for ($i = 0; $i < sizeof($suscritos); $i++) {
-                    $str .= '<tr><td>';
-                    if ($suscritos[$i][1] > 0) {
-                        $str .= '[MOD]';
-                    }
-                    $str .= '</td><td>' . $suscritos[$i][0] . '</td></tr > ';
-                }
-            }
-            $str .= '</tbody></table>';
-            return $str;
-        }
-
-        //  0:nombre_logro 1: icon_path 2:descripcion 3:puntos
-        function printLogros($logrosInfo) {
-            $str = "";
-            if ($logrosInfo !== false) {
-                $str .= '<h5>Logros del grupo:</h5>';
-                for ($i = 0; $i < sizeof($logrosInfo); $i++) {
-                    $str .= '<img src="' . $logrosInfo[$i][1] . '" alt="' . $logrosInfo[$i][0] . '"/>';
-                }
+                $str = $str . '<img src="' . $group[3] . '" alt="imagen de ' . $group[1] . '"></img>';
             }
             return $str;
         }
@@ -60,11 +31,11 @@
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
         function printform() {
             return '<form method = "GET" action = "#">
-        <div class = "form-group form-control-lg">
-            <input type = "text" class = "form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
-            <input type = "submit" class = "btn btn-primary" value = "Buscar grupo">
-        </div>
-    </form>';
+                            <div class="form-group form-control-lg">
+                        <input type = "text" class="form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
+                        <input type = "submit" class="btn btn-primary" value="Buscar grupo">
+                        </div>
+                        </form>';
         }
 
         $bol = isset($_GET['grupo']) && $_GET['grupo'] != '';
@@ -75,14 +46,13 @@
             );
             $entradas = filter_input_array(INPUT_GET, $filtros);
             $groupInfo = getGroup($entradas['grupo']);
-            $logrosInfo = getGroupLogros($groupInfo[0]);
-            $infoSubscribers = false;
+            $info2 = false;
             //$info2 = getUsersSubs($entradas['grupo']);
             //Grupo valido pero no registrado
             if (!$groupInfo) {
                 $bol = false;
             }
-            if ($infoSubscribers) {
+            if ($info2) {
                 $bol2 = true;
             }
         }
@@ -96,7 +66,7 @@
                     <?php
                     //Comprobamos que haya un grupo registrado
                     if ($bol) {
-                        echo (printGrupo($groupInfo, $logrosInfo, $infoSubscribers));
+                        echo (printGrupo($groupInfo));
                     } else {
                         if (isset($_GET['grupo']) && $_GET['grupo'] != '') {
                             echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
@@ -104,22 +74,110 @@
                         echo (printform());
                     }
                     ?>
-                </div>
-                <div class="col-sm-2 sidenav">
 
-                </div>                 
+
+                    <!--GALERIA DEL GRUPO-->
+                    <?php if ($bol) { ?>
+                        <div class="container">
+                            <?php include('fotoMostrar.php'); ?>
+                        </div>
+                    <?php } ?>
+                    <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
+                    <?php
+                    if (isset($_SESSION['username']) && isset($_GET['grupo'])) {
+                        include('grupoIsAdmin.php');
+                        if ($admin) {
+                            ?>
+                            <h3>Sube una imagen: </h3>
+                            <form action = "fotosIncluir.php" method = "post" enctype="multipart/form-data">          
+                                <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
+                                <p>Descripci&oacute;n de la imagen:</p>
+                                <input type = "text" name = "encabezado" class="form-control-file" />
+                                <input type="hidden"  value="<?php echo $_GET['grupo']; ?>" name= "grupoId"  />
+                                <input type="submit"  value="Subir" name= "fotosIncluir" class = "brn btn-primary" />
+                            </form> 
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+                <?php if ($bol) { ?>
+                    <div class="col-sm-2 sidenav">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Usuarios suscritos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($bol2) {
+                                    for ($i = 0; $i < sizeof($info2); $i++) {
+                                        echo'<tr><td>';
+                                        if ($info2[$i][1] > 0) {
+                                            echo '[MOD]';
+                                        }
+                                        echo '</td><td>' . $info2[$i][0] . '</td></tr>';
+                                    }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>   
+                <?php } ?>
             </div>
         </div>
 
-        <!-- GALERIA -->
-        <a href="fotos.php">GALERIA</a>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#lightgallery").lightGallery();
+                $(document).on("click", ".edit", function () {
 
+                    $(this).addClass("clicked");
+                    var encabezado = $(this).attr('id');
+                    $("#img" + encabezado).replaceWith('<textarea id="textArea' + encabezado + '" style="color:black;">' + $("#img" + encabezado).text() + '</textarea>');
+                    var button = document.createElement('input');
+                    button.type = "submit";
+                    button.id = "editButton" + encabezado;
+                    button.value = "Editar"
+                    button.style = "color:black;"
+                    $("#textArea" + encabezado).after(button);
+                    $("#editButton" + encabezado).before("<br/>");
 
+                    $(document).on("click", "#editButton" + encabezado, function () {
+                        var newEncabezado = $("#textArea" + encabezado).val();
+                        $.ajax({
+                            type: "POST",
+                            url: "fotoModificar.php",
+                            data: {"encabezado": encabezado, "newEncabezado": newEncabezado},
+                            cache: false,
+                            success: function (data) {
+                                location.reload();
+                            }
+                        });
 
-        <footer class="container-fluid text-center">
-            <!-- Footer -->
-            Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-        </footer>
+                    });
+                });
+                $(document).on("click", ".delete", function () {
+                    if (confirm("¿Seguro que quieres eliminar esta imagen?")) {
+                        var foto = $(this).attr('id');
+                        $.ajax({
+                            type: "POST",
+                            url: "fotoEliminar.php",
+                            data: {"foto": foto},
+                            cache: false,
+                            success: function (data) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
 
+        </script>
+        <script src="js/picturefill.min.js"></script>
+        <script src="js/lightgallery-all.js"></script>
+        <script src="js/jquery.mousewheel.min.js"></script>
     </body>
 </html>

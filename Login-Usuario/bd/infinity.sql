@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2019 a las 01:25:49
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.0
+-- Tiempo de generación: 20-01-2019 a las 02:01:38
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,9 +95,15 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
-(18, 1, 'groupPhotos/1/1547581387_22126.jpg', 'evento 1 =P'),
-(19, 1, 'groupPhotos/1/1547581401espectaculos-producciones-animacion-noche3.jpg', 'evento 2 =^D'),
-(20, 1, 'groupPhotos/1/1547581417201279_ml.jpg', 'evento 3 =S');
+(20, 3, 'groupPhotos/3/1547581417201279_ml.jpg', 'Charla de Steve Jobs'),
+(41, 3, 'groupPhotos/3/1547941321pexels-photo-716276.jpeg', 'Charla sobre arte'),
+(42, 3, 'groupPhotos/3/1547941332pexels-photo-1530313.jpeg', 'Descanso'),
+(43, 3, 'groupPhotos/3/1547941368pexels-photo-711009.jpeg', 'conociendo gente'),
+(44, 3, 'groupPhotos/3/1547941379pexels-photo-1181622.jpeg', 'nuevas tecnologias'),
+(45, 3, 'groupPhotos/3/1547941405pexels-photo-942418.jpeg', 'tazas gratis'),
+(46, 3, 'groupPhotos/3/1547941435pexels-photo-1595385.jpeg', 'se alargo la reunion'),
+(47, 3, 'groupPhotos/3/1547941531pexels-photo-1015568.jpeg', 'de risas'),
+(48, 3, 'groupPhotos/3/1547941589pexels-photo-1054974.jpeg', 'sala de descanso');
 
 -- --------------------------------------------------------
 
@@ -117,7 +123,7 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
-(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png');
+(3, 'Hack and Beers', 'españa y el bétis', 'img/memecia.jpg');
 
 -- --------------------------------------------------------
 
@@ -167,30 +173,17 @@ CREATE TABLE `logro` (
   `puntos` int(10) NOT NULL COMMENT 'añadidos para medalla especial tiers'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `logro`
---
-
-INSERT INTO `logro` (`id`, `name`, `icon_path`, `descripcion`, `tipo`, `valor`, `puntos`) VALUES
-(1, 'Medalla Oro', 'img/cup.png', 'otener 1000 puntos', 4, 1000, 50);
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logros_grupo`
+-- Estructura de tabla para la tabla `logros_usuario`
 --
 
-CREATE TABLE `logros_grupo` (
-  `group_id` int(11) NOT NULL,
-  `logro_id` int(11) NOT NULL
+CREATE TABLE `logros_usuario` (
+  `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `grupo_id` int(11) NOT NULL,
+  `logro_id` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `logros_grupo`
---
-
-INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
-(3, 1);
 
 -- --------------------------------------------------------
 
@@ -231,19 +224,8 @@ INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `mess
 (63, 0, 'irelia', 5, '2018-12-30 15:58:25', 'me apunto'),
 (64, 0, 'irene', 2, '2018-12-30 16:00:02', 'me apunto'),
 (65, 0, 'irene', 5, '2018-12-30 16:06:02', 'heyyy que pasa'),
-(66, 0, 'irene', 6, '2018-12-30 16:13:48', 'espero la 5Âª sinfonia');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reserva`
---
-
-CREATE TABLE `reserva` (
-  `id` int(11) NOT NULL,
-  `username` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `id_evento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+(66, 0, 'irene', 6, '2018-12-30 16:13:48', 'espero la 5Âª sinfonia'),
+(67, 0, 'irene', 19, '2019-01-19 18:09:29', 'hey');
 
 -- --------------------------------------------------------
 
@@ -253,10 +235,17 @@ CREATE TABLE `reserva` (
 
 CREATE TABLE `suscripcion_grupo` (
   `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id usuario que se suscribe',
-  `grupo_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id del grupo suscrito',
+  `grupo_id` int(11) NOT NULL COMMENT 'id del grupo suscrito',
   `id` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'GUID de la relación',
-  `tipo_notificacion` int(11) NOT NULL DEFAULT '0' COMMENT 'tipo notificacion 0, no notificiar,1 notificar por email?'
+  `rol` int(11) NOT NULL COMMENT '0 usuario normal, 1 administrador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `suscripcion_grupo`
+--
+
+INSERT INTO `suscripcion_grupo` (`user_id`, `grupo_id`, `id`, `rol`) VALUES
+('irene', 3, '', 1);
 
 -- --------------------------------------------------------
 
@@ -332,12 +321,6 @@ ALTER TABLE `posts`
   ADD KEY `postedBy` (`postedBy`);
 
 --
--- Indices de la tabla `reserva`
---
-ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `suscripcion_grupo`
 --
 ALTER TABLE `suscripcion_grupo`
@@ -369,7 +352,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT de la tabla `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `grupo`
@@ -387,19 +370,13 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logro`
 --
 ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=67;
-
---
--- AUTO_INCREMENT de la tabla `reserva`
---
-ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=68;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
