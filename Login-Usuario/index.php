@@ -31,9 +31,9 @@ and open the template in the editor.
                     <input id="botonEventosPatrocinados" type="button" value="Explora" style="background-color: white; color:black"/>
                     <input id="botonEventosUsuarios" type="button" value="Descubre"/>
                     <!-- 
-                    //======================================================================
-                    // EVENTOS PATROCINADOS
-                    //======================================================================
+                    ======================================================================
+                    EVENTOS PATROCINADOS
+                    ======================================================================
                     -->
                     <div id="divEventosPatrocinados">
                         <?php
@@ -98,9 +98,9 @@ and open the template in the editor.
                         ?>
                     </div>
                     <!-- 
-                    //======================================================================
-                    // EVENTOS CREADOS POR USUARIOS
-                    //======================================================================
+                    ======================================================================
+                    EVENTOS CREADOS POR USUARIOS
+                    ======================================================================
                     -->
                     <div id="divEventosUsuarios" hidden>
                         <?php
