@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -7,13 +9,17 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>home</title>
+        <title>Index</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include("stylesheets.php"); ?>
         <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
+        <!-- Index actua de showcase de eventos patrocinados, tanto creados por personas como patrocinados. Se muestran los 3 eventos de cada tipo
+        mas cercanos en tiempo. Dependiendo del tipo de evento se mostrara informacion diferente
+        -->
+        <!-- Incluimos la cabecera con todas las opciones de navegación-->
         <?php include("header.php"); ?>
         <br />
         <div class="container-fluid text-center">    
@@ -24,104 +30,133 @@ and open the template in the editor.
                     <h1>Welcome</h1>
                     <input id="botonEventosPatrocinados" type="button" value="Explora" style="background-color: white; color:black"/>
                     <input id="botonEventosUsuarios" type="button" value="Descubre"/>
-                    <!-- CONSULTA DE EVENTOS PATROCINADOS-->
+                    <!-- 
+                    //======================================================================
+                    // EVENTOS PATROCINADOS
+                    //======================================================================
+                    -->
                     <div id="divEventosPatrocinados">
                         <?php
-                        include_once("conexion.php");
+                        //-----------------------------------------------------
+                        // Consulta a la base de datos
+                        //-----------------------------------------------------
+                        //Realizamos una conexion a la base de datos
+                        include("conexion.php");
 
+                        //Consulta a la BD que obtiene los 3 eventos patrocinados más proximos
                         $consulta = "SELECT * FROM `events`,`advertisers` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers>0 AND events.idAdvertisers=advertisers.id ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password
                         $resultado = mysqli_query($con, $consulta);
 
-                        mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
+                        //Cerramos la conexion a la base de datos
+                        mysqli_close($con);
 
-                        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+                        //-----------------------------------------------------
+                        // Iteracion consulta y muestra por pantalla
+                        //-----------------------------------------------------
+                        if (!(mysqli_num_rows($resultado)) == 0) {
                             $i = 0;
-                            while ($auxiliar = mysqli_fetch_array($resultado)) { /* Con esto retiramos todas las filas que hayan en la base de datos, como pueden ser muchas
-                              hay que ir leyendo fila a fila */
-                                $fila[$i] = $auxiliar; //este auxiliar es para evitar que se meta la ultima iteracion vacia
+                            //Retiramos las filas de la consulta realizada
+                            while ($auxiliar = mysqli_fetch_array($resultado)) {
+                                //Este auxiliar es para evitar que se meta la ultima iteracion vacia
+                                $fila[$i] = $auxiliar;
                                 $i++;
                             }
-                            
+                            //Iteramos las filas obtenidas para mostrarlas por pantalla
                             for ($i = 0; $i < sizeof($fila); $i++) {
-                                $nombreEvento = $fila[$i][1];   //Como hay dos tablas que tienen name se guarda en esta el nombre de evento
+                                //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
+                                $nombreEvento = $fila[$i][1];
                                 $fechaCelebracion = $fila[$i]['date_celebration'];
                                 $organization = $fila[$i]['organization'];
                                 $descripcion = $fila[$i]['description'];
-                                $evento_id = $fila[$i][0];  
+                                $evento_id = $fila[$i][0];
                                 $rutaimagen = $fila[$i]['rutaimagen'];
 
+                                //Mostramos por pantalla la informacion del evento en forma de tabla
                                 echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
-        <tr>
-            <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
-        </tr>
-        <tr>
-            <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
-        </tr>
-        <tr>
-            <td>$descripcion</td>
-        </tr>
-        <tr>
-            <td>Celebracion: $fechaCelebracion</td>
-        </tr>
-        <tr>
-            <td>Organiza: $organization</td>
-        </tr>
-</table> 
-</div>";
+                                <tr>
+                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
+                                </tr>
+                                <tr>
+                                    <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                </tr>
+                                <tr>
+                                    <td>$descripcion</td>
+                                </tr>
+                                <tr>
+                                    <td>Celebracion: $fechaCelebracion</td>
+                                </tr>
+                                <tr>
+                                    <td>Organiza: $organization</td>
+                                </tr>
+                                </table> 
+                                </div>";
                             }
-                        } else {
+                        } else {    //Si no hay eventos mostramos un mensaje informativo
                             echo "No hay eventos programados por empresas, animate y crea el tuyo!";
                         }
                         ?>
                     </div>
-                    <!--CONSULTA DE EVENTOS CREADOS POR USUARIOS-->
+                    <!-- 
+                    //======================================================================
+                    // EVENTOS CREADOS POR USUARIOS
+                    //======================================================================
+                    -->
                     <div id="divEventosUsuarios" hidden>
                         <?php
-                        $con = mysqli_connect("localhost", "root", "", "infinity"); //La ventaja de poner aqui la base de datos que es opcional esque nos ahorramos una sentencia 
+                        //-----------------------------------------------------
+                        // Consulta a la base de datos
+                        //-----------------------------------------------------
+                        //Realizamos una conexion a la base de datos
+                        include("conexion.php");
 
-                        if (!$con) {
-                            die("Conexion fallida: " . mysqli_connect_error()); /* Si la conexion ha fallado */
-                        }
-                        //Ordenamos de forma que salen los 3 eventos mas proximos
+                        //Consulta a la BD que obtiene los 3 eventos creados por usuarios más proximos
                         $consulta = "SELECT * FROM `events` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers=0 ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password
                         $resultado = mysqli_query($con, $consulta);
 
+                        //Cerramos la conexion a la base de datos
                         mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
-
-                        if (mysqli_num_rows($resultado) > 0) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado
+                        //-----------------------------------------------------
+                        // Iteracion consulta y muestra por pantalla
+                        //-----------------------------------------------------
+                        if (!(mysqli_num_rows($resultado)) == 0) {
                             $i = 0;
-                            while ($auxiliar = mysqli_fetch_array($resultado)) { /* Con esto retiramos todas las filas que hayan en la base de datos, como pueden ser muchas
-                              hay que ir leyendo fila a fila */
-                                $fila[$i] = $auxiliar; //este auxiliar es para evitar que se meta la ultima iteracion vacia
+
+                            //Retiramos las filas de la consulta realizada
+                            while ($auxiliar = mysqli_fetch_array($resultado)) {
+                                //Este auxiliar es para evitar que se meta la ultima iteracion vacia
+                                $fila[$i] = $auxiliar;
                                 $i++;
                             }
 
+                            //Iteramos las filas obtenidas para mostrarlas por pantalla
                             for ($i = 0; $i < sizeof($fila); $i++) {
+                                //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
                                 $nombreEvento = $fila[$i]['name'];
                                 $fechaCelebracion = $fila[$i]['date_celebration'];
                                 $descripcion = $fila[$i]['description'];
                                 $evento_id = $fila[$i]['id'];
                                 $rutaimagen = $fila[$i]['rutaimagen'];
 
+                                //Mostramos por pantalla la informacion del evento en forma de tabla
                                 echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
-        <tr>
-            <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
-        </tr>
-        <tr>
-            <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
-        </tr>
-        <tr>
-            <td>$descripcion</td>
-        </tr>
-        <tr>
-            <td>Celebracion: $fechaCelebracion</td>
-        </tr>
-</table> 
-</div>";
+                                <tr>
+                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
+                                </tr>
+                                <tr>
+                                    <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                </tr>
+                                <tr>
+                                    <td>$descripcion</td>
+                                </tr>
+                                <tr>
+                                    <td>Celebracion: $fechaCelebracion</td>
+                                </tr>
+                                </table> 
+                                </div>";
                             }
-                        } else {
+                        } else {    //Si no hay eventos mostramos un mensaje informativo
                             echo "No hay eventos programados por usuarios, animate y crea el tuyo!";
                         }
                         ?>

@@ -1,22 +1,28 @@
 <?php
+//======================================================================
+// OPERACION ELIMINACION USUARIO
+//======================================================================
 
 session_start();
 
+//Realizamos la conexion a la base de datos
+include("conexion.php");
+
+//Obtenemos la variable de sesion de usuario para realizar la consulta de eliminacion
 $usuario = $_SESSION['username'];
-
-include_once("conexion.php");
-
 $consulta = "DELETE FROM `users` WHERE username = '$usuario'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 $resultado = mysqli_query($con, $consulta);
 
-mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
+//Cerramos la base de datos
+mysqli_close($con);
 
-if ($resultado) {    //si la consulta ha tenido exito podemos guardar en SESSION la informacion como que existe y el usuario esta logeado   
+//Si la consulta ha tenido exito redireccionamos al usuario y mostramos un mensaje por pantalla del exito
+if ($resultado) { 
     header('Refresh: 1; URL = cuentaLogout.php');
     echo "Estamos muy tristes de que haya decidido irse. Estaremos aqui esperandole!";
     exit();
-} else {
+} else {    //Si la consulta fracasa redireccionamos al usuario e informamos del error
     echo "Algo salio mal al intentar borrar la cuenta";
-    header("Refresh: 5; URL = index.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+    header("Refresh: 5; URL = index.php");
     exit();
 }
