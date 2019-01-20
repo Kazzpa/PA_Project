@@ -1,9 +1,10 @@
 <!-- Header que usamos a lo largo de la pagina para mostrar la navegacion-->
-<div id="header">
-    <header>
+<div id="header-top"></div>
+<div id="header-fixed" class="header-fixed">
+    <header id="header">
         <!-- Logo de la aplicacion-->
         <div id="logo">
-            <a id="infinity-logo-header" href="index.php"><h1>Infinity</h1></a>
+            <a id="infinity-logo-header" href="index.php"><h1 id="head-logo">Infinity</h1></a>
         </div>
 
         <!--Barra de navegacion donde se mostraran las distintas paginas-->
@@ -18,3 +19,25 @@
         </div>
     </header>
 </div>
+
+<script type="text/javascript">
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function () {
+        myFunction()
+    };
+
+// Get the header
+    var header = document.getElementById("header-fixed");
+
+// Get the offset position of the navbar
+    var sticky = document.getElementById("header-top").offsetTop;
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>
