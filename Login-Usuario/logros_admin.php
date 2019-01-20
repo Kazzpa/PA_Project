@@ -42,7 +42,7 @@
             </div>
             <div class="form-group col-md-4">
                 <b>Valor necesario para conseguirlo</b>
-                <input type="number" class="form-control" name="logrovalor" min="1" max="" placeholder="valor" required><br/>
+                <input type="number" class="form-control" name="logrovalor" min="1" placeholder="valor" required><br/>
             </div>
             <div class="form-group col-md-4">
                 <b>Puntos a obtener</b>
@@ -53,10 +53,88 @@
                 ';
         }
 
+        //Comprueba si existe el logro especificado
+        //logro session:
+        //0:id 1:name 2:icon_path 3:descripcion 4:tipo 5:valor 6:puntos
+        function modGrupo() {
+            $str = '<h4> Panel Modificar logro </h4>
+                <form action="" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['logro'][1]) . '"</i><br/>
+                    <input type="text" class="form-control" name="logroName" placeholder="Nombre"><br/>
+                    </div>';
+            $str .= '<div class="form-group">
+                    <b>Modificar Imagen: </b><br/>';
+            if (file_exists($_SESSION['logro'][2])) {
+                $str .= '<img src="' . $_SESSION['logro'][2] . '" alt="imagen de logro:' . $_SESSION['logro'][1] . '></img><br/>';
+            }
+            $str .= '<input type="file" class="form-control" name="logroImg" placeholder="ruta imagen"><br/>
+                    </div><div class="form-group">
+                        <b>Modificar descripcion: </b>
+                        <br/><i>"' . $_SESSION['logro'][3] . '" </i><br/>
+                        <input type="text" class="form-control" name="logroDesc" placeholder="Descripcion"><br/>
+                    </div>
+                    <div class="form-group">
+                        <b>Modificar tipo: </b>
+                        <div class="form-group col-md-4">
+                        <b>Tipo de logro</b>
+                        <select class="custom-select" name="logrotipo">
+                        <option value="0"';
+            if ($_SESSION['logro'][4] == 0) {
+                $str .= 'selected';
+            }
+            $str .= '>N&uacute;mero de miembros</option>
+                        <option value="1"';
+            if ($_SESSION['logro'][4] == 1) {
+                $str .= 'selected';
+            }
+            $str .= '>N&uacute;mero de comentarios</option>
+                        <option value="2"';
+            if ($_SESSION['logro'][4] == 2) {
+                $str .= 'selected';
+            }
+            $str .= '>N&uacute;mero de fotos</option>
+                        <option value="3"';
+            if ($_SESSION['logro'][4] == 3) {
+                $str .= 'selected';
+            }
+            $str .= '>N&uacute;mero de eventos</option>
+                        <option value="4"';
+            if ($_SESSION['logro'][4] == 4) {
+                $str .= 'selected';
+            }
+            $str .= '>N&uacute;mero de puntos</option>
+                        <option value="5"';
+            if ($_SESSION['logro'][4] == 5) {
+                $str .= 'selected';
+            }
+            $str .= '>Rey de la web o especial</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <i>' . $_SESSION['logro'][5] . ' </i>
+                        <b>Valor necesario para conseguirlo</b>
+                        <input type="number" class="form-control" name="logrovalor" min="1" placeholder="valor"><br/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <b>Puntos a obtener</b>
+                        <i>' . $_SESSION['logro'][6] . ' </i>
+                        <input type="number" class="form-control" name="logropuntos" placeholder="puntos"><br/>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="modLogro" value="Modificar">
+                    <input type="submit" class="btn btn-danger" name="EliminarLogro" value="Eliminar">
+            </form>';
+            return $str;
+        }
+
         function checkEnviadoAdmin() {
             $bol = false;
             if (isset($_POST['logrocrear'])) {
                 $bol = validarCrearLogro();
+            }else if(isset($_SESSION['logro']) && isset($_POST['modLogro'])){
+                
+            }else if(iiset($_SESSION['logro']) && isset($_POST['ELiminarLogro'])){
+                
             }
             return $bol;
         }
