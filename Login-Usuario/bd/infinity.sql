@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2019 a las 12:46:29
+-- Tiempo de generación: 21-01-2019 a las 20:50:07
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -77,7 +77,9 @@ INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebr
 (9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0, 0),
 (18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0, 0),
 (19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9, 0),
-(20, 'Hack and Beers #SVQ10FEB', 'Evento  de Hack and Beers en Sevilla.', '2019-01-21 11:05:45', '2019-02-10 16:30:00', 'irene', 'eventPhotos/default.jpg', 26, 0, 3);
+(20, 'Hack and Beers #SVQ10FEB', 'Evento  de Hack and Beers en Sevilla.', '2019-01-21 11:05:45', '2019-02-10 16:30:00', 'irene', 'eventPhotos/default.jpg', 26, 0, 3),
+(21, 'Hack and Beers #SVQ20FEB', 'Vamos a quedar para hablar sobre seguridad informatica en IOT', '2019-01-21 12:48:55', '2019-02-20 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 0),
+(22, 'Hack and Beers #SVQ10MAR', 'bebemo servesa', '2019-01-21 13:39:51', '2019-03-10 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -266,7 +268,7 @@ CREATE TABLE `users` (
   `username` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `date_register` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tipo` int(11) NOT NULL COMMENT '0 sera usuario normal, 1 administrador',
   `rutaimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta de la imagen del usuario'
@@ -278,7 +280,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`, `rutaimagen`) VALUES
 ('irelia', 'Pepe Lolo', '$2y$10$rgxbLk/J7MesYi3gZkyY0Oon1i3WS7Lp0QHBOfn54ixQjG4JtmGhK', 'pepeyu@hotmail.com', '2018-12-24 23:41:32', 0, 'userPhotos/default.png'),
-('irene', 'Irene Glez', '$2y$10$GpTL5a3SmldpvhC8ZY/a4OzUE0nhIcpeLuuphI8XhGNHX02AsocWC', 'irene@irene.com', '2018-12-30 15:59:42', 0, 'userPhotos/default.png');
+('irene', 'Irene Glez', '$2y$10$GpTL5a3SmldpvhC8ZY/a4OzUE0nhIcpeLuuphI8XhGNHX02AsocWC', 'irene@irene.com', '2018-12-30 15:59:42', 1, 'userPhotos/default.png');
 
 --
 -- Índices para tablas volcadas
@@ -355,7 +357,7 @@ ALTER TABLE `advertisers`
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `gallery`
@@ -379,7 +381,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logro`
 --
 ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`
