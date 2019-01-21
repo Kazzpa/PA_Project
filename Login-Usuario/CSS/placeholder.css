@@ -35,3 +35,12 @@ select {
     -webkit-appearance: none;
     background-position-x: 244px;
 }
+textarea {
+  width: 90%;
+  height: 3em;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
