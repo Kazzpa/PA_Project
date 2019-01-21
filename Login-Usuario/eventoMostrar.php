@@ -174,7 +174,7 @@ and open the template in the editor.
 
                     Array.prototype.forEach.call(markers, function (markerElem) {
                         console.log(markerElem);
-                        map.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCACpnp7KaVFiuYEfwaxiKS7OCgw0mQqcA&q=" + markerElem.getAttribute('name') + "," + markerElem.getAttribute('address');
+                        map.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCACpnp7KaVFiuYEfwaxiKS7OCgw0mQqcA&q=" + encodeURIComponent(markerElem.getAttribute('name')) + "," + encodeURIComponent(markerElem.getAttribute('address'));
                     });
                 });
             }
