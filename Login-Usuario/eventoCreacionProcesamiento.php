@@ -82,7 +82,8 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $consulta = "INSERT INTO `events` (`id`, `name`, `description`, "
             . "`date_creation`, `date_celebration`, `host`, `rutaimagen`, "
             . "`idLocation`, `idAdvertisers`, `group_id` ) VALUES "
-            . "(NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '$grupo')";
+            . "(NULL, '$name', '$description', CURRENT_TIMESTAMP, "
+            . "'$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '0', '$grupo')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
 
     mysqli_close($con); // Cerramos la base de datos
