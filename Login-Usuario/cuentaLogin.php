@@ -105,11 +105,8 @@ and open the template in the editor.
                                         <br />
                                         <input id="botonModificacionDatos" type="submit" value="Modificar Dato" name="modificarDato" /> <!--Boton que al pulsar te redirecciona a registro-->
                                     </form>
-                                    <br />
                                     <!-- Boton para el borrado de la cuenta-->
-                                    <form action = "cuentaEliminar.php" method = "post">
-                                        <input type="submit" value="Eliminar cuenta" name="registro" /> <!--Eliminamos la cuenta del usuario si asi lo pide-->
-                                    </form>
+                                    <input type="submit" value="Eliminar cuenta" name="registro" onClick="avisarBorradoCuenta()"/> <!--Eliminamos la cuenta del usuario si asi lo pide-->
                                 </div>
                             </div>
                         </div>
@@ -222,12 +219,12 @@ and open the template in the editor.
                                     </form>
                                 </div>
                             </div>
-                        
-                        <!--
-                        -----------------------------------------------------
-                        Panel de administrar grupos
-                        -----------------------------------------------------
-                        -->
+
+                            <!--
+                            -----------------------------------------------------
+                            Panel de administrar grupos
+                            -----------------------------------------------------
+                            -->
                             <div class="row">
                                 <div class="col-sm-12 text-left well">
                                     <?php
@@ -237,11 +234,11 @@ and open the template in the editor.
                                 </div>
                             </div>
 
-                        <!--
-                        -----------------------------------------------------
-                        Panel de administrar logros
-                        -----------------------------------------------------
-                        -->
+                            <!--
+                            -----------------------------------------------------
+                            Panel de administrar logros
+                            -----------------------------------------------------
+                            -->
                             <div class="row">
                                 <div class="col-sm-12 text-left well">
                                     <?php

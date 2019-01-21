@@ -10,7 +10,7 @@ input {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
-    width: 28%;
+    min-width: 10vw;
     margin: 10px;
 }
 
@@ -21,4 +21,17 @@ input {
 }
 .subtitle {
     font-size: 18px;
+}
+select {
+    width: 268px;
+    padding: 5px;
+    padding-right: 30px;
+    font-size: 16px;
+    line-height: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 34px;
+    background: url(../img/br_down.png) no-repeat right white;
+    -webkit-appearance: none;
+    background-position-x: 244px;
 }

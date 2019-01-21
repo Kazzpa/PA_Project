@@ -111,11 +111,15 @@ footer {
     margin-bottom:0.5em;
     box-shadow: 0 2px 14px 0 rgba(25,26,30,0.05);
     border-bottom: 3px solid #f2f2f2;
-    height: 11%;
     padding-top: 1px;
     z-index: 2;
+    min-height: 7vw;
 }
 
+#header{
+    width:100%;
+    height: 100%;
+}
 
 /***************Fixed Header*****************/
 .sticky { /* Mantiene el header fijo */

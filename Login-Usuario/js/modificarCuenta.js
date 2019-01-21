@@ -61,7 +61,7 @@ function comprobarFormularioEventos() {
         if (document.getElementById("mapsData").style.display == "") {
             document.getElementById("mapsData").style = "display:none;";
         }
-        
+
         var dato = document.createElement("input");
         dato.id = "eventoACambiar";
         dato.type = "text";
@@ -136,13 +136,20 @@ function comprobarFormularioEventos() {
         if (document.getElementById("mapsData").style.display == "") {
             document.getElementById("mapsData").style = "display:none;";
         }
+
         var formulario = document.getElementById("formModificacionEvento");
-        formulario.action = "eventoEliminar.php";
+        formulario.action = "";
 
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "modificarFoto";
         boton.value = "Eliminar evento";
-        
+        boton.onclick = function () {
+            if (confirm("¿Seguro que quieres eliminar este evento?")) {
+                var formulario = document.getElementById("formModificacionEvento");
+                formulario.action = "eventoEliminar.php";
+            }
+        };
+
     } else if (valor == "localizacion") {
         modificarLocalizacion();
         if (document.getElementById("eventoACambiar")) {
@@ -151,12 +158,12 @@ function comprobarFormularioEventos() {
 
         var formulario = document.getElementById("formModificacionEvento");
         formulario.action = "localizacionModificar.php";
-        
+
         var mapa = document.getElementById("location");
-        mapa.style="width: 62vw; height:30vh";
+        mapa.style = "width: 62vw; height:30vh";
 
         var mapsData = document.getElementById("mapsData");
-        mapsData.style="";
+        mapsData.style = "";
 
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "modificarLocalizacion";
@@ -165,4 +172,19 @@ function comprobarFormularioEventos() {
     }
 }
 
-
+function avisarBorradoCuenta() {
+    if (confirm("¿Seguro que quieres eliminar tu cuenta?")) {
+        $.ajax({
+            type: "POST",
+            url: "cuentaEliminar.php",
+            success: function (data) {
+                alert(data);
+                if (data == "Estamos muy tristes de que hayas decidido irte ¡Estaremos aqui esperándote!") {
+                    window.location.href = "cuentaLogout.php";
+                } else {
+                    window.location.href = "index.php";
+                }
+            }
+        });
+    }
+}

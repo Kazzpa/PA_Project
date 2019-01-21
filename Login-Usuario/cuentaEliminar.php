@@ -19,10 +19,8 @@ mysqli_close($con);
 //Si la consulta ha tenido exito redireccionamos al usuario y mostramos un mensaje por pantalla del exito
 if ($resultado) { 
     header('Refresh: 1; URL = cuentaLogout.php');
-    echo "Estamos muy tristes de que haya decidido irse. Estaremos aqui esperandole!";
-    exit();
+    echo "Estamos muy tristes de que hayas decidido irte ¡Estaremos aqui esperándote!";
 } else {    //Si la consulta fracasa redireccionamos al usuario e informamos del error
     echo "Algo salio mal al intentar borrar la cuenta";
     header("Refresh: 5; URL = index.php");
-    exit();
 }

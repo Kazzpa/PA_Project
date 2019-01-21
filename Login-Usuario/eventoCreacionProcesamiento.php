@@ -68,7 +68,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
 
     echo "$name $description $date_celebration $host";
 
-    include_once("conexion.php");
+    include("conexion.php");
 
     $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '0')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
