@@ -60,12 +60,14 @@ and open the template in the editor.
             if ($grupoEvento != 0) {
                 $consulta = 'SELECT * FROM grupo WHERE grupo.id = "' . $grupoEvento . '"';
                 $resultado = mysqli_query($con, $consulta);
-                if (!(mysqli_num_rows($resultado)) == 0) {
-                    if ($row = mysqli_fetch_array($resultado)) {
-                        $i = 0;
-                        while ($i < 4) {
-                            $grupoInfo[] = $row[$i];
-                            $i++;
+                if ($resultado) {
+                    if (!(mysqli_num_rows($resultado)) == 0) {
+                        if ($row = mysqli_fetch_array($resultado)) {
+                            $i = 0;
+                            while ($i < 4) {
+                                $grupoInfo[] = $row[$i];
+                                $i++;
+                            }
                         }
                     }
                 }
@@ -134,13 +136,13 @@ and open the template in the editor.
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
-                            <?php if (isset($_SESSION['username'])) { ?>
+    <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
                                 <form action="mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
-                            <?php } ?>
+    <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">
                                 <tbody id="tbodyComments">
@@ -199,7 +201,7 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
-        <?php include("mapsScript.php"); ?>
+<?php include("mapsScript.php"); ?>
         <script type="text/javascript">
             $(document).ready(function () {
                 mostrarTabla();
@@ -273,11 +275,11 @@ and open the template in the editor.
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-        if (isset($_SESSION['username']))
-            echo $_SESSION['username'];
-        else
-            echo '';
-        ?>") {
+if (isset($_SESSION['username']))
+    echo $_SESSION['username'];
+else
+    echo '';
+?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
