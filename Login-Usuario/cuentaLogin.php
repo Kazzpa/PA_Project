@@ -229,6 +229,11 @@ and open the template in the editor.
                                 <div class="col-sm-12 text-left well">
                                     <?php
                                     include 'adminGrupo.php';
+                                    if (isset($_SESSION['username'])) {
+                                        if ($_SESSION['tipo'] == 1) {
+                                            AdminGrupo();
+                                        }
+                                    }
                                     ?>
 
                                 </div>

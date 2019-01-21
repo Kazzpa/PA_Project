@@ -1,17 +1,10 @@
 <?php
 
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-}
-$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-if ($_SESSION['tipo'] == 1 && strpos($url, 'adminGrupo') !== false) {
-    include ('grupo_db.php');
-    include ('validation.php');
+include ('grupo_db.php');
+include ('validation.php');
 
-
+function AdminGrupo() {
     $bol = compruebaEnviado();
-
-
     if (!$bol) {
         echo (formGrupo());
         echo (formCrearGrupo());

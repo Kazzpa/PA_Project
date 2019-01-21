@@ -21,7 +21,7 @@ and open the template in the editor.
 
         include("conexion.php");
         include("adminGrupo.php");
-        
+
         $consulta = "SELECT * FROM `events` WHERE id = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
         $resultado = mysqli_query($con, $consulta);
