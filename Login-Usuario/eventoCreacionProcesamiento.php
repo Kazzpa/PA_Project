@@ -28,7 +28,6 @@ if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
 $errorGrupo = false;
 if (!is_numeric($saneado['grupoEvento'])) {
     $errorGrupo = true;
-    ;
 }
 
 $date_celebration = $_POST["date-celebration"];
