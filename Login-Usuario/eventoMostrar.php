@@ -99,7 +99,7 @@ and open the template in the editor.
 
                             mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
-                            if (!(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
+                            if (!$resultado || !(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
                                 <form action="reservaBaja.php" method = "post">
                                     <input type=' submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
