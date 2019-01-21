@@ -193,3 +193,7 @@ div.desc {
     padding: 15px;
     text-align: center;
 }
+.card{
+    background: rgb(36,182,148);
+    padding: 1%;
+}

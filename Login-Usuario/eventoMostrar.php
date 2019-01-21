@@ -23,20 +23,21 @@ and open the template in the editor.
 
         function printCardGrupo($grupoInfo) {
             $str = "";
-            if ($grupoInfo)
-                $str = '<div class="card" style="width: 18rem;">';
-            if (file_exists($grupoInfo[3])) {
-                $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
-                        . '" alt="imagen de grupo ' . $grupoInfo[1]
-                        . '" style="max-width:100%;"></img>';
-            }
-            $str .= ' <div class="card-body">
+            if ($grupoInfo !== false) {
+                $str = '<div class="card container" style="width: 18rem;">';
+                if (file_exists($grupoInfo[3])) {
+                    $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
+                            . '" alt="imagen de grupo ' . $grupoInfo[1]
+                            . '" style="max-width:100%;"></img>';
+                }
+                $str .= ' <div class="card-body">
                 <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1]
-                    . '</h5><p class="card-text"><i class="material-icons">description</i>'
-                    . substr($grupoInfo[2], 0, 50) . '...</p>
-                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-primary">Más informacion del grupo</a>
+                        . '</h5><p class="card-text"><i class="material-icons">description</i>'
+                        . substr($grupoInfo[2], 0, 50) . '...</p>
+                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-primary">Más informacion del grupo</a>
               </div>
             </div>';
+            }
             return $str;
         }
 

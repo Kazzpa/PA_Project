@@ -50,6 +50,23 @@ and open the template in the editor.
                         <div class="form-group">
                             <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                         </div>
+                        <?php
+                        include 'grupo_db.php';
+                        $gruposMod = getGroupsSubbed($_SESSION['username']);
+                        if ($gruposMod !== false) {
+                            echo '<div class="form-group">
+                                Grupo del evento:
+                            <select class="custom-select" name="grupoEvento" required>
+                            <option value="0">Sin grupo</option>
+                                ';
+                            for ($i = 0; $i < sizeof($gruposMod); $i++) {
+                                echo '<option value="' . $gruposMod[$i][1] . '">' . $gruposMod[$i][0] . '</option>';
+                            }
+                            echo '
+                            </select>
+                        </div>';
+                        }
+                        ?>
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Crear" />
                         </div>

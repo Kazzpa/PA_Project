@@ -127,9 +127,12 @@ function crearGrupo($name, $desc, $img) {
     return $bol;
 }
 
+// 0: usuario 1: tipo
 function getUsersSubs($getName) {
     $link = connectDB();
-    $sql = "SELECT users.name,suscripcion_grupo.tipo_notificacion FROM suscripcion_grupo, users, grupo WHERE suscripcion_grupo.user_id = users.username AND suscripcion_grupo.grupo_id = grupo.id AND grupo.name = " . $getName;
+    $sql = "SELECT users.name,suscripcion_grupo.rol FROM suscripcion_grupo,"
+            . " users, grupo WHERE suscripcion_grupo.user_id = users.username"
+            . " AND suscripcion_grupo.grupo_id = grupo.id AND grupo.name = " . $getName;
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
@@ -142,6 +145,32 @@ function getUsersSubs($getName) {
             while ($j < 2) {
                 //DEBUG
                 //echo "<br/> " . $j . ": " . $row[$j];
+                $ret[$i][] = $row[$j];
+                $j++;
+            }
+            $i++;
+        }
+        mysqli_close($link);
+    }
+    return $ret;
+}
+//0: grupo_id 1:name
+function getGroupsSubbed($userName) {
+    $link = connectDB();
+    $sql = "SELECT grupo.name, grupo.id FROM suscripcion_grupo,"
+            . " users, grupo WHERE suscripcion_grupo.user_id = users.username"
+            . " AND suscripcion_grupo.rol = 1 AND suscripcion_grupo.grupo_id = grupo.id AND users.username= '" . $userName."'";
+
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if (!$res) {
+        mysqli_close($link);
+        die("ERROR: SELECT QUERY ERROR");
+    } else {
+        $i = 0;
+        while ($row = mysqli_fetch_array($res)) {
+            $j = 0;
+            while ($j < 2) {
                 $ret[$i][] = $row[$j];
                 $j++;
             }
