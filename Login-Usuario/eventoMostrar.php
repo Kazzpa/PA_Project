@@ -22,20 +22,19 @@ and open the template in the editor.
         include("conexion.php");
 
         function printCardGrupo($grupoInfo) {
-            $str ="";
+            $str = "";
+            if ($grupoInfo)
                 $str = '<div class="card" style="width: 18rem;">';
-                if (file_exists($grupoInfo[3])) {
-                    $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
-                            . '" alt="imagen de grupo ' . $grupoInfo[1]
-                            . '" style="max-width:100%;"></img>';
-                }else{
-                    
-                    echo "no existe foto ".$grupoInfo[3];
-                }
-                $str .= ' <div class="card-body">
-                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1] . '</h5>
-                <p class="card-text">' . substr($grupoInfo[2],0,100) . '</p>
-                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]). '" class="btn btn-primary">Más informacion del grupo</a>
+            if (file_exists($grupoInfo[3])) {
+                $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
+                        . '" alt="imagen de grupo ' . $grupoInfo[1]
+                        . '" style="max-width:100%;"></img>';
+            }
+            $str .= ' <div class="card-body">
+                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1]
+                    . '</h5><p class="card-text"><i class="material-icons">description</i>'
+                    . substr($grupoInfo[2], 0, 50) . '...</p>
+                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-primary">Más informacion del grupo</a>
               </div>
             </div>';
             return $str;
@@ -56,16 +55,17 @@ and open the template in the editor.
             $evento_id = $fila['id'];
             $rutaimagen = $fila['rutaimagen'];
             $grupoEvento = $fila['group_id'];
-
-            $consulta = 'SELECT * FROM grupo WHERE grupo.id = "' . $grupoEvento . '"';
-            $resultado = mysqli_query($con, $consulta);
             $grupoInfo = false;
-            if (!(mysqli_num_rows($resultado)) == 0) {
-                if ($row = mysqli_fetch_array($resultado)) {
-                    $i = 0;
-                    while ($i < 4) {
-                        $grupoInfo[] = $row[$i];
-                        $i++;
+            if ($grupoEvento != 0) {
+                $consulta = 'SELECT * FROM grupo WHERE grupo.id = "' . $grupoEvento . '"';
+                $resultado = mysqli_query($con, $consulta);
+                if (!(mysqli_num_rows($resultado)) == 0) {
+                    if ($row = mysqli_fetch_array($resultado)) {
+                        $i = 0;
+                        while ($i < 4) {
+                            $grupoInfo[] = $row[$i];
+                            $i++;
+                        }
                     }
                 }
             }
@@ -127,7 +127,9 @@ and open the template in the editor.
                         echo "Creado el dia: $fechaCreacion<br />";
                         echo "Su host sera: $creador y se celebrara el dia: $fechaCelebracion<br />";
                         echo "Su host cree que necesitara saber lo siguiente: $descripcion";
-                        echo (printCardGrupo($grupoInfo));
+                        if ($grupoEvento != 0) {
+                            echo (printCardGrupo($grupoInfo));
+                        }
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2019 a las 02:01:38
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 21-01-2019 a las 12:46:29
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -62,20 +62,22 @@ CREATE TABLE `events` (
   `host` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Usuario creador del evento',
   `rutaimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta de la imagen de un evento',
   `idLocation` int(11) NOT NULL COMMENT 'id de la localizacion donde se celebra el evento',
-  `idAdvertisers` int(11) NOT NULL
+  `idAdvertisers` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `events`
 --
 
-INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES
-(2, 'Fiestecilla en la playa', 'A disfrutar del veranito gente!', '2018-12-25 16:17:50', '2019-01-14 23:00:00', 'irelia', 'eventPhotos/1546308720pexels-photo-1117256.jpeg', 1, 0),
-(5, 'El cielo del mes de enero 2019', 'Charla sobre las efemÃ©rides del mes de enero de 2019', '2018-12-30 04:24:45', '2019-01-18 18:00:00', 'irelia', 'eventPhotos/1546143885nebula_pequeÃ±a.jpg', 16, 0),
-(6, 'Concierto Musica Clasica', 'Temazos Beethoven', '2018-12-30 16:13:14', '2019-01-04 18:00:00', 'irene', 'eventPhotos/1546186394dopany91na411_reduc.jpg', 18, 0),
-(9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0),
-(18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0),
-(19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9);
+INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`, `group_id`) VALUES
+(2, 'Fiestecilla en la playa', 'A disfrutar del veranito gente!', '2018-12-25 16:17:50', '2019-01-14 23:00:00', 'irelia', 'eventPhotos/1546308720pexels-photo-1117256.jpeg', 1, 0, 0),
+(5, 'El cielo del mes de enero 2019', 'Charla sobre las efemÃ©rides del mes de enero de 2019', '2018-12-30 04:24:45', '2019-01-18 18:00:00', 'irelia', 'eventPhotos/1546143885nebula_pequeÃ±a.jpg', 16, 0, 0),
+(6, 'Concierto Musica Clasica', 'Temazos Beethoven', '2018-12-30 16:13:14', '2019-01-04 18:00:00', 'irene', 'eventPhotos/1546186394dopany91na411_reduc.jpg', 18, 0, 0),
+(9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0, 0),
+(18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0, 0),
+(19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9, 0),
+(20, 'Hack and Beers #SVQ10FEB', 'Evento  de Hack and Beers en Sevilla.', '2019-01-21 11:05:45', '2019-02-10 16:30:00', 'irene', 'eventPhotos/default.jpg', 26, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -155,7 +157,8 @@ INSERT INTO `locations` (`id`, `name`, `address`, `city`, `lat`, `lng`) VALUES
 (22, 'Ashford', 'Ashford Ashford', 'Kent', 51.146465, 0.875019),
 (23, 'Principado de Asturias', 'Principado de Asturias O', 'ES', 43.361397, -5.859327),
 (24, 'Leonberg', 'Leonberg BB', 'SÃ¼d', 48.796043, 9.009571),
-(25, 'Torre del Oro', 's/n Paseo de CristÃ³bal ColÃ³n', 'Sevilla', 37.382412, -5.996490);
+(25, 'Torre del Oro', 's/n Paseo de CristÃ³bal ColÃ³n', 'Sevilla', 37.382412, -5.996490),
+(26, 'Tea&Coffee', '2 Av. de Ramón y Cajal', 'Sevilla', 37.377411, -5.976763);
 
 -- --------------------------------------------------------
 
@@ -242,7 +245,7 @@ INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `mess
 CREATE TABLE `suscripcion_grupo` (
   `user_id` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id usuario que se suscribe',
   `grupo_id` int(11) NOT NULL COMMENT 'id del grupo suscrito',
-  `id` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'GUID de la relación',
+  `id` int(11) NOT NULL COMMENT 'ID de la relación',
   `rol` int(11) NOT NULL COMMENT '0 usuario normal, 1 administrador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -251,7 +254,7 @@ CREATE TABLE `suscripcion_grupo` (
 --
 
 INSERT INTO `suscripcion_grupo` (`user_id`, `grupo_id`, `id`, `rol`) VALUES
-('irene', 3, '', 1);
+('irene', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -352,7 +355,7 @@ ALTER TABLE `advertisers`
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `gallery`
@@ -370,7 +373,7 @@ ALTER TABLE `grupo`
 -- AUTO_INCREMENT de la tabla `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `logro`
@@ -383,6 +386,12 @@ ALTER TABLE `logro`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=68;
+
+--
+-- AUTO_INCREMENT de la tabla `suscripcion_grupo`
+--
+ALTER TABLE `suscripcion_grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la relación', AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
