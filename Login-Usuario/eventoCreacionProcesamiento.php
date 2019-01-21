@@ -11,6 +11,7 @@ session_start();
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'nameEvent' => FILTER_SANITIZE_STRING,
     'description' => FILTER_SANITIZE_STRING,
+    'grupoEvento' => FILTER_SANITIZE_NUMBER_INT,
 );
 
 //Primero saneamos
@@ -22,6 +23,12 @@ if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
 }
 if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
     $errores[] = "Hay un error en la descripcion";
+}
+//Habria que integrarlo en vector errores
+$errorGrupo = false;
+if (!is_numeric($saneado['grupoEvento'])) {
+    $errorGrupo = true;
+    ;
 }
 
 $date_celebration = $_POST["date-celebration"];
@@ -66,10 +73,16 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $name = $saneado["nameEvent"];
     $description = $saneado["description"];
     $host = $_SESSION["username"];
-
+    $grupo = 0;
+    if (!$errorGrupo) {
+        $grupo = $saneado["grupoEvento"];
+    }
     include("conexion.php");
 
-    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`) VALUES (NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '0')";
+    $consulta = "INSERT INTO `events` (`id`, `name`, `description`, "
+            . "`date_creation`, `date_celebration`, `host`, `rutaimagen`, "
+            . "`idLocation`, `idAdvertisers`, `group_id` ) VALUES "
+            . "(NULL, '$name', '$description', CURRENT_TIMESTAMP, '$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '$grupo')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
 
     mysqli_close($con); // Cerramos la base de datos
