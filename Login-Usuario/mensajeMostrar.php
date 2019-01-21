@@ -5,7 +5,7 @@
 $eventId = $_GET['id'];
 
 
-include_once("conexion.php");
+include("conexion.php");
 
 //seleccionamos los mensajes del evento
 $consulta_posts = "SELECT * FROM `posts` WHERE `eventId`='$eventId' ORDER BY `postedDate` DESC";

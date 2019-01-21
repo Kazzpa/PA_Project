@@ -14,7 +14,7 @@ $message = $saneado['msgTextArea'];
 $postedBy = $_SESSION['username'];
 $eventId = $_GET['id'];
 
-include_once("conexion.php");
+include("conexion.php");
 
 $consulta = "INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '0', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
 $resultado = mysqli_query($con, $consulta);

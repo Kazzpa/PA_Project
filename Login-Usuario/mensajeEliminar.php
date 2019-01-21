@@ -3,7 +3,7 @@
 //session_start();
 $post = $_POST['comment'];
 
-include_once("conexion.php");
+include("conexion.php");
 
 $consulta = "DELETE FROM `posts` WHERE `posts`.`id` = '$post'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 $resultado = mysqli_query($con, $consulta);

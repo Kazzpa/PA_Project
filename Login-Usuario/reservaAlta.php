@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once("conexion.php");
+include("conexion.php");
 
 if (isset($_POST['user'])) {
     $usuario = $_POST['user'];
@@ -10,7 +10,7 @@ if (isset($_POST['event_id'])) {
     $evento = $_POST['event_id'];
 }
 
-include_once("conexion.php");
+include("conexion.php");
 $consulta = "INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES (NULL, '$usuario', '$evento')"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
 $resultado = mysqli_query($con, $consulta);

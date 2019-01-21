@@ -1,6 +1,6 @@
 <?php
 
-include_once("conexion.php");
+include("conexion.php");
 
 //Recibimos los datos del formulario
 $datos = filter_input_array(INPUT_POST, FILTER_DEFAULT);

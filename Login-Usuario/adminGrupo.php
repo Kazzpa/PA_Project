@@ -4,8 +4,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
 if ($_SESSION['tipo'] == 1) {
-    include_once 'grupo_db.php';
-    include_once 'validation.php';
+    include ('grupo_db.php');
+    include ('validation.php');
 
 //imprime un formulario para buscar/seleccionar un grupo
     function formGrupo() {

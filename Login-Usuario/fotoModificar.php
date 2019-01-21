@@ -13,7 +13,7 @@ $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los 
 $saneado = filter_input_array(INPUT_POST, $saneamiento);
 $encabezado = $saneado["encabezado"];
 
-include_once("conexion.php");
+include("conexion.php");
 
 
 //actualizamos el encabezado

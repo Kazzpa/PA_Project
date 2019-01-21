@@ -18,7 +18,7 @@ if (isset($_POST["modificarFoto"])) {
                     $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];
                     move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
 
-                    include_once("conexion.php");
+                    include("conexion.php");
                     //Evento al que hay que modificar la foto
                     $id = $_POST["selectEvento"];
 
@@ -71,7 +71,7 @@ if (isset($_POST["modificarFoto"])) {
 
     $host = $_SESSION["username"];
 
-    include_once("conexion.php");
+    include("conexion.php");
 
     $consulta = "UPDATE `events` SET `$opcion` = '$value' WHERE `events`.`id` = '$id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
     $resultado = mysqli_query($con, $consulta);

@@ -4,8 +4,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
 if ($_SESSION['tipo'] == 1) {
-    include_once 'logros_db.php';
-    include_once 'validation.php';
+    include ('logros_db.php');
+    include ('validation.php');
     $limite = 5 * 1024 * 1024;
 
 //Formulario para crear logro

@@ -15,6 +15,7 @@ $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los 
 
 //Primero saneamos
 $saneado = filter_input_array(INPUT_POST, $saneamiento); //saneado te devuelve un array asociativo clave valor con los campos del formulario
+$errores = array();
 
 if (preg_match_all("/^[[:alnum:]]+/", $saneado["nameEvent"]) == 0) {
     $errores[] = "Hay un error en el nombre del evento";
@@ -24,7 +25,7 @@ if (preg_match_all("/^[[:alnum:]]+/", $saneado["description"]) == 0) {
 }
 
 $date_celebration = $_POST["date-celebration"];
-echo $date_celebration;
+
 if (preg_match_all("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/", $date_celebration) == 0) {
     $errores[] = "Hay un error en el formato de la fecha";
 }
@@ -65,8 +66,6 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $name = $saneado["nameEvent"];
     $description = $saneado["description"];
     $host = $_SESSION["username"];
-
-    echo "$name $description $date_celebration $host";
 
     include("conexion.php");
 

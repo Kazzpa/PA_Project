@@ -48,7 +48,7 @@ and open the template in the editor.
                             <input type = "datetime-local" name = "date-celebration" required placeholder="2018-06-12T19:30"/>
                         </div>
                         <?php
-                        include_once("conexion.php");
+                        include("conexion.php");
                         $consulta = "SELECT * FROM `advertisers`"; //consulta SQL para obtener el usuario, luego comprobamos la password
                         $resultado = mysqli_query($con, $consulta);
                         mysqli_close($con);

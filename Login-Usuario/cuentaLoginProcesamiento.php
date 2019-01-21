@@ -30,7 +30,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     $usuario = $saneado['username']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $password = $saneado['password'];
 
-    include_once("conexion.php");
+    include("conexion.php");
 
     $consulta = "SELECT * FROM `users` WHERE username = '$usuario'"; //consulta SQL para obtener el usuario, luego comprobamos la password
     $resultado = mysqli_query($con, $consulta);
