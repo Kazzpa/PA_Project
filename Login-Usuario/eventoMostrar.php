@@ -345,5 +345,6 @@ and open the template in the editor.
                 });
             });
         </script>
+        <script type="text/javascript" src="js/resize-textarea.js"></script>
     </body>
 </html>
