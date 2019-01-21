@@ -3,7 +3,8 @@
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
-if ($_SESSION['tipo'] == 1) {
+$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+if ($_SESSION['tipo'] == 1 && strpos($url, 'adminGrupo') !== false) {
     include ('grupo_db.php');
     include ('validation.php');
 
@@ -170,6 +171,26 @@ function trataCrearGrupo() {
         return true;
     }
     return false;
+}
+
+function printCardGrupo($grupoInfo) {
+    $str = "";
+    if ($grupoInfo !== false) {
+        $str = '<div class="card container" style="width: 18rem;">';
+        if (file_exists($grupoInfo[3])) {
+            $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
+                    . '" alt="imagen de grupo ' . $grupoInfo[1]
+                    . '" style="max-width:100%;"></img>';
+        }
+        $str .= ' <div class="card-body">
+                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1]
+                . '</h5><p class="card-text"><i class="material-icons">description</i>'
+                . substr($grupoInfo[2], 0, 50) . '...</p>
+                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-primary">Más informacion del grupo</a>
+              </div>
+            </div>';
+    }
+    return $str;
 }
 
 ?>

@@ -29,9 +29,12 @@ function getGroup($getName) {
     return $ret;
 }
 
-function getAllGroups() {
+function getAllGroups($limit) {
     $link = connectDB();
     $sql = "SELECT * FROM grupo";
+    if($limit !== false){
+        $sql .=" LIMIT ".$limit;
+    }
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {

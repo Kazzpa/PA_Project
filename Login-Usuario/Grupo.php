@@ -14,10 +14,11 @@
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
-        include 'header.php';
-        include 'grupo_db.php';
-        include 'validation.php';
-        include 'logros_db.php';
+        include_once 'header.php';
+        include_once 'grupo_db.php';
+        include_once 'validation.php';
+        include_once 'logros_db.php';
+        include_once 'adminGrupo.php';
         
         function printGrupo($group, $logrosInfo, $suscritos) {
             $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
@@ -31,7 +32,14 @@
                     . '</div></div><h4>' . $group[2] . "</h4>";
             return $str;
         }
-
+        function printGrupos(){
+            $str = "";
+            $ret = getAllGroups(10);
+            for($i = 0; $i < sizeof($ret);$i++){
+                $str.= printCardGrupo($ret[$i]);
+            }
+            return $str;
+        }
         function printSuscritos($suscritos) {
             $str = '<table class="table"><thead><tr><th></th>'
                     . '<th>Usuarios suscritos</th></tr></thead><tbody>';
@@ -106,6 +114,7 @@
                             echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
                         }
                         echo (printform());
+                        echo (printGrupos());
                     }
                     ?>
 

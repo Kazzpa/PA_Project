@@ -20,27 +20,8 @@ and open the template in the editor.
         $evento_id = $_GET['id'];
 
         include("conexion.php");
-
-        function printCardGrupo($grupoInfo) {
-            $str = "";
-            if ($grupoInfo !== false) {
-                $str = '<div class="card container" style="width: 18rem;">';
-                if (file_exists($grupoInfo[3])) {
-                    $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
-                            . '" alt="imagen de grupo ' . $grupoInfo[1]
-                            . '" style="max-width:100%;"></img>';
-                }
-                $str .= ' <div class="card-body">
-                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1]
-                        . '</h5><p class="card-text"><i class="material-icons">description</i>'
-                        . substr($grupoInfo[2], 0, 50) . '...</p>
-                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-primary">Más informacion del grupo</a>
-              </div>
-            </div>';
-            }
-            return $str;
-        }
-
+        include("adminGrupo.php");
+        
         $consulta = "SELECT * FROM `events` WHERE id = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
         $resultado = mysqli_query($con, $consulta);
@@ -136,13 +117,13 @@ and open the template in the editor.
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
-    <?php if (isset($_SESSION['username'])) { ?>
+                            <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
                                 <form action="mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
-    <?php } ?>
+                            <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">
                                 <tbody id="tbodyComments">
@@ -201,7 +182,7 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
-<?php include("mapsScript.php"); ?>
+        <?php include("mapsScript.php"); ?>
         <script type="text/javascript">
             $(document).ready(function () {
                 mostrarTabla();
@@ -275,11 +256,11 @@ and open the template in the editor.
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-if (isset($_SESSION['username']))
-    echo $_SESSION['username'];
-else
-    echo '';
-?>") {
+        if (isset($_SESSION['username']))
+            echo $_SESSION['username'];
+        else
+            echo '';
+        ?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
