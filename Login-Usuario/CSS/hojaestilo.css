@@ -112,18 +112,26 @@ footer {
     box-shadow: 0 2px 14px 0 rgba(25,26,30,0.05);
     border-bottom: 3px solid #f2f2f2;
     padding-top: 1px;
-    z-index: 2;
-    min-height: 7vw;
+    z-index: 1;
+    min-height: 6vw;
 }
-
+#header-top{
+    height: 12%;
+    min-height: 6vw;
+    width: 100%;
+}
 /***************Fixed Header*****************/
 .sticky { /* Mantiene el header fijo */
     position: fixed;
-    top: 0;
     width: 100%;
-    z-index:2;
-    padding-top: 102px;
 }
+
+/*.sticky-elements-header{
+    font-size: 3vw;
+}
+#sticky-elements{
+    font-size: 21px;
+}*/
 
 #head-logo{
     margin-top:0.05em;

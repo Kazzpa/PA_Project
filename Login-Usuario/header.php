@@ -1,26 +1,27 @@
 <!-- Header que usamos a lo largo de la pagina para mostrar la navegacion-->
-<div id="header-top"></div>
-<div id="header-fixed" class="header-fixed">
-    <header id="header">
-        <!-- Logo de la aplicacion-->
-        <div id="logo">
-            <a id="infinity-logo-header" href="index.php"><h1 id="head-logo">Infinity</h1></a>
-        </div>
+<div id="header-top">
+    <div id="header-fixed" class="sticky">
+        <header id="header"> 
+            <!-- Logo de la aplicacion-->
+            <div id="logo">
+                <a id="infinity-logo-header" href="index.php"><h1 id="head-logo">Infinity</h1></a>
+            </div>
 
-        <!--Barra de navegacion donde se mostraran las distintas paginas-->
-        <div id="header-nav">
-            <nav>
-                <a href="index.php" class="link"><i class="material-icons">home</i></a>
-                <a href="eventoIndex.php" class="link"><i class="material-icons">event</i></a>
-                <a href="Grupo.php" class="link"><i class="material-icons">group</i></a>
-                <a href="cuentaLogin.php" class="link"><i class="material-icons">account_circle</i></a>
-                <?php if (isset($_SESSION['login'])) echo "<a href='cuentaLogout.php' class='link'><i class='material-icons'>clear</i></a>"; ?>
-            </nav>
-        </div>
-    </header>
+            <!--Barra de navegacion donde se mostraran las distintas paginas-->
+            <div id="header-nav">
+                <nav>
+                    <a href="index.php" class="link"><i class="material-icons">home</i></a>
+                    <a href="eventoIndex.php" class="link"><i class="material-icons">event</i></a>
+                    <a href="Grupo.php" class="link"><i class="material-icons">group</i></a>
+                    <a href="cuentaLogin.php" class="link"><i class="material-icons">account_circle</i></a>
+                    <?php if (isset($_SESSION['login'])) echo "<a href='cuentaLogout.php' class='link'><i class='material-icons'>clear</i></a>"; ?>
+                </nav>
+            </div>
+        </header>
+    </div>
 </div>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     // When the user scrolls the page, execute myFunction 
     window.onscroll = function () {
         myFunction()
@@ -28,6 +29,8 @@
 
 // Get the header
     var header = document.getElementById("header-fixed");
+    var logo = document.getElementById("head-logo");
+    var link = document.getElementsByClassName("material-icons");
 
 // Get the offset position of the navbar
     var sticky = document.getElementById("header-top").offsetTop;
@@ -36,8 +39,16 @@
     function myFunction() {
         if (window.pageYOffset > sticky) {
             header.classList.add("sticky");
+            logo.classList.add("sticky-elements-header");
+            for(var i=0;i<link.length;i++){
+                link[i].id = "sticky-elements";
+            }
         } else {
             header.classList.remove("sticky");
+            logo.classList.remove("sticky-elements-header");
+            for(var i=0;i<link.length;i++){
+                link[i].removeAttribute("id");
+            }
         }
     }
-</script>
+</script>-->
