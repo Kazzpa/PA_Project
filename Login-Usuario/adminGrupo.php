@@ -1,7 +1,7 @@
 <?php
 
-include ('grupo_db.php');
-include ('validation.php');
+include_once ('grupo_db.php');
+include_once ('validation.php');
 
 function AdminGrupo() {
     $bol = compruebaEnviado();
@@ -169,17 +169,17 @@ function trataCrearGrupo() {
 function printCardGrupo($grupoInfo) {
     $str = "";
     if ($grupoInfo !== false) {
-        $str = '<div class="card container" style="width: 18rem;">';
+        $str = '<div class="card bg-dark col-sm-2 text-white">
+                <div class="card-header bg-secondary">Grupo del evento:<br/>' . $grupoInfo[1]
+                . '</div>';
         if (file_exists($grupoInfo[3])) {
-            $str .= ' <img class="card-img-top" src="' . $grupoInfo[3]
+            $str .= ' <img class="card-img" src="' . $grupoInfo[3]
                     . '" alt="imagen de grupo ' . $grupoInfo[1]
                     . '" style="max-width:100%;"></img>';
         }
-        $str .= ' <div class="card-body">
-                <h5 class="card-title">Grupo del evento:<br/>' . $grupoInfo[1]
-                . '</h5><p class="card-text"><i class="material-icons">description</i>'
+        $str .= ' <div class="card-body"><p class="card-text">'
                 . substr($grupoInfo[2], 0, 50) . '...</p>
-                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-primary">Más informacion del grupo</a>
+                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default">Más info</a>
               </div>
             </div>';
     }
