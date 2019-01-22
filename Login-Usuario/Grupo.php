@@ -19,7 +19,7 @@
         include_once 'validation.php';
         include_once 'logros_db.php';
         include_once 'adminGrupo.php';
-        
+
         function printGrupo($group, $logrosInfo, $suscritos) {
             $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
             if (file_exists($group[3])) {
@@ -32,19 +32,23 @@
                     . '</div></div><h4>' . $group[2] . "</h4>";
             return $str;
         }
-        function printGrupos(){
+
+        function printGrupos() {
             $str = "";
             $ret = getAllGroups(10);
-            for($i = 0; $i < sizeof($ret);$i++){
-                $str.= printCardGrupo($ret[$i]);
+            for ($i = 0; $i < sizeof($ret); $i++) {
+                $str .= printCardGrupo($ret[$i]);
             }
             return $str;
         }
-        function printSuscritos($suscritos) {
-            $str = '<table class="table"><thead><tr><th></th>'
-                    . '<th>Usuarios suscritos</th></tr></thead><tbody>';
 
+        function printSuscritos($suscritos) {
+            $str = "";
             if ($suscritos) {
+                $str = '<table class="table"><thead><tr><th></th>'
+                        . '<th>Usuarios suscritos</th></tr></thead><tbody>';
+
+
                 for ($i = 0; $i < sizeof($suscritos); $i++) {
                     $str .= '<tr><td>';
                     if ($suscritos[$i][1] > 0) {
@@ -52,8 +56,8 @@
                     }
                     $str .= '</td><td>' . $suscritos[$i][0] . '</td></tr > ';
                 }
+                $str .= '</tbody></table>';
             }
-            $str .= '</tbody></table>';
             return $str;
         }
 
@@ -120,9 +124,9 @@
 
 
                     <!--GALERIA DEL GRUPO-->
-                    <?php if ($bol) { ?>
+                        <?php if ($bol) { ?>
                         <div class="container">
-                            <?php include('fotoMostrar.php'); ?>
+                        <?php include('fotoMostrar.php'); ?>
                         </div>
                     <?php } ?>
                     <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
