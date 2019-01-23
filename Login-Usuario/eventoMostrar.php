@@ -1,4 +1,27 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+function printSuscritos($suscritos) {
+    $str = "";
+    if (sizeof($suscritos) > 0) {
+        $str = '<table class="table"><thead><tr>'
+                . '<th>Usuarios con reserva:</th></tr></thead><tbody>';
+
+
+        for ($i = 0; $i < sizeof($suscritos); $i++) {
+            $str .= '<tr>';
+            $str .= '<td>' . $suscritos[$i]['username'] . '</td></tr > ';
+        }
+        $str .= '</tbody></table>';
+    } else {
+        $str = '<table class="table"><thead><tr>'
+                . '<th>Usuarios con reserva:</th></tr></thead><tbody>';
+        $str .= '<tr><td> No hay personas apuntadas ¡Animate y apuntate! </td></tr > ';
+        $str .= '</tbody></table>';
+    }
+    return $str;
+}
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -107,10 +130,43 @@ and open the template in the editor.
                                 <?php
                             }
                         }
-                        echo "<img src='$rutaimagen' alt='imagen del evento' style='width:30%;'><br />";
+                        ?>
+                        <div class="col-md-12">
+                            <?php
+                            echo "<img class='col-md-9' src='$rutaimagen' alt='imagen del evento' style='width:60%;'><br />";
+
+                            include("conexion.php");
+
+                            $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
+
+                            $resultado = mysqli_query($con, $consulta);
+                            $filareserva = Array();
+                            ?>
+                            <div class='col-md-3'>
+                                <?php
+                                if ($resultado) {
+                                    if (!(mysqli_num_rows($resultado)) == 0) {
+                                        $i = 0;
+                                        //Retiramos las filas de la consulta realizada
+                                        while ($auxiliar = mysqli_fetch_array($resultado)) {
+                                            //Este auxiliar es para evitar que se meta la ultima iteracion vacia
+                                            $filareserva[$i] = $auxiliar;
+                                            $i++;
+                                        }
+                                        echo printSuscritos($filareserva);
+                                    } else {
+                                        echo printSuscritos($filareserva);
+                                    }
+                                } else {
+                                    echo printSuscritos($filareserva);
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <?php
                         echo "Creado el dia: $fechaCreacion<br />";
                         echo "Su host sera: $creador y se celebrara el dia: $fechaCelebracion<br />";
-                        echo "Su host cree que necesitara saber lo siguiente: $descripcion";
+                        echo "Su host cree que necesitara saber lo siguiente: $descripcion <br/>";
                         if ($grupoEvento != 0) {
                             echo (printCardGrupo($grupoInfo));
                         }
@@ -149,7 +205,7 @@ and open the template in the editor.
                     var markers = xml.documentElement.getElementsByTagName('marker');
                     if (markers.length === 0) {
                         document.body.removeChild(map);
-                        var header = document.getElementById('header');
+                        var header = document.getElementById('header-top');
                         var aviso = document.createElement('div');
                         aviso.className += "text-center well";
                         aviso.appendChild(document.createTextNode("Este evento no tiene una localización asignada, probablemente sea online. Contacte con el host para más información."));
