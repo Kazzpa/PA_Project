@@ -5,7 +5,7 @@ function printSuscritos($suscritos) {
     $str = "";
     if (sizeof($suscritos) > 0) {
         $str = '<table class="table"><thead><tr>'
-                . '<th>Usuarios con reserva:</th></tr></thead><tbody>';
+                . '<th>Algunos usuarios con reserva:</th></tr></thead><tbody>';
 
 
         for ($i = 0; $i < sizeof($suscritos); $i++) {
@@ -15,7 +15,7 @@ function printSuscritos($suscritos) {
         $str .= '</tbody></table>';
     } else {
         $str = '<table class="table"><thead><tr>'
-                . '<th>Usuarios con reserva:</th></tr></thead><tbody>';
+                . '<th>Algunos usuarios con reserva:</th></tr></thead><tbody>';
         $str .= '<tr><td> No hay personas apuntadas ¡Animate y apuntate! </td></tr > ';
         $str .= '</tbody></table>';
     }
@@ -137,7 +137,7 @@ and open the template in the editor.
 
                             include("conexion.php");
 
-                            $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
+                            $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id' ORDER BY RAND() LIMIT 5"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
                             $resultado = mysqli_query($con, $consulta);
                             $filareserva = Array();
