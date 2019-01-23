@@ -35,7 +35,7 @@ and open the template in the editor.
         </div>
         <div class="container login-container">
             <form action = "eventoAnuncianteCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
-                <div class="row-eq-height">
+                <div class="row">
                     <div class="col-md-6 login-form-1">
                         <h3>Datos del evento</h3>
                         <div class="form-group">
@@ -105,7 +105,7 @@ and open the template in the editor.
                             <input type="hidden" id="lngChange">
                         </div>
                     </div>
-                </div>>
+                </div>
             </form>
         </div>
 
