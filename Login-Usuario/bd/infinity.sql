@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2019 a las 20:50:07
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.2.5
+-- Tiempo de generación: 23-01-2019 a las 03:36:14
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -241,6 +241,25 @@ INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `mess
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `id_evento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES
+(1, 'irelia', 20);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `suscripcion_grupo`
 --
 
@@ -332,6 +351,12 @@ ALTER TABLE `posts`
   ADD KEY `postedBy` (`postedBy`);
 
 --
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `suscripcion_grupo`
 --
 ALTER TABLE `suscripcion_grupo`
@@ -388,6 +413,12 @@ ALTER TABLE `logro`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=68;
+
+--
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `suscripcion_grupo`
