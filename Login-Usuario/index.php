@@ -47,8 +47,6 @@ and open the template in the editor.
                         $consulta = "SELECT * FROM `events`,`advertisers` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers>0 AND events.idAdvertisers=advertisers.id ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password
                         $resultado = mysqli_query($con, $consulta);
 
-                        //Cerramos la conexion a la base de datos
-                        mysqli_close($con);
 
                         //-----------------------------------------------------
                         // Iteracion consulta y muestra por pantalla
@@ -104,11 +102,6 @@ and open the template in the editor.
                     -->
                     <div id="divEventosUsuarios" hidden>
                         <?php
-                        //-----------------------------------------------------
-                        // Consulta a la base de datos
-                        //-----------------------------------------------------
-                        //Realizamos una conexion a la base de datos
-                        include("conexion.php");
 
                         //Consulta a la BD que obtiene los 3 eventos creados por usuarios más proximos
                         $consulta = "SELECT * FROM `events` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers=0 ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password

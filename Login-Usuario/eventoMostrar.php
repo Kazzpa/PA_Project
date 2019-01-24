@@ -76,7 +76,6 @@ and open the template in the editor.
                     }
                 }
             }
-            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
             ?>
 
             <!--Google Maps API-->
@@ -97,13 +96,10 @@ and open the template in the editor.
                             '>$nombreEvento</h1>";
                         if (isset($_SESSION["login"])) {    //Si el usuario esta logado podra apuntarse al evento
                             //Hacemos una consulta para saber si ya esta suscrito o no al evento
-                            include("conexion.php");
                             $user = $_SESSION['username'];
                             $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id' AND username= '$user'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
                             $resultado = mysqli_query($con, $consulta);
-
-                            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
 
                             if (!$resultado || !(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
@@ -135,11 +131,12 @@ and open the template in the editor.
                             <?php
                             echo "<img class='col-md-9' src='$rutaimagen' alt='imagen del evento' style='width:60%;'><br />";
 
-                            include("conexion.php");
 
                             $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id' ORDER BY RAND() LIMIT 5"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
                             $resultado = mysqli_query($con, $consulta);
+
+                            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
                             $filareserva = Array();
                             ?>
                             <div class='col-md-3'>
@@ -153,13 +150,9 @@ and open the template in the editor.
                                             $filareserva[$i] = $auxiliar;
                                             $i++;
                                         }
-                                        echo printSuscritos($filareserva);
-                                    } else {
-                                        echo printSuscritos($filareserva);
                                     }
-                                } else {
-                                    echo printSuscritos($filareserva);
                                 }
+                                echo printSuscritos($filareserva);
                                 ?>
                             </div>
                         </div>
@@ -191,7 +184,9 @@ and open the template in the editor.
                     </div>
                 </div>
             </div> 
-        <?php } else {
+        <?php
+        } else {
+            mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
             ?>
             <p style="text-align: center;">La pagina a la que intenta acceder no existe</p>
             <?php
@@ -238,7 +233,7 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
-        <?php include("mapsScript.php"); ?>
+<?php include("mapsScript.php"); ?>
         <script type="text/javascript">
             $(document).ready(function () {
                 mostrarTabla();
@@ -312,11 +307,11 @@ and open the template in the editor.
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-        if (isset($_SESSION['username']))
-            echo $_SESSION['username'];
-        else
-            echo '';
-        ?>") {
+if (isset($_SESSION['username']))
+    echo $_SESSION['username'];
+else
+    echo '';
+?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
