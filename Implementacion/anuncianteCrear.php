@@ -1,6 +1,6 @@
 <?php
 //Conexion
-require_once "conexion.php";
+require_once "BackEnd/conexion.php";
  
 //Definir e inicializar variables
 $nombre = $organizacion = $alias = "";

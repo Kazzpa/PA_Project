@@ -1,6 +1,6 @@
 <?php
 
-$rutaImg = "img/";
+//$rutaImg = "img/";
 
 //Comprobar que tenga acceso
 //chequear http://php.net/manual/en/function.mysql-real-escape-string.php

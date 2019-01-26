@@ -24,7 +24,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
-    header('Refresh: 3; URL = cuentaLogin.php');
+    header('Refresh: 3; URL = ../cuentaLogin.php');
     echo "Le redireccionaremos al login en 3 segundos";
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $usuario = $saneado['username']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
@@ -53,11 +53,11 @@ if (key_exists(0, $errores)) {  //Si hay algun error
                     unset($_SESSION["fallido"]);
                 }
                 //$paginaWeb = $_SESSION['webRedirect']; SI HACE FALTA MIRAR LO DE LA REDIRECCION DESDE LA PAGINA DONDE ESTABAMOS
-                header("Location: index.php", true, 301); // Redireccionamos al usuario a la pagina de login, debe ser usada antes que cualquier output 
+                header("Location: ../index.php", true, 301); // Redireccionamos al usuario a la pagina de login, debe ser usada antes que cualquier output 
                 exit(); // Debemos terminar el script porque el script de la pagina no se sigue ejecutando tras usar header 
             } else {    //esque hemos fallado la consulta de otra manera
                 $_SESSION["fallido"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver 
-                header("Location: cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+                header("Location: ../cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
                 exit();
             }
         } else if ($fila['tipo'] == 1) {    //Si no
@@ -77,13 +77,13 @@ if (key_exists(0, $errores)) {  //Si hay algun error
                 exit();
             } else {    //esque hemos fallado la consulta de otra manera
                 $_SESSION["fallido"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver 
-                header("Location: cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+                header("Location: ../cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
                 exit();
             }
         }
     } else {
         $_SESSION["fallido"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver 
-        header("Location: cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+        header("Location: ../cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
         exit();
     }
 }

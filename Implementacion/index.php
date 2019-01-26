@@ -41,7 +41,7 @@ and open the template in the editor.
                         // Consulta a la base de datos
                         //-----------------------------------------------------
                         //Realizamos una conexion a la base de datos
-                        include("conexion.php");
+                        include("BackEnd/conexion.php");
 
                         //Consulta a la BD que obtiene los 3 eventos patrocinados más proximos
                         $consulta = "SELECT * FROM `events`,`advertisers` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers>0 AND events.idAdvertisers=advertisers.id ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password

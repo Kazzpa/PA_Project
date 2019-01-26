@@ -79,7 +79,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
             unset($_SESSION["rechazado"]);
         }
         $_SESSION["exito"] = TRUE;
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     } else {
         $_SESSION["rechazado"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver

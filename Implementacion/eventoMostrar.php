@@ -42,8 +42,8 @@ and open the template in the editor.
         include("header.php");
         $evento_id = $_GET['id'];
 
-        include("conexion.php");
-        include("adminGrupo.php");
+        include("BackEnd/conexion.php");
+        include("BackEnd/adminGrupo.php");
 
         $consulta = "SELECT * FROM `events` WHERE id = '$evento_id'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
@@ -103,7 +103,7 @@ and open the template in the editor.
 
                             if (!$resultado || !(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
-                                <form action="reservaBaja.php" method = "post">
+                                <form action="BackEnd/reservaBaja.php" method = "post">
                                     <input type=' submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
                                            color: #0062cc;background-color: #fff;' /><br />
                                            <?php
@@ -115,7 +115,7 @@ and open the template in the editor.
                                 <?php
                             } else {   //Si el usuario no esta apuntado le damos la opcion de hacerlo
                                 ?>
-                                <form action="reservaAlta.php" method = "post">
+                                <form action="BackEnd/reservaAlta.php" method = "post">
                                     <input type='submit' value="Reservar" class='btnSubmit' style='font-weight: 600;color: #0062cc;background-color: #fff;' /><br />
                                     <?php
                                     echo "<input type='hidden' name='user' value=$user>
@@ -168,7 +168,7 @@ and open the template in the editor.
                         <div id="comentsWapos" style="background-color: white; color:black;">
                             <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
-                                <form action="mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
+                                <form action="BackEnd/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
@@ -184,7 +184,7 @@ and open the template in the editor.
                     </div>
                 </div>
             </div> 
-        <?php
+            <?php
         } else {
             mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
             ?>
@@ -233,7 +233,7 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
-<?php include("mapsScript.php"); ?>
+        <?php include("mapsScript.php"); ?>
         <script type="text/javascript">
             $(document).ready(function () {
                 mostrarTabla();
@@ -307,11 +307,11 @@ and open the template in the editor.
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-if (isset($_SESSION['username']))
-    echo $_SESSION['username'];
-else
-    echo '';
-?>") {
+        if (isset($_SESSION['username']))
+            echo $_SESSION['username'];
+        else
+            echo '';
+        ?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";

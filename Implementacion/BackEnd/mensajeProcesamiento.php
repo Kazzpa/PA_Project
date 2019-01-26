@@ -21,6 +21,6 @@ $resultado = mysqli_query($con, $consulta);
 
 mysqli_close($con); // Cerramos la base de datos
 
-header("Location: eventoMostrar.php?id=$eventId"); 
+header("Location: ../eventoMostrar.php?id=$eventId"); 
 exit();
 

@@ -34,7 +34,7 @@ and open the template in the editor.
             <span id="place-address"></span>
         </div>
         <div class="container login-container">
-            <form action = "eventoAnuncianteCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
+            <form action = "BackEnd/eventoAnuncianteCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 login-form-1">
                         <h3>Datos del evento</h3>
@@ -48,7 +48,7 @@ and open the template in the editor.
                             <input type = "datetime-local" name = "date-celebration" required placeholder="2018-06-12T19:30"/>
                         </div>
                         <?php
-                        include("conexion.php");
+                        include("BackEnd/conexion.php");
                         $consulta = "SELECT * FROM `advertisers`"; //consulta SQL para obtener el usuario, luego comprobamos la password
                         $resultado = mysqli_query($con, $consulta);
                         mysqli_close($con);

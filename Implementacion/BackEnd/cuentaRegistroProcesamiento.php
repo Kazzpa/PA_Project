@@ -55,7 +55,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         echo "$valor <br/>";
     }
     echo "Le redireccionaremos al registro en 3 segundos";
-    header("Refresh: 3; URL = cuentaRegistro.php");
+    header("Refresh: 3; URL = ../cuentaRegistro.php");
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $nombre = $saneado['nombre']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $usuario = $saneado['username'];
@@ -81,17 +81,17 @@ if (key_exists(0, $errores)) {  //Si hay algun error
                 unset($_SESSION["rechazado"]);
             }
             $_SESSION["exito"] = TRUE;
-            header("Location: cuentaLogin.php");
+            header("Location: ../cuentaLogin.php");
             exit();
         } else {
             $_SESSION["rechazado"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver
-            header("Location: cuentaRegistro.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+            header("Location: ../cuentaRegistro.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
             exit();
         }
     } else {    //Si el nombre de usuario ya existe avisamos al usuario
         mysqli_close($con);
         $_SESSION["rechazado"] = TRUE;
-        header("Location: cuentaRegistro.php");
+        header("Location: ../cuentaRegistro.php");
         exit();
     }
 }

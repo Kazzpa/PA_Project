@@ -41,7 +41,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                     <?php
-                    include("conexion.php");
+                    include("BackEnd/conexion.php");
 
                     $consulta = "SELECT * FROM `events` WHERE date_celebration>CURRENT_TIMESTAMP ORDER BY date_celebration"; //consulta SQL para obtener el usuario, luego comprobamos la password
                     $resultado = mysqli_query($con, $consulta);

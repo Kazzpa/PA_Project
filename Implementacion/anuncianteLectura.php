@@ -1,7 +1,7 @@
 <?php
 //Chequea que exista parametro id
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    require_once "conexion.php";
+    require_once "BackEnd/conexion.php";
     
     //Preparacion sentencia 
     $sql = "SELECT * FROM advertisers WHERE id = ?";

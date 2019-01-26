@@ -1,6 +1,6 @@
 <?php
 //conexion
-require_once "conexion.php";
+require_once "BackEnd/conexion";
  
 //Definicion de variables vacias
 $nombre = $organizacion = $alias = "";

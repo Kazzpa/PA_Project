@@ -7,7 +7,7 @@ $datos = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $datos['lat'] == "" || $datos['lng'] == "") {
     $_SESSION['msg'] = "<span style='color: red';>No puede haber ningun campo vacio</span>";
-    header("Location: index.php");
+    redireccionLogin();
 } else {
     //Comprobamos si el usuario introducido ya existe, pues este va a hacer de pk en nuestra base de datos
     $name = $datos['name'];
@@ -30,4 +30,8 @@ if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $
         $idLocalizacion = $fila['id'];
     }
      mysqli_close($con);
+}
+
+function redireccionLogin(){
+    header("Refresh: 5; URL = ../cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
 }

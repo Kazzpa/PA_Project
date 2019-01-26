@@ -18,7 +18,7 @@ if (isset($_POST["modificarFoto"])) {   //Si hemos pulsado el boton de modificar
                     $nombreRuta = "userPhotos/" . time() . $_FILES["imagen"]["name"];
                     move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
 
-                    include("conexion.php");
+                    include("BackEnd/conexion");
                     $username = $_SESSION["username"];
                     //Obtenemos la ruta antigua para eliminarla
                     $consulta = "SELECT rutaimagen FROM `users` WHERE username = '$username'"; //consulta SQL para obtener el usuario, luego comprobamos la password

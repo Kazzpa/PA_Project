@@ -22,7 +22,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-md-6 login-form-1">
                     <h3>Formulario de registro</h3>
-                    <form action = "cuentaRegistroProcesamiento.php" method = "post" enctype="multipart/form-data">
+                    <form action = "BackEnd/cuentaRegistroProcesamiento.php" method = "post" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" name="nombre" class="form-control" placeholder="Nombre y Primer apellido" required />
                         </div>

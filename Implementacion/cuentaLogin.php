@@ -32,7 +32,7 @@ and open the template in the editor.
                     </div>
                     <div class="col-md-6 login-form-1">
                         <h3>Formulario de login</h3>
-                        <form action = "cuentaLoginProcesamiento.php" method = "post">
+                        <form action = "BackEnd/cuentaLoginProcesamiento.php" method = "post">
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control" placeholder="Username" required />
                             </div>
@@ -120,7 +120,7 @@ and open the template in the editor.
                                 <p style="font-size: 2em; text-align: center;">Eventos creados</p>
                                 <?php
                                 //Conexion a la base de datos
-                                include("conexion.php");
+                                include("BackEnd/conexion");
 
                                 //Consulta a la BD para extraer los eventos organizados por el usuario
                                 $username = $_SESSION["username"];
@@ -142,7 +142,7 @@ and open the template in the editor.
 
                                     <!-- Campo select modificacion de evento -->
                                     <p>Modificaci&oacute;n de evento</p>
-                                    <form id="formModificacionEvento" action = "eventoModificar.php" method = "post" enctype="multipart/form-data">
+                                    <form id="formModificacionEvento" action = "BackEnd/eventoModificar.php" method = "post" enctype="multipart/form-data">
                                         <!-- Colocamos en un campo select los eventos creados por el usuario-->
                                         <select name='selectEvento'>
                                             <?php
@@ -248,6 +248,7 @@ and open the template in the editor.
                                 <div class="col-sm-12 text-left well">
                                     <?php
                                     include 'logros_admin.php';
+                                    adminLogros();
                                     ?>
 
                                 </div>

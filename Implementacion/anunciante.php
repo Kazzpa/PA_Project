@@ -21,7 +21,7 @@
                         <h2 class="pull-left">Lista de Anunciantes</h2>                      
                     </div>
                     <?php                  
-                    require_once "conexion.php";                   
+                    require_once "BackEnd/conexion.php";                   
                 
                     $sql = "SELECT * FROM advertisers";
                     

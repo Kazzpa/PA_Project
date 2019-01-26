@@ -1,7 +1,7 @@
 <?php
 //Borrado
 if(isset($_POST["id"]) && !empty($_POST["id"])){
-    require_once "conexion.php";  
+    require_once "BackEnd/conexion.php";  
     //Prepara sentencia sql de borrado
     $sql = "DELETE FROM advertisers WHERE id = ?";   
     if($stmt = mysqli_prepare($con, $sql)){

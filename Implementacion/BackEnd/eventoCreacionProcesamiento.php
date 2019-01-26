@@ -64,7 +64,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         echo "$valor <br/>";
     }
     echo "Le redireccionaremos a la creacion de evento en 3 segundos";
-    header("Refresh: 3; URL = eventoCreacion.php");
+    header("Refresh: 3; URL = ../eventoCreacion.php");
 } else {
     //primero insertamos la localizacion del evento
     include("localizacionProcesamiento.php");
@@ -92,11 +92,11 @@ if (key_exists(0, $errores)) {  //Si hay algun error
             unset($_SESSION["rechazado"]);
         }
         $_SESSION["exito"] = TRUE;
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     } else {
         $_SESSION["rechazado"] = TRUE; //Podriamos añadir un elemento para saber que la conexion ha fallado y devolver
-        header("Location: eventoCreacion.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+        header("Location: ../eventoCreacion.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
         exit();
     }
 }

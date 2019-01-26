@@ -191,7 +191,7 @@ function printCardGrupo($grupoInfo) {
         }
         $str .= ' <div class="card-body"><p class="card-text">'
                 . substr($grupoInfo[2], 0, 50) . '...</p>
-                <a href="Grupo.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default">Más info</a>
+                <a href="grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default">Más info</a>
               </div>
             </div>';
     }

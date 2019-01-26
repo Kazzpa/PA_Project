@@ -15,7 +15,7 @@ and open the template in the editor.
     <body>
         <?php include("header.php"); ?>
                                                 
-                <form action = "fotosIncluir.php" method = "post" enctype="multipart/form-data">          
+        <form action = "BackEnd/fotosIncluir.php" method = "post" enctype="multipart/form-data">          
                     <div class="form-group">                       
                         <b>Descripci&oacute;n de la imagen:</b>
                         <input type = "text" name = "encabezado" class="form-control-file" />
@@ -30,7 +30,7 @@ and open the template in the editor.
             
                 <?php 
                 include 'grupo_db.php';
-                include('conexion.php');
+                include('BackEnd/conexion.php');
             
                 //Obtenemos el grupo seleccionado
                 $idGrupo = 1;

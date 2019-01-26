@@ -15,10 +15,10 @@
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
         include 'header.php';
-        include_once 'grupo_db.php';
-        include_once 'validation.php';
-        include_once 'logros_db.php';
-        include_once 'adminGrupo.php';
+        include_once 'BackEnd/grupo_db.php';
+        include_once 'BackEnd/validation.php';
+        include_once 'BackEnd/logros_db.php';
+        include_once 'BackEnd/adminGrupo.php';
 
         function printGrupo($group, $logrosInfo, $suscritos) {
             $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
@@ -92,7 +92,7 @@
             $entradas = filter_input_array(INPUT_GET, $filtros);
             $groupInfo = getGroup($entradas['grupo']);
             $logrosInfo = getGroupLogros($groupInfo[0]);
-            $infoSubscribers = false;
+            $infoSubscribers = getUsersSubs($entradas['grupo']);
             //$info2 = getUsersSubs($entradas['grupo']);
             //Grupo valido pero no registrado
             if (!$groupInfo) {
@@ -124,19 +124,19 @@
 
 
                     <!--GALERIA DEL GRUPO-->
-                        <?php if ($bol) { ?>
+                    <?php if ($bol) { ?>
                         <div class="container">
-                        <?php include('fotoMostrar.php'); ?>
+                            <?php include('BackEnd/fotoMostrar.php'); ?>
                         </div>
                     <?php } ?>
                     <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
                     <?php
                     if (isset($_SESSION['username']) && isset($_GET['grupo'])) {
-                        include('grupoIsAdmin.php');
+                        include('BackEnd/grupoIsAdmin.php');
                         if ($admin) {
                             ?>
                             <h3>Sube una imagen: </h3>
-                            <form action = "fotosIncluir.php" method = "post" enctype="multipart/form-data">          
+                            <form action = "BackEnd/fotosIncluir.php" method = "post" enctype="multipart/form-data">          
                                 <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                                 <p>Descripci&oacute;n de la imagen:</p>
                                 <input type = "text" name = "encabezado" class="form-control-file" />
@@ -171,7 +171,7 @@
                         var newEncabezado = $("#textArea" + encabezado).val();
                         $.ajax({
                             type: "POST",
-                            url: "fotoModificar.php",
+                            url: "BackEnd/fotoModificar.php",
                             data: {"encabezado": encabezado, "newEncabezado": newEncabezado},
                             cache: false,
                             success: function (data) {
@@ -186,7 +186,7 @@
                         var foto = $(this).attr('id');
                         $.ajax({
                             type: "POST",
-                            url: "fotoEliminar.php",
+                            url: "BackEnd/fotoEliminar.php",
                             data: {"foto": foto},
                             cache: false,
                             success: function (data) {

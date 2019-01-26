@@ -52,5 +52,5 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
 }
 
 
-header('Location: Grupo.php' . "?grupo=" . $_POST['grupoId']);
+header('Location: grupo_mostrar.php' . "?grupo=" . $_POST['grupoId']);
 ?>

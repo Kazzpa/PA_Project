@@ -16,6 +16,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
         ?>
         <a href='anunciante.php'>Administrar anunciantes</a><br />
         <a href='eventoAnuncianteCreacion.php'>Dar alta evento anunciantes</a><br/>
+        <!-- Habria que cambiar esto debido a que ahora estos php solo tienen funciones.-->
         <a href='logros_admin.php'>Administrar logros </a><br/>
         <a href='adminGrupo.php'>Administrar grupos </a><br/>
 

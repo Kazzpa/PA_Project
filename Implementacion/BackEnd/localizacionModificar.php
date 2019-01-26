@@ -8,7 +8,7 @@ $datos = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $datos['lat'] == "" || $datos['lng'] == "") {
     $_SESSION['msg'] = "<span style='color: red';>No puede haber ningun campo vacio</span>";
-    header("Location: index.php");
+    redireccionLogin();
 } else {
     //Comprobamos si esa localizacion tiene mas de un evento asociado
     // Para ello primero obtenemos la id de la localizacion del evento que se quiere modificar
@@ -41,6 +41,9 @@ if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $
         $resultado = mysqli_query($con, $consulta);
     }
     mysqli_close($con);
-    header("Location: cuentaLogin.php");
+    redireccionLogin();
+}
+function redireccionLogin(){
+    header("Refresh: 5; URL = ../cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
 }
 ?>

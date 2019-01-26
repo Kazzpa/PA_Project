@@ -1,46 +1,48 @@
 <?php
 
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-}
-if ($_SESSION['tipo'] == 1) {
-    include_once ('logros_db.php');
-    include_once ('validation.php');
-    $limite = 5 * 1024 * 1024;
-    $bol = checkEnviadoAdmin();
-    if ($bol < 5) {
-        switch ($bol) {
-            case 1:
-                echo '<h3 class="alert alert-warning" role="alert">
+function adminLogros() {
+    if (!isset($_SESSION['username'])) {
+        header("Location: ../index.php");
+    }
+    if ($_SESSION['tipo'] == 1) {
+        include_once ('logros_db.php');
+        include_once ('validation.php');
+        $limite = 5 * 1024 * 1024;
+        $bol = checkEnviadoAdmin();
+        if ($bol < 5) {
+            switch ($bol) {
+                case 1:
+                    echo '<h3 class="alert alert-warning" role="alert">
                             Logro eliminado con exito</h3>';
-                break;
-            case 2:
-                echo '<h3 class="alert alert-info" role="alert">
+                    break;
+                case 2:
+                    echo '<h3 class="alert alert-info" role="alert">
                             Logro creado con exito!</h3>';
-                break;
-            case 3:
-                echo '<h3 class="alert alert-warning" role="alert">
+                    break;
+                case 3:
+                    echo '<h3 class="alert alert-warning" role="alert">
                             Logro no creado, compruebe los campos.</h3>';
-            case 4:
-                echo '<h3 class="alert alert-info" role="alert">
+                case 4:
+                    echo '<h3 class="alert alert-info" role="alert">
                             Logro Modificado con exito!</h3>';
-                break;
-        }
-        echo (formBuscarLogro());
-        echo (formCrearLogro());
-    } else {
-        switch ($bol) {
-            case 5:
-                echo '<h3 class="alert alert-warning" role="alert">
+                    break;
+            }
+            echo (formBuscarLogro());
+            echo (formCrearLogro());
+        } else {
+            switch ($bol) {
+                case 5:
+                    echo '<h3 class="alert alert-warning" role="alert">
                             Logro no modificado, compruebe los campos.</h3>';
-                break;
-            case 6:
-                echo '<h3 class="alert alert-info" role="alert">
+                    break;
+                case 6:
+                    echo '<h3 class="alert alert-info" role="alert">
                             Logro encontrado con exito.</h3>';
-                break;
-        }
-        if (isset($_SESSION['logro'])) {
-            echo (formModLogro());
+                    break;
+            }
+            if (isset($_SESSION['logro'])) {
+                echo (formModLogro());
+            }
         }
     }
 }

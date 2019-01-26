@@ -6,7 +6,7 @@
 session_start();
 
 //Realizamos la conexion a la base de datos
-include("conexion.php");
+include("BackEnd/conexion");
 
 //Obtenemos la variable de sesion de usuario para realizar la consulta de eliminacion
 $usuario = $_SESSION['username'];
