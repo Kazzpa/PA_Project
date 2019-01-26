@@ -119,15 +119,13 @@ function crearGrupo($name, $desc, $img) {
     $consulta = "INSERT INTO grupo ( id , name, descripcion, image_path) VALUES ( 'NULL' , '" . $name . "' , '" . $desc . "'"
             . " , '" . $GLOBALS['rutaImg'] . $img['name'] . "' )";
 
-    echo "<br> consulta: <br/>" . $consulta . "<br/>";
     $resultado = mysqli_query($con, $consulta);
-    if ($resultado) {
-        echo "exito";
-    } else {
-        $bol = false;
+    if (!$resultado) { {
+            $bol = false;
+        }
+        mysqli_close($con);
+        return $bol;
     }
-    mysqli_close($con);
-    return $bol;
 }
 
 // 0: usuario 1: tipo

@@ -20,6 +20,7 @@
         include_once 'BackEnd/logros_db.php';
         include_once 'BackEnd/adminGrupo.php';
 
+        //Mostrar informacion de un grupo
         function printGrupo($group, $logrosInfo, $suscritos) {
             $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
             if (file_exists($group[3])) {
@@ -33,6 +34,7 @@
             return $str;
         }
 
+        //Mostrar cartas de distintos grupos
         function printGrupos() {
             $str = "";
             $ret = getAllGroups(10);
@@ -42,6 +44,7 @@
             return $str;
         }
 
+        //Mostrar tabla de usuarios suscritos
         function printSuscritos($suscritos) {
             $str = "";
             if ($suscritos) {
@@ -83,23 +86,31 @@
     </form>';
         }
 
+        //Sacamos el boton para crear un nuevo grupo
+        function printCreacion() {
+            $str = "";
+            if (isset($_SESSION["login"])) {
+                $str = '<form action="#" method="POST"><div class="form-group form-control-sm"><input type="submit" ' .
+                        'name="quieroCrear" class="btn btn-default" value="Crear Grupo">'
+                        . ' </input></div></form>
+                <br />';
+            }
+            return $str;
+        }
+
         $bol = isset($_GET['grupo']) && $_GET['grupo'] != '';
-        $bol2 = false;
         if ($bol) {
             $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
                 'grupo' => FILTER_SANITIZE_STRING
             );
             $entradas = filter_input_array(INPUT_GET, $filtros);
             $groupInfo = getGroup($entradas['grupo']);
-            $logrosInfo = getGroupLogros($groupInfo[0]);
-            $infoSubscribers = getUsersSubs($entradas['grupo']);
-            //$info2 = getUsersSubs($entradas['grupo']);
-            //Grupo valido pero no registrado
-            if (!$groupInfo) {
+            if ($groupInfo !== false) {
+                $logrosInfo = getGroupLogros($groupInfo[0]);
+                $infoSubscribers = getUsersSubs($entradas['grupo']);
+                //Grupo valido pero no registrado
+            } else {
                 $bol = false;
-            }
-            if ($infoSubscribers) {
-                $bol2 = true;
             }
         }
         ?>
@@ -114,11 +125,29 @@
                     if ($bol) {
                         echo (printGrupo($groupInfo, $logrosInfo, $infoSubscribers));
                     } else {
-                        if (isset($_GET['grupo']) && $_GET['grupo'] != '') {
-                            echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
+                        if (isset($_POST['quieroCrear'])) {
+
+                            echo (formCrearGrupo());
+                        } else if (isset($_POST['crearGrupo'])) {
+                            if (isset($_POST['grupoName']) && isset($_POST['grupoDesc']) && isset($_FILES['grupoImg'])) {
+                                $bol = trataCrearGrupo();
+                                if ($bol) {
+                                    echo "<h4 class='alert alert-success' width='30%'>Creado grupo con exito</h2>";
+                                }
+                                echo (printCreacion());
+                                echo (printform());
+                                echo (printGrupos());
+                            } else {
+                                echo (formCrearGrupo());
+                            }
+                        } else {
+                            if (isset($_GET['grupo']) && $_GET['grupo'] != '') {
+                                echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
+                            }
+                            echo (printCreacion());
+                            echo (printform());
+                            echo (printGrupos());
                         }
-                        echo (printform());
-                        echo (printGrupos());
                     }
                     ?>
 

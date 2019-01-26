@@ -2,10 +2,10 @@
 
 include_once ('grupo_db.php');
 include_once ('validation.php');
+
 //======================================================================
 // CONTROL FUNCIONES DE GRUPO.
 //======================================================================
-
 //-----------------------------------------------------
 // Funciones de formulario y control de que formulario mostrar
 //-----------------------------------------------------
@@ -60,14 +60,22 @@ function formModGrupo() {
 
 //Formulario de creacion de grupo
 function formCrearGrupo() {
-    return '<h4> Panel Creacion de Grupo </h4>
+    $str = '<h4> Panel Creacion de Grupo </h4>
 <form action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <b>Nombre: </b><br/>
-        <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"><br/>
+        <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"';
+    if (isset($_POST['grupoName'])) {
+        echo $_POST['grupoName'];
+    }
+    $str.='><br/>
     </div><div class="form-group">
         <b>Descripcion: </b><br/>
-        <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"><br/>
+        <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"';
+    if (isset($_POST['grupoDesc'])) {
+        echo $_POST['grupoDesc'];
+    }
+    $str.='><br/>
     </div><div class="form-group">
         <b>Imagen: </b><br/>
         <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen"><br/>
@@ -75,6 +83,7 @@ function formCrearGrupo() {
     <input type="submit" class="btn btn-primary" name="crearGrupo" value="Crear">
 
 </form>';
+    return $str;
 }
 
 //-----------------------------------------------------
@@ -176,7 +185,6 @@ function trataCrearGrupo() {
 //-----------------------------------------------------
 // Funcion de mostrar visualmente grupos.
 //-----------------------------------------------------
-
 //funcion para mostrar un grupo en una carta.
 function printCardGrupo($grupoInfo) {
     $str = "";

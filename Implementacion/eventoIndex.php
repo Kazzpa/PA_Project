@@ -67,26 +67,26 @@ and open the template in the editor.
 
                             echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
-        <tr>
-            <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
-        </tr>
-        <tr>
-            <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
-        </tr>
-        <tr>
-            <td>$descripcion</td>
-        </tr>
-        <tr>
-            <td>Creacion: $fechaCreacion</td>
-        </tr>
-        <tr>
-            <td>Celebracion: $fechaCelebracion</td>
-        </tr>
-        <tr>
-            <td>Creador: $creador</td>
-        </tr>
-</table> 
-</div>";
+                                        <tr>
+                                            <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
+                                        </tr>
+                                        <tr>
+                                            <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                        </tr>
+                                        <tr>
+                                            <td>$descripcion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Creacion: $fechaCreacion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Celebracion: $fechaCelebracion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Creador: $creador</td>
+                                        </tr>
+                                </table> 
+                                </div>";
                         }
                     } else {
                         echo "No hay eventos creados, animate y crea el tuyo!";
