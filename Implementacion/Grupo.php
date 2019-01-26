@@ -14,7 +14,7 @@
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
-        include_once 'header.php';
+        include 'header.php';
         include_once 'grupo_db.php';
         include_once 'validation.php';
         include_once 'logros_db.php';

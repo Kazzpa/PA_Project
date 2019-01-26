@@ -2,7 +2,15 @@
 
 include_once ('grupo_db.php');
 include_once ('validation.php');
+//======================================================================
+// CONTROL FUNCIONES DE GRUPO.
+//======================================================================
 
+//-----------------------------------------------------
+// Funciones de formulario y control de que formulario mostrar
+//-----------------------------------------------------
+//si estamos en administracion mostraremos los distintos formularios en funcion
+// de si se enviaron los formularios correctamente
 function AdminGrupo() {
     $bol = compruebaEnviado();
     if (!$bol) {
@@ -50,6 +58,7 @@ function formModGrupo() {
     return $str;
 }
 
+//Formulario de creacion de grupo
 function formCrearGrupo() {
     return '<h4> Panel Creacion de Grupo </h4>
 <form action="" method="POST" enctype="multipart/form-data">
@@ -68,6 +77,9 @@ function formCrearGrupo() {
 </form>';
 }
 
+//-----------------------------------------------------
+// Tratamiento de formularios
+//-----------------------------------------------------
 //Devuelve falso si no se ha enviado, o si no esta el grupo registrado
 //si esta registrado, lo guarda en una variable de sesion
 function compruebaEnviado() {
@@ -78,7 +90,7 @@ function compruebaEnviado() {
         $entradas = filter_input_array(INPUT_POST, $filtros);
         $grupo = getGroup($entradas['grupo']);
         if ($grupo != false) {
-//guardamos la info del grupo en sesion
+            //guardamos la info del grupo en sesion
             $_SESSION['grupo'] = $grupo;
             return true;
         } else {
@@ -89,13 +101,15 @@ function compruebaEnviado() {
             trataModGrupo();
         }
     } else if (isset($_POST['EliminarGrupo']) && isset($_SESSION['grupo'])) {
-        trataEliminarGrupo();
+        //eliminamos el grupo que hemos mostrado, que se encuentra en sesion
+        eliminarGrupo($_SESSION['grupo'][0]);
+        unset($_SESSION['grupo']);
     } else if (isset($_POST['crearGrupo']) && !isset($_SESSION['grupo'])) {
         if (isset($_POST['grupoName']) && isset($_POST['grupoDesc']) && isset($_FILES['grupoImg'])) {
             trataCrearGrupo();
         }
     }
-//por defecto devolvemos falso
+    //por defecto devolvemos falso
     return false;
 }
 
@@ -136,13 +150,6 @@ function trataModGrupo() {
     }
 }
 
-//Tratamineto formulario EliminarGrupo
-function trataEliminarGrupo() {
-    $bol = eliminarGrupo($_SESSION['grupo'][0]);
-    unset($_SESSION['grupo']);
-    return $bol;
-}
-
 //Tratamiento formulario crear grupo
 function trataCrearGrupo() {
     $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
@@ -166,6 +173,11 @@ function trataCrearGrupo() {
     return false;
 }
 
+//-----------------------------------------------------
+// Funcion de mostrar visualmente grupos.
+//-----------------------------------------------------
+
+//funcion para mostrar un grupo en una carta.
 function printCardGrupo($grupoInfo) {
     $str = "";
     if ($grupoInfo !== false) {
