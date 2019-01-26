@@ -1,7 +1,7 @@
 <?php
 
 //variable global ruta de la carpeta donde guardar las imagenes
-$rutaImg = "img/";
+$rutaImg = "../img/";
 $limite = 5 * 1024 * 1024; #5MB limite imagen
 
 function validarString($name, $size) {

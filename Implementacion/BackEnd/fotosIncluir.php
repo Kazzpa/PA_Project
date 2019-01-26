@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
@@ -23,15 +24,13 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
               echo  "Hay un error con el size de imagen";
               }else{ */
             $nombreRuta = "groupPhotos/" . $idGrupo . "/" . time() . $_FILES["imagen"]["name"];
-            if (!file_exists("groupPhotos")) {
-                mkdir("groupPhotos");
-                mkdir("groupPhotos/" . $idGrupo);
-            } else {
-                if (!file_exists("groupPhotos/" . $idGrupo)) {
-                    mkdir("groupPhotos/" . $idGrupo);
-                }
+            if (!file_exists("../groupPhotos")) {
+                mkdir("../groupPhotos");
             }
-            move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
+            if (!file_exists("../groupPhotos/" . $idGrupo)) {
+                mkdir("../groupPhotos/" . $idGrupo);
+            }
+            move_uploaded_file($_FILES["imagen"]["tmp_name"], "../" . $nombreRuta);
             include("conexion.php");
             $consulta = "INSERT INTO gallery ( id , grupo, rutaImagen, encabezado) VALUES ( 'NULL' , '" . $idGrupo . "' , '" . $nombreRuta . "' , '" . $encabezado . "')";
             $resultado = mysqli_query($con, $consulta);

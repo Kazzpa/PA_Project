@@ -16,7 +16,7 @@ if (isset($_POST["modificarFoto"])) {
                     redireccionLogin();
                 } else {
                     $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];
-                    move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
+                    move_uploaded_file($_FILES["imagen"]["tmp_name"], "../".$nombreRuta);
 
                     include("conexion.php");
                     //Evento al que hay que modificar la foto

@@ -59,6 +59,7 @@ and open the template in the editor.
             $descripcion = $fila['description'];
             $evento_id = $fila['id'];
             $rutaimagen = $fila['rutaimagen'];
+            if(file_exists($rutaimagen));
             $grupoEvento = $fila['group_id'];
             $grupoInfo = false;
             if ($grupoEvento != 0) {
@@ -194,7 +195,7 @@ and open the template in the editor.
         ?>
         <script type="text/javascript">
             function initMap() {
-                downloadUrl('localizacionMostrar.php?id=<?php echo $evento_id; ?>', function (data) {
+                downloadUrl('BackEnd/localizacionMostrar.php?id=<?php echo $evento_id; ?>', function (data) {
                     var map = document.getElementById('map');
                     var xml = data.responseXML;
                     var markers = xml.documentElement.getElementsByTagName('marker');
@@ -242,7 +243,7 @@ and open the template in the editor.
                 function mostrarTabla() {
                     $.ajax({
                         type: "POST",
-                        url: "mensajeMostrar.php?id=<?php echo $_GET['id']; ?>",
+                        url: "BackEnd/mensajeMostrar.php?id=<?php echo $_GET['id']; ?>",
                         cache: false,
                         success: function (data) {
                             console.log(data);
@@ -339,7 +340,7 @@ and open the template in the editor.
                         var comment = $(this).attr('id');
                         $.ajax({
                             type: "POST",
-                            url: "mensajeEliminar.php",
+                            url: "BackEnd/mensajeEliminar.php",
                             data: {"comment": comment},
                             cache: false,
                             success: function (data) {
@@ -366,7 +367,7 @@ and open the template in the editor.
                             var newComment = $("#textArea" + comment).val();
                             $.ajax({
                                 type: "POST",
-                                url: "mensajeModificar.php",
+                                url: "BackEnd/mensajeModificar.php",
                                 data: {"comment": comment, "newComment": newComment},
                                 cache: false,
                                 success: function (data) {

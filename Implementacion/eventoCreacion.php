@@ -34,7 +34,7 @@ and open the template in the editor.
             <span id="place-address"></span>
         </div>
         <div class="container login-container">
-            <form action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
+            <form action = "BackEnd/eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 login-form-1">
                         <h3>Datos del evento</h3>
@@ -51,7 +51,7 @@ and open the template in the editor.
                             <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                         </div>
                         <?php
-                        include 'grupo_db.php';
+                        include 'BackEnd/grupo_db.php';
                         $gruposMod = getGroupsSubbed($_SESSION['username']);
                         if ($gruposMod !== false) {
                             echo '<div class="form-group">

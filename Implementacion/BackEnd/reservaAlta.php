@@ -49,11 +49,11 @@ if ($resultado) {
     mail($to, $subject, $message, $headers);
 
 // Enviarlo
-    header("Refresh: 3; URL = $paginaActual?id=$evento");
+    header("Refresh: 3; URL = ../$paginaActual?id=$evento");
     echo "Se ha enviado un QR por si quiere compartir el evento";
     exit();
 } else {
-    header("Refresh: 3; URL = $paginaActual?id=$evento");
+    header("Refresh: 3; URL = ../$paginaActual?id=$evento");
     echo "Hubo un error al dar de alta la reserva";
     exit();
 }

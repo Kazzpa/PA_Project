@@ -32,8 +32,8 @@ function getGroup($getName) {
 function getAllGroups($limit) {
     $link = connectDB();
     $sql = "SELECT * FROM grupo";
-    if($limit !== false){
-        $sql .=" LIMIT ".$limit;
+    if ($limit !== false) {
+        $sql .= " LIMIT " . $limit;
     }
     $res = mysqli_query($link, $sql);
     $ret = false;
@@ -133,14 +133,14 @@ function crearGrupo($name, $desc, $img) {
 // 0: usuario 1: tipo
 function getUsersSubs($getName) {
     $link = connectDB();
-    $sql = "SELECT users.name,suscripcion_grupo.rol FROM suscripcion_grupo,"
-            . " users, grupo WHERE suscripcion_grupo.user_id = users.username"
-            . " AND suscripcion_grupo.grupo_id = grupo.id AND grupo.name = " . $getName;
+    $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
+            . " `grupo` WHERE users.username = suscripcion_grupo.user_id AND"
+            . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id";
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
         mysqli_close($link);
-        die("ERROR: SELECT QUERY ERROR");
+        $ret = false;
     } else {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
@@ -157,12 +157,13 @@ function getUsersSubs($getName) {
     }
     return $ret;
 }
+
 //0: grupo_id 1:name
 function getGroupsSubbed($userName) {
     $link = connectDB();
     $sql = "SELECT grupo.name, grupo.id FROM suscripcion_grupo,"
             . " users, grupo WHERE suscripcion_grupo.user_id = users.username"
-            . " AND suscripcion_grupo.rol = 1 AND suscripcion_grupo.grupo_id = grupo.id AND users.username= '" . $userName."'";
+            . " AND suscripcion_grupo.rol = 1 AND suscripcion_grupo.grupo_id = grupo.id AND users.username= '" . $userName . "'";
 
     $res = mysqli_query($link, $sql);
     $ret = false;
