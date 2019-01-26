@@ -22,7 +22,17 @@
 
         //Mostrar informacion de un grupo
         function printGrupo($group, $logrosInfo, $suscritos) {
-            $str = "<h1>" . $group[1] . '</h1><div class="col-md-12">';
+            $str = '<div class="col-md-12"><h1>' . $group[1] . '</h1>';
+
+            if (isset($_SESSION["login"])) {
+                //Ahora mismo el boton no hace nada
+                $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
+                if ($estaSuscrito !== false) {
+                    $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary"></input>';
+                }else{
+                    $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary"></input>';
+                }
+            }
             if (file_exists($group[3])) {
                 $str .= '<img class="col-md-9 img-fluid" src="' . $group[3]
                         . '" alt="imagen de ' . $group[1]

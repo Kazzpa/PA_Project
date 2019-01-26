@@ -29,6 +29,21 @@ function getGroup($getName) {
     return $ret;
 }
 
+function isSubbedToGroup($user, $group) {
+    $link = connectDB();
+    $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
+            . " `grupo` WHERE '$user' = suscripcion_grupo.user_id AND"
+            . " suscripcion_grupo.grupo_id = '$group' AND users.username = "
+            . "suscripcion_grupo.user_id and suscripcion_grupo.grupo_id = grupo.id";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if (mysqli_num_rows($res) > 0) {
+        $ret = true;
+    }
+    mysqli_close($link);
+    return $ret;
+}
+
 function getAllGroups($limit) {
     $link = connectDB();
     $sql = "SELECT * FROM grupo";

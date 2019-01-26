@@ -68,14 +68,14 @@ function formCrearGrupo() {
     if (isset($_POST['grupoName'])) {
         echo $_POST['grupoName'];
     }
-    $str.='><br/>
+    $str .= '><br/>
     </div><div class="form-group">
         <b>Descripcion: </b><br/>
         <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"';
     if (isset($_POST['grupoDesc'])) {
         echo $_POST['grupoDesc'];
     }
-    $str.='><br/>
+    $str .= '><br/>
     </div><div class="form-group">
         <b>Imagen: </b><br/>
         <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen"><br/>
@@ -182,6 +182,7 @@ function trataCrearGrupo() {
     return false;
 }
 
+
 //-----------------------------------------------------
 // Funcion de mostrar visualmente grupos.
 //-----------------------------------------------------
@@ -189,13 +190,14 @@ function trataCrearGrupo() {
 function printCardGrupo($grupoInfo) {
     $str = "";
     if ($grupoInfo !== false) {
+
         $str = '<div class="card bg-dark col-sm-2 text-white">
                 <div class="card-header bg-secondary">Grupo del evento:<br/>' . $grupoInfo[1]
                 . '</div>';
         if (file_exists($grupoInfo[3])) {
-            $str .= ' <img class="card-img" src="' . $grupoInfo[3]
+            $str .= ' <a href="grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default" ><img class="card-img" src="' . $grupoInfo[3]
                     . '" alt="imagen de grupo ' . $grupoInfo[1]
-                    . '" style="max-width:100%;"></img>';
+                    . '" style="max-width:100%;"></img></a>';
         }
         $str .= ' <div class="card-body"><p class="card-text">'
                 . substr($grupoInfo[2], 0, 50) . '...</p>
