@@ -4,18 +4,18 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     require_once "BackEnd/conexion.php";
     
     //Preparacion sentencia 
-    $sql = "SELECT * FROM advertisers WHERE id = ?";
+    $consulta = "SELECT * FROM advertisers WHERE id = ?";
     
-    if($stmt = mysqli_prepare($con, $sql)){
+    if($declaracion = mysqli_prepare($con, $consulta)){
         //Vincular variables a la declaración
-        mysqli_stmt_bind_param($stmt, "i", $id_parametro);
+        mysqli_stmt_bind_param($declaracion, "i", $id_parametro);
         
         //Asignacion de parametros
         $id_parametro = trim($_GET["id"]);
         
         //Intento de ejecutar sentencia
-        if(mysqli_stmt_execute($stmt)){
-            $resultado = mysqli_stmt_get_result($stmt);
+        if(mysqli_stmt_execute($declaracion)){
+            $resultado = mysqli_stmt_get_result($declaracion);
     
             if(mysqli_num_rows($resultado) == 1){                
                 $fila = mysqli_fetch_array($resultado, MYSQLI_ASSOC);             
@@ -33,7 +33,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         }
     }   
     //Cerrar 
-    mysqli_stmt_close($stmt);
+    mysqli_stmt_close($declaracion);
     
     //Cerrar conexion
     mysqli_close($con);
@@ -55,7 +55,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 <body>
     <div class="envoltura">
         <div class="container-fluid">
-            <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
                         <h1>Vista de registro</h1>
@@ -73,8 +72,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p class="form-control-static"><?php echo $fila["alias"]; ?></p>
                     </div>
                     <p><a href="anunciante.php" class="btn btn-primary">Volver</a></p>
-                </div>
-            </div>        
+                </div>                
         </div>
     </div>
 </body>

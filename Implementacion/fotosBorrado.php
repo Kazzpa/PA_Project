@@ -3,14 +3,14 @@
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     require_once "BackEnd/conexion.php";  
     //Prepara sentencia sql de borrado
-    $sql = "DELETE FROM gallery WHERE id = ?";   
-    if($stmt = mysqli_prepare($con, $sql)){
+    $consulta = "DELETE FROM gallery WHERE id = ?";   
+    if($declaracion = mysqli_prepare($con, $consulta)){
         //Enlace de variables
-        mysqli_stmt_bind_param($stmt, "i", $id_parametro);      
+        mysqli_stmt_bind_param($declaracion, "i", $id_parametro);      
         //Asignacion de parametros 
         $id_parametro = trim($_POST["id"]);      
         // Ejecucion
-        if(mysqli_stmt_execute($stmt)){
+        if(mysqli_stmt_execute($declaracion)){
             //Borrado correcto
             header("location: fotos.php");
             exit();
@@ -19,7 +19,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         }
     }     
     //cerrar
-    mysqli_stmt_close($stmt);    
+    mysqli_stmt_close($declaracion);    
     //Cerrar conexion
     mysqli_close($con);
 } else{
