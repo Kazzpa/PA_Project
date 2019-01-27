@@ -2,7 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Visualizacion grupo WIP</title>
+        <title>Grupo<?php
+            if (isset($_GET['grupo'])) {
+                echo ' - ' . $_GET['grupo'];
+            } else {
+                echo 's';
+            }
+            ?></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php include 'stylesheets.php';
@@ -29,7 +35,7 @@
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
                 if ($estaSuscrito !== false) {
                     $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary"></input>';
-                }else{
+                } else {
                     $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary"></input>';
                 }
             }
@@ -48,6 +54,7 @@
         function printGrupos() {
             $str = "";
             $ret = getAllGroups(10);
+
             for ($i = 0; $i < sizeof($ret); $i++) {
                 $str .= printCardGrupo($ret[$i]);
             }
@@ -136,12 +143,12 @@
                         echo (printGrupo($groupInfo, $logrosInfo, $infoSubscribers));
                     } else {
                         if (isset($_POST['quieroCrear'])) {
-
                             echo (formCrearGrupo());
                         } else if (isset($_POST['crearGrupo'])) {
                             if (isset($_POST['grupoName']) && isset($_POST['grupoDesc']) && isset($_FILES['grupoImg'])) {
-                                $bol = trataCrearGrupo();
-                                if ($bol) {
+                                $resCrear = trataCrearGrupo();
+                                suscribirseGrupo($_SESSION['username'], $resCrear[1], true);
+                                if ($resCrear[0]) {
                                     echo "<h4 class='alert alert-success' width='30%'>Creado grupo con exito</h2>";
                                 }
                                 echo (printCreacion());
