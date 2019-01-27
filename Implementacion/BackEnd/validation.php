@@ -1,7 +1,7 @@
 <?php
 
 //variable global ruta de la carpeta donde guardar las imagenes
-$rutaImg = "../img/";
+$rutaImg = "img/";
 $limite = 5 * 1024 * 1024; #5MB limite imagen
 
 function validarString($name, $size) {
@@ -40,11 +40,18 @@ function limiteTamanyo($archivo) {
 //guarda en ficheros la foto
 function saveToDisk($archivo) {
     $bol = False;
+
     if (file_exists($archivo['tmp_name'])) {
+        echo 'existe el archivo en temporales';
         if (!file_exists($GLOBALS['rutaImg'])) {
+            echo 'no existia carpeta img';
             mkdir($GLOBALS['rutaImg']);
+        }else{
+            echo "existia carpeta img";
         }
-        if (move_uploaded_file($archivo['tmp_name'], $GLOBALS['rutaImg'] . $archivo['name'])) {
+        $ruta = $GLOBALS['rutaImg'] . $archivo['name'];
+        if (move_uploaded_file($archivo['tmp_name'], $ruta)) {
+            echo 'movido a carpeta que deberia';
             $bol = True;
         }
     }

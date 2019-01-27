@@ -173,11 +173,11 @@ function trataCrearGrupo() {
         $name = $entradas['grupoName'];
         $desc = $entradas['grupoDesc'];
         $img = $_FILES['grupoImg'];
-        $test = crearGrupo($name, $desc, $img);
-        if ($test) {
+        $info = crearGrupo($name, $desc, $img);
+        if ($info[0]) {
             saveToDisk($img);
         }
-        return true;
+        return $info;
     }
     return false;
 }

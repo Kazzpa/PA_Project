@@ -1,8 +1,16 @@
 <?php
 
 //crea la conexion con la base de datos y no la cierra.
+$conexion = false;
+
+//Patron singleton para conexion
 function connectDB() {
-    include("conexion.php");
+    if ($GLOBALS['conexion'] == false) {
+        include("conexion.php");
+        $conexion = $con;
+    } else {
+        $con = $conexion;
+    }
     return $con;
 }
 
@@ -76,7 +84,7 @@ function modificarGrupo($id, $name, $desc, $img) {
     $con = connectDB();
 //Hacemos una insercion en la base de datos, la fecha de registro es automatica
     $consulta = "UPDATE grupo SET ";
-    //Hacemos comprobaciones para cambiar unicamente los campos que nos interesan
+//Hacemos comprobaciones para cambiar unicamente los campos que nos interesan
     $bol = true;
     $bol2 = false;
     if ($name != false) {
@@ -93,7 +101,7 @@ function modificarGrupo($id, $name, $desc, $img) {
         if ($bol2) {
             $consulta = $consulta . ",";
         }
-        //usamos variable global por si queremos cambiar la ruta donde guardar las imagenes
+//usamos variable global por si queremos cambiar la ruta donde guardar las imagenes
         $consulta = $consulta . " image_path = '" . $GLOBALS['rutaImg'] . $img['name'] . "'";
     }
     $consulta = $consulta . " WHERE id = '" . $id . "'";
@@ -110,7 +118,7 @@ function modificarGrupo($id, $name, $desc, $img) {
 function eliminarGrupo($id) {
     $bol = true;
     $con = connectDB();
-    //Eliminamos el grupo con el id especificado
+//Eliminamos el grupo con el id especificado
     $consulta = 'DELETE FROM grupo WHERE id ="' . $id . '"';
     $resultado = mysqli_query($con, $consulta);
     if ($resultado) {
@@ -127,7 +135,7 @@ function eliminarGrupo($id) {
 
 //crear grupo en db
 function crearGrupo($name, $desc, $img) {
-    $bol = true;
+    $info[0] = true;
     $con = connectDB();
 //Hacemos una insercion en la base de datos, la fecha de registro es automatica
 
@@ -135,12 +143,33 @@ function crearGrupo($name, $desc, $img) {
             . " , '" . $GLOBALS['rutaImg'] . $img['name'] . "' )";
 
     $resultado = mysqli_query($con, $consulta);
-    if (!$resultado) { {
-            $bol = false;
+    if (!$resultado) {
+        $info[0] = false;
+    }
+    $info[1] = mysqli_insert_id($con);
+    mysqli_close($con);
+    return $info;
+}
+
+function suscribirseGrupo($user, $grupo, $bCreador) {
+    $con = connectDB();
+    $bol = false;
+    if (!isSubbedToGroup($user, $grupo)) {
+        $sql = "INSERT INTO suscripcion_grupo (user_id, grupo_id, id, rol) "
+                . " VALUES ( '$user','$grupo', 'NULL', '";
+        if ($bCreador) {
+            $sql .= "1";
+        } else {
+            $sql .= "0";
+        }
+        $sql .= "'";
+        $resultado = mysqli_query($con, $sql);
+        if ($resultado) {
+            $bol = true;
         }
         mysqli_close($con);
-        return $bol;
     }
+    return $bol;
 }
 
 // 0: usuario 1: tipo
@@ -159,8 +188,8 @@ function getUsersSubs($getName) {
         while ($row = mysqli_fetch_array($res)) {
             $j = 0;
             while ($j < 2) {
-                //DEBUG
-                //echo "<br/> " . $j . ": " . $row[$j];
+//DEBUG
+//echo "<br/> " . $j . ": " . $row[$j];
                 $ret[$i][] = $row[$j];
                 $j++;
             }
@@ -209,7 +238,7 @@ function getGroupLogros($groupId) {
     $ret = false;
     if (!$res) {
         mysqli_close($link);
-        //No deberia haber un die
+//No deberia haber un die
         die("ERROR: SELECT QUERY ERROR");
     } else {
         $i = 0;
