@@ -37,11 +37,11 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     //Chequea si hay errores en entradas antes de nada
     if(empty($nombre_error) && empty($organizacion_error) && empty($alias_error)){
         //Preparamos sentencia de actualizacion
-        $sql = "UPDATE advertisers SET name=?, organization=?, alias=? WHERE id=?";
+        $consulta = "UPDATE advertisers SET name=?, organization=?, alias=? WHERE id=?";
          
-        if($stmt = mysqli_prepare($con, $sql)){
+        if($declaracion = mysqli_prepare($con, $consulta)){
             //Vincula variables a declaracion preparada como parametros
-            mysqli_stmt_bind_param($stmt, "sssi", $nombre_parametro, $organizacion_parametro, $alias_parametro, $id_parametro);
+            mysqli_stmt_bind_param($declaracion, "sssi", $nombre_parametro, $organizacion_parametro, $alias_parametro, $id_parametro);
             
             //Asignacion de parametros
             $nombre_parametro = $nombre;
@@ -50,7 +50,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $id_parametro = $id;
             
             // Intenta ejecutar sentencia preparada
-            if(mysqli_stmt_execute($stmt)){
+            if(mysqli_stmt_execute($declaracion)){
                 //Registros actualizados exitosamente
                 header("location: anunciante.php");
                 exit();
@@ -59,7 +59,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             }
         }       
         //Cerrar
-        mysqli_stmt_close($stmt);
+        mysqli_stmt_close($declaracion);
     }
     //Cerramos conexion
     mysqli_close($con);
@@ -70,17 +70,17 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         $id =  trim($_GET["id"]);
         
         //preparamos select
-        $sql = "SELECT * FROM advertisers WHERE id = ?";
-        if($stmt = mysqli_prepare($con, $sql)){
+        $consulta = "SELECT * FROM advertisers WHERE id = ?";
+        if($declaracion = mysqli_prepare($con, $consulta)){
             //Vincula variables a declaracion preparada como parametros
-            mysqli_stmt_bind_param($stmt, "i", $id_parametro);
+            mysqli_stmt_bind_param($declaracion, "i", $id_parametro);
             
             //asignamos parametro
             $id_parametro = $id;
             
             //Intenta ejecutar sentencia
-            if(mysqli_stmt_execute($stmt)){
-                $resultado = mysqli_stmt_get_result($stmt);
+            if(mysqli_stmt_execute($declaracion)){
+                $resultado = mysqli_stmt_get_result($declaracion);
     
                 if(mysqli_num_rows($resultado) == 1){
                     /*Obtener fila de resultados*/
@@ -100,7 +100,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             }
         }      
         //Cerrar
-        mysqli_stmt_close($stmt);    
+        mysqli_stmt_close($declaracion);    
         //Cerrar conexion
         mysqli_close($con);
     }  else{
@@ -122,7 +122,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 <body>
     <div class="envoltura">
         <div class="container-fluid">
-            <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
                         <h2>Registro de Modificacion</h2>
@@ -148,8 +147,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                         <input type="submit" class="btn btn-primary" value="Enviar">
                         <a href="anunciante.php" class="btn btn-default">Cancelar</a>
                     </form>
-                </div>
-            </div>        
+                </div>               
         </div>
     </div>
 </body>
