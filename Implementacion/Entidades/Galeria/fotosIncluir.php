@@ -30,7 +30,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
             if (!file_exists("groupPhotos/" . $idGrupo)) {
                 mkdir("groupPhotos/" . $idGrupo);
             }
-            move_uploaded_file($_FILES["imagen"]["tmp_name"], "../" . $nombreRuta);
+            move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
             include("../../conexion.php");
             $consulta = "INSERT INTO gallery ( id , grupo, rutaImagen, encabezado) VALUES ( 'NULL' , '" . $idGrupo . "' , '" . $nombreRuta . "' , '" . $encabezado . "')";
             $resultado = mysqli_query($con, $consulta);

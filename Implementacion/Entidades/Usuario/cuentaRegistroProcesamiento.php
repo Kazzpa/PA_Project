@@ -40,7 +40,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
                 if (!file_exists("userPhotos")) {
                     mkdir("userPhotos");
                 }
-                move_uploaded_file($_FILES["imagen"]["tmp_name"], "../".$nombreRuta);
+                move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
             }
         } else {
             $errores[] = "Hay un error con el formato de imagen";

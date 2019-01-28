@@ -14,7 +14,14 @@
                     <a href="../Evento/eventoIndex.php" class="link"><i class="material-icons">event</i></a>
                     <a href="../Grupo/grupo_mostrar.php" class="link"><i class="material-icons">group</i></a>
                     <a href="../Usuario/cuentaLogin.php" class="link"><i class="material-icons">account_circle</i></a>
-                    <?php if (isset($_SESSION['login'])) echo "<a href='../Usuario/cuentaLogout.php' class='link'><i class='material-icons'>clear</i></a>"; ?>
+                    <?php
+                    if (isset($_SESSION['login']) && $_SESSION['tipo'] == 1) {
+                        echo "<a href='../../paginaAdmin.php' class='link'><i class='material-icons'>build</i></a>";
+                    }
+                    if (isset($_SESSION['login'])) {
+                        echo "<a href='../Usuario/cuentaLogout.php' class='link'><i class='material-icons'>clear</i></a>";
+                    }
+                    ?>
                 </nav>
             </div>
         </header>
