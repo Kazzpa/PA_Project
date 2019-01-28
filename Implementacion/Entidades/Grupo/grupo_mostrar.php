@@ -188,7 +188,8 @@
                                     echo "<h4 class='alert alert-success' width='30%'>Creado grupo con exito</h2>";
                                 }
                                 echo (printCreacion());
-                                echo (printSelect());
+                                $select = false;
+                                echo (printSelect($select));
                                 echo (printGrupos());
                             } else {
                                 echo (formCrearGrupo());
@@ -198,7 +199,8 @@
                                 echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
                             }
                             echo (printCreacion());
-                            echo (printSelect());
+                                $select = false;
+                            echo (printSelect($select));
                             echo (printGrupos());
                         }
                     }
