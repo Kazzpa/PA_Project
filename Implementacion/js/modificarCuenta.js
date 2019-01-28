@@ -70,7 +70,7 @@ function comprobarFormularioEventos() {
         zonaAdicion.appendChild(dato);
 
         var formulario = document.getElementById("formModificacionEvento");
-        formulario.action = "eventoModificar.php";
+        formulario.action = "../Evento/eventoModificar.php";
 
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "botonEventoModificar";
@@ -97,7 +97,7 @@ function comprobarFormularioEventos() {
         zonaAdicion.appendChild(dato);
 
         var formulario = document.getElementById("formModificacionEvento");
-        formulario.action = "eventoModificar.php";
+        formulario.action = "../Evento/eventoModificar.php";
 
         var boton = document.getElementById("botonEventoModificar");
         boton.name = "botonEventoModificar";
@@ -114,7 +114,7 @@ function comprobarFormularioEventos() {
             document.getElementById("mapsData").style = "display:none;";
         }
         var formulario = document.getElementById("formModificacionEvento");
-        formulario.action = "eventoModificar.php";
+        formulario.action = "../Evento/eventoModificar.php";
 
         var dato = document.createElement("input");
         dato.id = "eventoACambiar";
@@ -146,7 +146,7 @@ function comprobarFormularioEventos() {
         boton.onclick = function () {
             if (confirm("¿Seguro que quieres eliminar este evento?")) {
                 var formulario = document.getElementById("formModificacionEvento");
-                formulario.action = "eventoEliminar.php";
+                formulario.action = "../Evento/eventoEliminar.php";
             }
         };
 
@@ -157,7 +157,7 @@ function comprobarFormularioEventos() {
         }
 
         var formulario = document.getElementById("formModificacionEvento");
-        formulario.action = "localizacionModificar.php";
+        formulario.action = "../Localizacion/localizacionModificar.php";
 
         var mapa = document.getElementById("location");
         mapa.style = "width: 62vw; height:30vh";
@@ -182,7 +182,7 @@ function avisarBorradoCuenta() {
                 if (data == "Estamos muy tristes de que hayas decidido irte ¡Estaremos aqui esperándote!") {
                     window.location.href = "cuentaLogout.php";
                 } else {
-                    window.location.href = "index.php";
+                    window.location.href = "../../index.php";
                 }
             }
         });

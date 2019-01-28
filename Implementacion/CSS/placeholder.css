@@ -31,7 +31,7 @@ select {
     border: 1px solid #ccc;
     border-radius: 5px;
     height: 34px;
-    background: url(../img/br_down.png) no-repeat right white;
+    background: url(../icons/br_down.png) no-repeat right white;
     -webkit-appearance: none;
     background-position-x: 244px;
 }

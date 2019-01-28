@@ -41,7 +41,7 @@ and open the template in the editor.
                         // Consulta a la base de datos
                         //-----------------------------------------------------
                         //Realizamos una conexion a la base de datos
-                        include("BackEnd/conexion.php");
+                        include("conexion.php");
 
                         //Consulta a la BD que obtiene los 3 eventos patrocinados más proximos
                         $consulta = "SELECT * FROM `events`,`advertisers` WHERE date_celebration>CURRENT_TIMESTAMP AND idAdvertisers>0 AND events.idAdvertisers=advertisers.id ORDER BY date_celebration LIMIT 3"; //consulta SQL para obtener el usuario, luego comprobamos la password
@@ -73,10 +73,10 @@ and open the template in the editor.
                                 echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
                                 <tr>
-                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
+                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='Entidades/Evento/eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                 </tr>
                                 <tr>
-                                    <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                    <td><img src='Entidades/Evento/$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                 </tr>
                                 <tr>
                                     <td>$descripcion</td>
@@ -135,10 +135,10 @@ and open the template in the editor.
                                 echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
                                 <tr>
-                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
+                                    <th style='text-align:center; font-size: 2em;'><a class='link' href='Entidades/Evento/eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                 </tr>
                                 <tr>
-                                    <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                    <td><img src='Entidades/Evento/$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                 </tr>
                                 <tr>
                                     <td>$descripcion</td>
