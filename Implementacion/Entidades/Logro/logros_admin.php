@@ -269,7 +269,7 @@ function checkEnviadoAdmin() {
     return $bol;
 }
 
-// comprobamos : logroname  logrodesc logroicon logrotipo logrovalor logropuntos
+//comprobamos: logroname  logrodesc logroicon logrotipo logrovalor logropuntos
 //Devolvemos true si son validos, falso si no
 function validarCrearLogro() {
     $bol = false;
@@ -319,6 +319,7 @@ function checkMiembros($groupId) {
             }
         }
     }
+    cerrarDB();
 }
 
 //Comprobamos los logros relacionados con comentarios
@@ -340,6 +341,7 @@ function checkComentarios($groupId) {
             }
         }
     }
+    cerrarDB();
 }
 
 //Comprobamos logros relacionados con fotos
@@ -361,6 +363,7 @@ function checkFotos($groupId) {
             }
         }
     }
+    cerrarDB();
 }
 
 //Comprobamos logros relacionados con eventos
@@ -384,6 +387,7 @@ function checkEventos($groupId) {
             }
         }
     }
+    cerrarDB();
 }
 
 //WIP: PA DESPUES Comprobamos logros relacionados con eventos
@@ -407,4 +411,5 @@ function checkPuntos($groupId) {
             }
         }
     }
+    cerrarDB();
 }

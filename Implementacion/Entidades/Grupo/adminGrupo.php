@@ -182,7 +182,6 @@ function trataCrearGrupo() {
     return false;
 }
 
-
 //-----------------------------------------------------
 // Funcion de mostrar visualmente grupos.
 //-----------------------------------------------------
@@ -191,19 +190,19 @@ function printCardGrupo($grupoInfo) {
     $str = "";
     if ($grupoInfo !== false) {
 
-        $str = '<div class="card bg-dark col-sm-2 text-white">
-                <div class="card-header bg-secondary">Grupo del evento:<br/>' . $grupoInfo[1]
-                . '</div>';
+        $str = '<div class="col-sm-3"><div class="panel panel-default">
+                <div class="panel-heading bg-secondary">Grupo:<br/><b>' . $grupoInfo[1]
+                . '</b></div>';
         if (file_exists($grupoInfo[3])) {
-            $str .= ' <a href="../Grupo/grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default" ><img class="card-img" src="' . $grupoInfo[3]
+            $str .= ' <a href="../Grupo/grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default" ><img class="img-responsive" src="' . $grupoInfo[3]
                     . '" alt="imagen de grupo ' . $grupoInfo[1]
-                    . '" style="max-width:100%;"></img></a>';
+                    . '" ></img></a>';
         }
-        $str .= ' <div class="card-body"><p class="card-text">'
-                . substr($grupoInfo[2], 0, 50) . '...</p>
+        $str .= ' <div class="panel-body">'
+                . substr($grupoInfo[2], 0, 50) . '...<br/>
                 <a href="../Grupo/grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default">Más info</a>
               </div>
-            </div>';
+            </div></div>';
     }
     return $str;
 }

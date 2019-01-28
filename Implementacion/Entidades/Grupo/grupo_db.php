@@ -52,11 +52,11 @@ function isSubbedToGroup($user, $group) {
     return $ret;
 }
 
-function getAllGroups($limit) {
+function getAllGroups($limit, $offset) {
     $link = connectDB();
-    $sql = "SELECT * FROM grupo";
-    if ($limit !== false) {
-        $sql .= " LIMIT " . $limit;
+    $sql = "SELECT * FROM grupo ORDER BY name";
+    if ($limit !== false && $offset !== false) {
+        $sql .= " LIMIT " . $offset . " , " . $limit;
     }
     $res = mysqli_query($link, $sql);
     $ret = false;
@@ -151,6 +151,7 @@ function crearGrupo($name, $desc, $img) {
     return $info;
 }
 
+//crea relacion de suscribirse a grupo
 function suscribirseGrupo($user, $grupo, $bCreador) {
     $con = connectDB();
     $bol = false;
@@ -251,6 +252,18 @@ function getGroupLogros($groupId) {
             $i++;
         }
         mysqli_close($link);
+    }
+    return $ret;
+}
+
+//retornamos el numero de grupos registrados
+function getNumGrupos() {
+    $link = conectarDB();
+    $sql = "SELECT COUNT(name) as total FROM grupo";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($arr = mysqli_fetch_array($res)) {
+        $ret = $arr['total'];
     }
     return $ret;
 }

@@ -3,11 +3,24 @@
 //Comprobar que tenga acceso
 //logroname  logrodesc logroicon logrotipo logrovalor logropuntos
 //crea la conexion con la base de datos y no la cierra.
+$conexion = false;
+//Patron singleton para conexion
 function conectarDB() {
-    include("../../conexion.php");
+    if ($GLOBALS['conexion'] == false) {
+        include("../../conexion.php");
+        $conexion = $con;
+    } else {
+        $con = $conexion;
+    }
     return $con;
 }
 
+function cerrarDB() {
+    if ($GLOBALS['conexion'] != false) {
+        mysqli_close($con);
+        $con = $conexion;
+    }
+}
 //Insertamos un logro en la DB
 function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
     $link = conectarDB();

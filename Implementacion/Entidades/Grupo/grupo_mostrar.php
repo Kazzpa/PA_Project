@@ -52,16 +52,50 @@
         //Mostrar cartas de distintos grupos
         function printGrupos() {
             $str = "";
-            $ret = getAllGroups(10);
-
+            $offset = "0";
+            if (isset($_GET['pag'])) {
+                $offset = $_GET['pag'];
+            }
+            $ret = getAllGroups(4, $offset);
+            $numGrupos = getNumGrupos();
+            $str .= '<div class="col-sm-12">';
             for ($i = 0; $i < sizeof($ret); $i++) {
                 $str .= printCardGrupo($ret[$i]);
+            }
+            if ($numGrupos > 4) {
+                $str .= '</div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                            <a href="?pag=';
+                if (isset($_GET['pag'])) {
+                    $str .= (string) ($_GET['pag'] - 1);
+                }
+                $str .= '" aria-label="Previous">
+                                  <span aria-hidden = "true">&laquo;</span>
+                            </a>
+                            </li>';
+                for ($i = 0; $i < $numGrupos / 4; $i++) {
+                    $str .= '<li><a href="?pag=' . $i . '">' . $i . '</a></li>';
+                }
+                $str .= '<li>
+                                <a href = "?pag=';
+                if (isset($_GET['pag'])) {
+                    $str .= (string) ($_GET['pag'] + 1);
+                }
+                $str .= '" aria-label = "Next">
+                                    <span aria-hidden = "true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+            </nav>';
             }
             return $str;
         }
 
         //Mostrar tabla de usuarios suscritos
-        function printSuscritos($suscritos) {
+        function printSuscritos(
+        $suscritos) {
             $str = "";
             if ($suscritos) {
                 $str = '<table class="table"><thead><tr><th></th>'
@@ -81,7 +115,8 @@
         }
 
         //  0:nombre_logro 1: icon_path 2:descripcion 3:puntos
-        function printLogros($logrosInfo) {
+        function printLogros(
+        $logrosInfo) {
             $str = "";
             if ($logrosInfo !== false) {
                 $str .= '<h5>Logros del grupo:</h5>';
@@ -94,22 +129,26 @@
 
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
         function printform() {
-            return '<form method = "GET" action = "#">
-                            <div class = "form-group form-control-lg">
+            return '<form method = 
+
+            "GET" action = "#">
+            <div class = "form-group form-control-lg">
             <input type = "text" class = "form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
             <input type = "submit" class = "btn btn-primary" value = "Buscar grupo">
-        </div>
-    </form>';
+            </div>
+            </form>';
         }
 
         //Sacamos el boton para crear un nuevo grupo
         function printCreacion() {
             $str = "";
             if (isset($_SESSION["login"])) {
-                $str = '<form action="#" method="POST"><div class="form-group form-control-sm"><input type="submit" ' .
-                        'name="quieroCrear" class="btn btn-default" value="Crear Grupo">'
+                $str = '
+
+            <form action = "#" method = "POST"><div class = "form-group form-control-sm"><input type = "submit" ' .
+                        'name = "quieroCrear" class = "btn btn-default" value = "Crear Grupo">'
                         . ' </input></div></form>
-                <br />';
+                    <br />';
             }
             return $str;
         }
@@ -137,7 +176,7 @@
                 </div>
                 <div class="col-sm-8 text-center well" >
                     <?php
-                    //Comprobamos que haya un grupo registrado
+//Comprobamos que haya un grupo registrado
                     if ($bol) {
                         echo (printGrupo($groupInfo, $logrosInfo, $infoSubscribers));
                     } else {
@@ -203,7 +242,7 @@
 
                     $(this).addClass("clicked");
                     var encabezado = $(this).attr('id');
-                    $("#img" + encabezado).replaceWith('<textarea id="textArea' + encabezado + '" style="color:black;">' + $("#img" + encabezado).text() + '</textarea>');
+                    $("#img" + encabezado).replaceWith('<textarea id = "textArea' + encabezado + '" style = "color:black;">' + $("#img" + encabezado).text() + '</textarea>');
                     var button = document.createElement('input');
                     button.type = "submit";
                     button.id = "editButton" + encabezado;
@@ -228,7 +267,7 @@
                 });
                 $(document).on("click", ".delete", function () {
                     if (confirm("¿Seguro que quieres eliminar esta imagen?")) {
-                        var foto = $(this).attr('id');
+                        var foto = $(this).attr('id    ');
                         $.ajax({
                             type: "POST",
                             url: "../Galeria/fotoEliminar.php",
