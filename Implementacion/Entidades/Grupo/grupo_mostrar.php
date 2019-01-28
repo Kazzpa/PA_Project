@@ -26,7 +26,7 @@
         include_once 'adminGrupo.php';
 
         //Mostrar informacion de un grupo
-        function printGrupo($group, $logrosInfo, $suscritos) {
+        function printGrupoExpanded($group, $logrosInfo, $suscritos) {
             $str = '<div class="col-md-12"><h1>' . $group[1] . '</h1>';
 
             if (isset($_SESSION["login"])) {
@@ -94,8 +94,7 @@
         }
 
         //Mostrar tabla de usuarios suscritos
-        function printSuscritos(
-        $suscritos) {
+        function printSuscritos($suscritos) {
             $str = "";
             if ($suscritos) {
                 $str = '<table class="table"><thead><tr><th></th>'
@@ -115,8 +114,7 @@
         }
 
         //  0:nombre_logro 1: icon_path 2:descripcion 3:puntos
-        function printLogros(
-        $logrosInfo) {
+        function printLogros($logrosInfo) {
             $str = "";
             if ($logrosInfo !== false) {
                 $str .= '<h5>Logros del grupo:</h5>';
@@ -128,12 +126,12 @@
         }
 
         //Saca un formulario para buscar un grupo en caso de no encontrarlo
-        function printform() {
-            return '<form method = 
-
+        function printSelect($grupos) {
+            return '<form method =
             "GET" action = "#">
             <div class = "form-group form-control-lg">
-            <input type = "text" class = "form-control" name = "grupo" placeholder = "Introduzca el nombre del grupo que busca">
+            <input type = "text" class = "form-control" name = "grupo" 
+            placeholder = "Introduzca el nombre del grupo que busca">
             <input type = "submit" class = "btn btn-primary" value = "Buscar grupo">
             </div>
             </form>';
@@ -178,7 +176,7 @@
                     <?php
 //Comprobamos que haya un grupo registrado
                     if ($bol) {
-                        echo (printGrupo($groupInfo, $logrosInfo, $infoSubscribers));
+                        echo (printGrupoExpanded($groupInfo, $logrosInfo, $infoSubscribers));
                     } else {
                         if (isset($_POST['quieroCrear'])) {
                             echo (formCrearGrupo());
@@ -190,7 +188,7 @@
                                     echo "<h4 class='alert alert-success' width='30%'>Creado grupo con exito</h2>";
                                 }
                                 echo (printCreacion());
-                                echo (printform());
+                                echo (printSelect());
                                 echo (printGrupos());
                             } else {
                                 echo (formCrearGrupo());
@@ -200,7 +198,7 @@
                                 echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
                             }
                             echo (printCreacion());
-                            echo (printform());
+                            echo (printSelect());
                             echo (printGrupos());
                         }
                     }
