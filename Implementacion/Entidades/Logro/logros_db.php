@@ -1,9 +1,6 @@
 <?php
 
-//$rutaImg = "img/";
-
 //Comprobar que tenga acceso
-//chequear http://php.net/manual/en/function.mysql-real-escape-string.php
 //logroname  logrodesc logroicon logrotipo logrovalor logropuntos
 //crea la conexion con la base de datos y no la cierra.
 function conectarDB() {
@@ -11,6 +8,7 @@ function conectarDB() {
     return $con;
 }
 
+//Insertamos un logro en la DB
 function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
     $link = conectarDB();
     $bol = false;
@@ -32,6 +30,7 @@ function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
     return $bol;
 }
 
+//Obtenemos informacion de un logro por su nombre
 function getLogro($name) {
     $link = conectarDB();
     $ret = false;
@@ -56,7 +55,7 @@ function getLogro($name) {
     return $ret;
 }
 
-//modifica la imagen de un grupo existente
+//modificamos los campos de un logro
 function modificarLogro($id, $name, $img, $desc, $tipo, $valor, $puntos) {
     $bol = false;
     $con = conectarDB();
@@ -115,12 +114,13 @@ function modificarLogro($id, $name, $img, $desc, $tipo, $valor, $puntos) {
             $bol = true;
         }
         mysqli_close($con);
-    }else{
+    } else {
+        
     }
     return $bol;
 }
 
-//Eliminar grupo
+//Eliminar logro por id
 function eliminarLogro($id) {
     $bol = true;
     $con = conectarDB();
@@ -131,5 +131,96 @@ function eliminarLogro($id) {
         $bol = false;
     }
     mysqli_close($con);
+    return $bol;
+}
+
+//devuelve el numero de miembros relacionadas con ese grupo
+function numMiembros($grupoId) {
+    $link = conectarDB();
+    $sql = "SELECT COUNT(suscripcion_grupo.id) as total FROM suscripcion_grupo WHERE "
+            . "suscripcion_grupo.grupo_id = '$grupoId'";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($arr = mysqli_fetch_array($res)) {
+        $ret = $arr['total'];
+    }
+    return $ret;
+}
+
+//devuelve el numero de comentarios relacionadas con ese grupo
+function numComentarios($grupoId) {
+    $link = conectarDB();
+    $sql = "SELECT COUNT(posts.id) as total FROM events, posts WHERE "
+            . "posts.eventId = events.id and events.group_id = '$grupoId'";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($arr = mysqli_fetch_array($res)) {
+        $ret = $arr['total'];
+    }
+    return $ret;
+}
+
+//devuelve el numero de fotos relacionadas con ese grupo
+function numFotos($grupoId) {
+    $link = conectarDB();
+    $sql = "SELECT COUNT(gallery.id) as total FROM gallery WHERE "
+            . "grupo = '$grupoId'";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($arr = mysqli_fetch_array($res)) {
+        $ret = $arr['total'];
+    }
+    return $ret;
+}
+
+//devuelve el numero de eventos relacionadas con ese grupo
+function numEvents($grupoId) {
+    $link = conectarDB();
+    $sql = "SELECT COUNT(gallery.id) as total FROM gallery WHERE "
+            . "grupo = '$grupoId'";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($arr = mysqli_fetch_array($res)) {
+        $ret = $arr['total'];
+    }
+    return $ret;
+}
+
+function getLogros($tipo) {
+    $link = connectDB();
+    $sql = "SELECT * FROM logro where logro.tipo = '$tipo'";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if (!$res) {
+        die("ERROR: SELECT QUERY ERROR");
+    } else {
+        $i = 0;
+        while ($row = mysqli_fetch_array($res)) {
+            $ret[$i][0] = $row['id'];
+            $ret[$i][1] = $row['valor'];
+            $ret[$i][2] = $row['puntos'];
+            $i++;
+        }
+    }
+    return $ret;
+}
+
+function addLogro($idLogro, $grupoId) {
+    $link = conectarDB();
+    $bol = false;
+    if ($link !== false) {
+        $consulta = "SELECT * FROM logros_grupo WHERE  group_id  = "
+                . "'$grupoId' AND logro_id = '$idLogro'";
+        $resultado = mysqli_query($link, $consulta);
+        if (mysqli_num_rows($resultado) == 0) {
+            //Hacemos una insercion en la base de datos
+            $consulta = "INSERT INTO logros_grupo ( group_id , logro_id)"
+                    . " VALUES ( '$grupoId' , '$idLogro' )";
+            $resultado = mysqli_query($link, $consulta);
+            if ($resultado) {
+                $bol = true;
+            }
+        }
+    }
     return $bol;
 }

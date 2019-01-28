@@ -84,7 +84,7 @@ if (key_exists(0, $errores)) {  //Si hay algun error
             . "(NULL, '$name', '$description', CURRENT_TIMESTAMP, "
             . "'$date_celebration', '$host' , '$nombreRuta', '$idLocalizacion', '0', '$grupo')";
     $resultado = mysqli_query($con, $consulta); //devuelve el resultado en caso de consulta, Verdadero en el resto de SQL si la ha realizado correctamente
-
+    checkEventos($grupo);
     mysqli_close($con); // Cerramos la base de datos
 
     if ($resultado) {   //Comprobamos si la insercion ha sido un exito

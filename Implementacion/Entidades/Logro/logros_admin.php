@@ -1,5 +1,7 @@
 <?php
 
+include_once '../Grupo/grupo_db.php';
+
 function adminLogros() {
     if (!isset($_SESSION['username'])) {
         header("Location: ../../index.php");
@@ -296,4 +298,113 @@ function validarCrearLogro() {
         }
     }
     return $bol;
+}
+
+//Comprobamos los logros relacionados con miembros
+function checkMiembros($groupId) {
+    $logros_miembros = getLogros(0);
+    // si no hay logros de miembros no hacemos ningun calculo mas
+    if ($logros_miembros !== false) {
+        $numMiembros = numMiembros($groupId);
+        if ($numMiembros !== false) {
+            for ($i = 0; $i < sizeof($logros_miembros); $i++) {
+                //comprobamos si excede el valor del logro
+                // si es asi añadimos el logro en caso de que aun no lo tenga
+                // eso estara controlado en addLogro
+                if ($numMiembros > $logros_miembros[$i][1]) {
+                    if (addLogro($logros_miembros[$i][0], $groupId)) {
+                        //logro añadido
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Comprobamos los logros relacionados con comentarios
+function checkComentarios($groupId) {
+    $logros_comentarios = getLogros(1);
+    // si no hay logros de miembros no hacemos ningun calculo mas
+    if ($logros_comentarios !== false) {
+        $numComentarios = numComentarios($groupId);
+        if ($numComentarios !== false) {
+            for ($i = 0; $i < sizeof($logros_comentarios); $i++) {
+                //comprobamos si excede el valor del logro
+                // si es asi añadimos el logro en caso de que aun no lo tenga
+                // eso estara controlado en addLogro
+                if ($numComentarios > $logros_comentarios[$i][1]) {
+                    if (addLogro($logros_comentarios[$i][0], $groupId)) {
+                        //logro añadido
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Comprobamos logros relacionados con fotos
+function checkFotos($groupId) {
+    $logros_fotos = getLogros(2);
+    // si no hay logros de miembros no hacemos ningun calculo mas
+    if ($logros_fotos !== false) {
+        $numFotos = numFotos($groupId);
+        if ($numFotos !== false) {
+            for ($i = 0; $i < sizeof($logros_fotos); $i++) {
+                //comprobamos si excede el valor del logro
+                // si es asi añadimos el logro en caso de que aun no lo tenga
+                // eso estara controlado en addLogro
+                if ($numFotos > $logros_fotos[$i][1]) {
+                    if (addLogro($logros_fotos[$i][0], $groupId)) {
+                        //logro añadido
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Comprobamos logros relacionados con eventos
+function checkEventos($groupId) {
+    $logros_eventos = getLogros(3);
+    // si no hay logros de miembros no hacemos ningun calculo mas
+    if ($logros_eventos !== false) {
+        $numEventos = numEvents($groupId);
+        if ($numEventos !== false) {
+            for ($i = 0; $i < sizeof($logros_eventos); $i++) {
+                //comprobamos si excede el valor del logro
+                // si es asi añadimos el logro en caso de que aun no lo tenga
+                // eso estara controlado en addLogro
+                if ($numEventos > $logros_eventos[$i][1]) {
+                    if (addLogro($logros_eventos[$i][0], $groupId)) {
+                        //logro añadido
+                    }
+                } else {
+                    //quitar logro en caso de que este por debajo del umbral
+                }
+            }
+        }
+    }
+}
+
+//WIP: PA DESPUES Comprobamos logros relacionados con eventos
+function checkPuntos($groupId) {
+    $logros_eventos = getLogros(3);
+    // si no hay logros de miembros no hacemos ningun calculo mas
+    if ($logros_eventos !== false) {
+        $numEventos = numEvents($groupId);
+        if ($numEventos !== false) {
+            for ($i = 0; $i < sizeof($logros_eventos); $i++) {
+                //comprobamos si excede el valor del logro
+                // si es asi añadimos el logro en caso de que aun no lo tenga
+                // eso estara controlado en addLogro
+                if ($numEventos > $logros_eventos[$i][1]) {
+                    if (addLogro($logros_eventos[$i][0], $groupId)) {
+                        //logro añadido
+                    }
+                } else {
+                    //quitar logro en caso de que este por debajo del umbral
+                }
+            }
+        }
+    }
 }
