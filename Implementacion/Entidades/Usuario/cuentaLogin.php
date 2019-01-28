@@ -84,7 +84,7 @@ and open the template in the editor.
                                     $fechaRegistro = $_SESSION['date_register'];
                                     $rutaimagen = $_SESSION['rutaimagen'];
 
-                                    echo "<img src=$rutaimagen width=100em> <br />";
+                                    echo "<img src=$rutaimagen class='img-responsive' width=100em> <br />";
                                     echo "<strong>Nombre:</strong> $nombre <br />";
                                     echo "<strong>Email:</strong> $email <br />";
                                     echo "<strong>Fecha Registro:</strong> $fechaRegistro <br />";

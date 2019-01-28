@@ -131,7 +131,7 @@ and open the template in the editor.
                         ?>
                         <div class="col-md-12">
                             <?php
-                            echo "<img class='col-md-9' src='$rutaimagen' alt='imagen del evento' style='width:60%;'><br />";
+                            echo "<img class='col-md-9' src='$rutaimagen' alt='imagen del evento' class='img-responsive' style='width:60%;'><br />";
 
 
                             $consulta = "SELECT * FROM `reserva` WHERE id_evento = '$evento_id' ORDER BY RAND() LIMIT 5"; //consulta SQL para obtener el usuario, luego comprobamos la password

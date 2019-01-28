@@ -73,7 +73,7 @@ and open the template in the editor.
                                             <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                         </tr>
                                         <tr>
-                                            <td><img src='$rutaimagen' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                            <td><img src='$rutaimagen' class='img-responsive' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                         </tr>
                                         <tr>
                                             <td>$descripcion</td>
