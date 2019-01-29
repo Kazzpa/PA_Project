@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 include("../../conexion.php");
 
 //Recibimos los datos del formulario
