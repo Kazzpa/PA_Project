@@ -10,7 +10,6 @@ function conectarDB() {
     if ($GLOBALS['conexion'] == false) {
         include("../../conexion.php");
         $conexion = $con;
-        echo "<br/>conexion db nueva";
     } else {
         $con = $conexion;
     }
