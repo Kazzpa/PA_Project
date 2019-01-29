@@ -2,13 +2,13 @@
 
 include_once '../Grupo/grupo_db.php';
 include_once ('logros_db.php');
+include_once ('../../validation.php');
 
-function adminLogros() {
+function panelLogrosLogin() {
     if (!isset($_SESSION['username'])) {
         header("Location: ../../index.php");
     }
     if ($_SESSION['tipo'] == 1) {
-        include_once ('../../validation.php');
         $limite = 5 * 1024 * 1024;
         $bol = checkEnviadoAdmin();
         if ($bol < 5) {

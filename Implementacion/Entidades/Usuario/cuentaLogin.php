@@ -23,6 +23,8 @@ and open the template in the editor.
     <body> 
         <?php
         include("../header.php");
+        include '../Grupo/adminGrupo.php';
+        include '../Logro/logros_admin.php';
         //======================================================================
         // LOGIN INICIO SESION
         //======================================================================
@@ -233,50 +235,51 @@ and open the template in the editor.
                                 </div>
                             </div>
 
-                            <!--
-                            -----------------------------------------------------
-                            Panel de administrar grupos
-                            -----------------------------------------------------
-                            -->
-                            <div class="row">
-                                <div class="col-sm-12 text-left well">
-                                    <?php
-                                    include '../Grupo/adminGrupo.php';
-                                    if (isset($_SESSION['username'])) {
-                                        if ($_SESSION['tipo'] == 1) {
-                                            AdminGrupo();
-                                        }
-                                    }
-                                    ?>
 
-                                </div>
-                            </div>
-
-                            <!--
-                            -----------------------------------------------------
-                            Panel de administrar logros
-                            -----------------------------------------------------
-                            -->
-                            <div class="row">
-                                <div class="col-sm-12 text-left well">
-                                    <?php
-                                    include '../Logro/logros_admin.php';
-                                    adminLogros();
-                                    ?>
-
-                                </div>
-                            </div>
                         </div>
                         <div class="col-sm-2 sidenav">
                         </div>
-                    </div>
                 </div>
                 <?php
             } else {    //Mensaje mostrado si no existen eventos creados
                 echo "No tiene eventos creados, animate y crea el tuyo!";
             }
         }
-        ?>
+        if (isset($_SESSION['username'])) {
+            ?>
+                    </div>
+
+            <!--
+            -----------------------------------------------------
+            Panel de administrar grupos
+            -----------------------------------------------------
+            -->
+            <div class="row">
+                <h4> Panel grupos </h4>
+                <div class="col-sm-12 text-left well">
+                    <?php
+                    panelLoginGrupo();
+                    ?>
+
+                </div>
+            </div>
+            <?php if ($_SESSION['tipo'] == 1) { ?>
+                <!--
+                -----------------------------------------------------
+                Panel de administrar logros
+                -----------------------------------------------------
+                -->
+                <div class="row">
+                    <h4> Panel Logros </h4>
+                    <div class="col-sm-12 text-left well">
+                        <?php
+                        panelLogrosLogin();
+                        ?>
+
+                    </div>
+                </div>
+            <?php }
+        } ?>
         <!--
         -----------------------------------------------------
         Google maps API
@@ -284,16 +287,16 @@ and open the template in the editor.
         -->
         <script type="text/javascript" src="../../js/localizacionCreacionModificacion.js"></script>
         <script type="text/javascript">
-            /*
-             * La localizacion modifica el valor de los campos del formulario en 
-             * base a la informacion introducida en el autocompletar de Google. 
-             * Para ello, ante la llamada de modificar una localizacion, se inicia
-             * un intervalo (funcion lookForCityChange) que comprueba si hay 
-             * cambios en el valor introducido en el campo del mapa de google.
-             */
-            function modificarLocalizacion() {
-                setInterval(lookForCityChange, 100);
-            }
+                                /*
+                                 * La localizacion modifica el valor de los campos del formulario en 
+                                 * base a la informacion introducida en el autocompletar de Google. 
+                                 * Para ello, ante la llamada de modificar una localizacion, se inicia
+                                 * un intervalo (funcion lookForCityChange) que comprueba si hay 
+                                 * cambios en el valor introducido en el campo del mapa de google.
+                                 */
+                                function modificarLocalizacion() {
+                                    setInterval(lookForCityChange, 100);
+                                }
         </script>
         <!--Declaracion del google Maps-->
         <?php include("../Localizacion/mapsScript.php"); ?>

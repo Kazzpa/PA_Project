@@ -11,11 +11,10 @@ include_once ('../../validation.php');
 //-----------------------------------------------------
 //si estamos en administracion mostraremos los distintos formularios en funcion
 // de si se enviaron los formularios correctamente
-function AdminGrupo() {
+function panelLoginGrupo() {
     $bol = compruebaEnviado();
     if (!$bol) {
         echo (formGrupo());
-        echo (formCrearGrupo());
     } else {
         echo (formModGrupo());
     }
@@ -23,13 +22,36 @@ function AdminGrupo() {
 
 //imprime un formulario para buscar/seleccionar un grupo
 function formGrupo() {
-    return '<h4> Buscar Grupo a tratar </h4>
+    $str = '';
+    if ($_SESSION['tipo'] == 1) {
+        $str = '<h4> Buscar Grupo a tratar </h4>
 <form action="" method="POST">
     <div class="form-group">
         <b>Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo">
         <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
     </div>
-</form>';
+    </form>';
+    } else {
+        $grupos = getModGroups($_SESSION['username']);
+        if ($grupos !== false) {
+            $str = '<h4> Seleccione grupo a tratar </h4>
+                <form action="" method="POST">
+                <div class="form-group">
+                    <b>Grupo: </b><select class="form-control" name="grupo">
+                    ';
+            for ($i = 0; $i < sizeof($grupos); $i++) {
+                $str .= '<option value="' . $grupos[$i][1] . '">' . $grupos[$i][1] . '</option>';
+            }
+            $str .= '
+                    </select>
+                    <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
+                </div>
+                </form>';
+        }else{
+            $str = '<a href="../Grupo/grupo_mostrar.php">No es administrador de ningun grupo,Animate! y crea uno</a>';
+        }
+    }
+    return $str;
 }
 
 //Comprueba si existe el grupo especificado
@@ -52,9 +74,11 @@ function formModGrupo() {
     }
     $str .= '<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
     </div>
-    <input type="submit" class="btn btn-primary" name="ModGrupo" value="Modificar">
-    <input type="submit" class="btn btn-danger" name="EliminarGrupo" value="Eliminar">
-</form>';
+    <input type="submit" class="btn btn-primary" name="ModGrupo" value="Modificar">';
+    if ($_SESSION['tipo'] == 1) {
+        $str .= '<input type="submit" class="btn btn-danger" name="EliminarGrupo" value="Eliminar">';
+    }
+    $str .= '</form>';
     return $str;
 }
 

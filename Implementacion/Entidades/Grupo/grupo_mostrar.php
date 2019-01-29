@@ -240,7 +240,7 @@
                     ?>
                 </div>
             </div>
-        </div>
+        </div><?php cerrarDB(); ?>
 
         <script type="text/javascript">
             $(document).ready(function () {

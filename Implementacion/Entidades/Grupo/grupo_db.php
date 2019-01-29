@@ -37,6 +37,7 @@ function getGroup($getName) {
     return $ret;
 }
 
+//devuelve si el usuario esta suscrito o no a ese grupo
 function isSubbedToGroup($user, $group) {
     $link = connectDB();
     $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
@@ -52,6 +53,9 @@ function isSubbedToGroup($user, $group) {
     return $ret;
 }
 
+//devuelve una lista de grupos ordenados por namele podemos pasar un valor
+// limit y offset para que nos devuelva una serie de grupos
+// 0: ID    1:name  2:descripcion   3:rutaImagen
 function getAllGroups($limit, $offset) {
     $link = connectDB();
     $sql = "SELECT * FROM grupo ORDER BY name";
@@ -74,6 +78,28 @@ function getAllGroups($limit, $offset) {
             $i++;
         }
         mysqli_close($link);
+    }
+    return $ret;
+}
+
+//devuelve los grupos del que el user es moderador
+// 0: ID    1:name  2:descripcion   3:rutaImagen
+function getModGroups($user) {
+    $link = connectDB();
+    $sql = "SELECT * FROM grupo,suscripcion_grupo ORDER BY grupo.name WHERE grupo.id"
+            . "  = suscripcion_grupo.group_id AND suscripcion_grupo.user_id = '$user' ";
+    $res = mysqli_query($link, $sql);
+    $ret = false;
+    if ($res) {
+        $i = 0;
+        while ($row = mysqli_fetch_array($res)) {
+            $j = 0;
+            while ($j < 4) {
+                $ret[$i][$j] = $row[$j];
+                $j++;
+            }
+            $i++;
+        }
     }
     return $ret;
 }
