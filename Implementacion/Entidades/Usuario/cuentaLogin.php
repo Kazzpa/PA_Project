@@ -9,7 +9,11 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login <?php if(isset($_SESSION['name'])){echo '-'.$_SESSION['name'];}?></title>
+        <title>Login <?php
+            if (isset($_SESSION['name'])) {
+                echo '-' . $_SESSION['name'];
+            }
+            ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include("../stylesheets.php"); ?>
@@ -264,10 +268,24 @@ and open the template in the editor.
             }
         }
         ?>
+        <!--
+        -----------------------------------------------------
+        Google maps API
+        -----------------------------------------------------
+        -->
         <script type="text/javascript">
+            /*
+             * La localizacion modifica el valor de los campos del formulario en 
+             * base a la informacion introducida en el autocompletar de Google. 
+             * Para ello, ante la llamada de modificar una localizacion, se inicia
+             * un intervalo (funcion lookForCityChange) que comprueba si hay 
+             * cambios en el valor introducido en el campo del mapa de google.
+             */
             function modificarLocalizacion() {
                 setInterval(lookForCityChange, 100);
             }
+
+            //inicializacion del mapa, reseteado
             nameLocation = '';
             addressLocation = '';
             city = "";
@@ -282,16 +300,11 @@ and open the template in the editor.
                 var newLat = document.getElementById("latChange").value;
                 var newLng = document.getElementById("lngChange").value;
                 if (newName != nameLocation) {
-                    console.log(newAddress);
-                    //console.log(newCity);
-                    console.log(newLat);
-                    console.log(newLng);
                     nameLocation = newName;
                     addressLocation = newAddress;
                     city = newCity;
                     lat = newLat;
                     lng = newLng;
-                    // do whatever you need to do
                     document.getElementById("name").value = nameLocation;
                     document.getElementById("address").value = addressLocation;
                     document.getElementById("city").value = city;
@@ -299,14 +312,6 @@ and open the template in the editor.
                     document.getElementById("lng").value = lng;
                 }
             }
-
-            //document.getElementById("nameChange").addEventListener("change", victoria);
-
-            //        function victoria() {
-            //            alert(nameLocation.value);
-            //            document.getElementById("name").value = nameLocation.value;
-            //        }
-
 
             function initMap() {
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -321,12 +326,9 @@ and open the template in the editor.
 
                 var autocomplete = new google.maps.places.Autocomplete(input);
 
-                // Bind the map's bounds (viewport) property to the autocomplete object,
-                // so that the autocomplete requests use the current map bounds for the
-                // bounds option in the request.
                 autocomplete.bindTo('bounds', map);
 
-                // Set the data fields to return when the user selects a place.
+                // Setea el campo cuando el usuario selecciona una localizacion
                 autocomplete.setFields(
                         ['address_components', 'geometry', 'name']);
 
@@ -343,20 +345,21 @@ and open the template in the editor.
                     marker.setVisible(false);
                     var place = autocomplete.getPlace();
                     if (!place.geometry) {
-                        // User entered the name of a Place that was not suggested and
-                        // pressed the Enter key, or the Place Details request failed.
+                        // Si el usuario introduce una localizacion que no se ha sugerido
+                        // y pulsa intro, o hay un fallo en el request de la localizacion
                         window.alert("No details available for input: '" + place.name + "'");
                         return;
                     }
 
-                    // If the place has a geometry, then present it on a map.
+                    // Si la localizacion tiene geometria, la pone en el mapa
                     if (place.geometry.viewport) {
                         map.fitBounds(place.geometry.viewport);
                     } else {
                         map.setCenter(place.geometry.location);
-                        map.setZoom(17);  // Why 17? Because it looks good.
+                        map.setZoom(17);
                     }
-                    //la variable location contiene las coordenadas
+
+                    //La variable location contiene las coordenadas
                     var location = place.geometry.location;
 
                     marker.setPosition(location);
@@ -371,18 +374,12 @@ and open the template in the editor.
                         ].join(' ');
                     }
 
-
+                    //cambiamos el valor de los inputs con la nueva localizacion seleccionada
                     document.getElementById("nameChange").value = place.name;
                     document.getElementById("addressChange").value = address;
                     document.getElementById("latChange").value = place.geometry.location.lat();
                     document.getElementById("lngChange").value = place.geometry.location.lng();
                     document.getElementById("cityChange").value = (place.address_components[2] && place.address_components[2].short_name || '');
-
-                    //                nameLocation = place.name;
-                    //                addressLocation = address;
-                    //                lat = place.geometry.location.lat();
-                    //                lng = place.geometry.location.lng();
-                    //                city = place.address_components[3];
 
                     infowindowContent.children['place-icon'].src = place.icon;
                     infowindowContent.children['place-name'].textContent = place.name;
@@ -390,11 +387,6 @@ and open the template in the editor.
                     infowindow.open(map, marker);
 
                 });
-
-                //            setupClickListener('changetype-all', []);
-                //            setupClickListener('changetype-address', ['address']);
-                //            setupClickListener('changetype-establishment', ['establishment']);
-                //            setupClickListener('changetype-geocode', ['geocode']);
             }
 
             function downloadUrl(url, callback) {
@@ -416,7 +408,9 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
+        <!--Declaracion del google Maps-->
         <?php include("../Localizacion/mapsScript.php"); ?>
+        <!--Plugin para mostrar un placeholder emergente en los inputs text-->
         <?php include("../../placeholder.php"); ?>
     </body>
 </html>

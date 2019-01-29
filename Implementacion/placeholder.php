@@ -10,8 +10,8 @@
             timeMove: 200 // Time effect move after focus
         });
     });</script>-->
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.placeholder.label.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.placeholder.label.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('input[placeholder]').placeholderLabel();
