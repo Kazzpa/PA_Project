@@ -118,9 +118,9 @@ footer {
     min-height: 6vw;
 }
 #header-top{
-    height: 12%;
     min-height: 6vw;
     width: 100%;
+    margin-bottom: 4em;
 }
 /***************Fixed Header*****************/
 .sticky { /* Mantiene el header fijo */

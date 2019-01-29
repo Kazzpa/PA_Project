@@ -84,7 +84,7 @@ function printSuscritos($suscritos) {
                 id="map"
                 height="30%"
                 width="100%"
-                frameborder="0" style="border:0"
+                frameborder="0" style="margin-top:2em"
                 allowfullscreen>
             </iframe>
             <div class="container-fluid text-center">    

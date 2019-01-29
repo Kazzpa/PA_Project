@@ -20,7 +20,8 @@ and open the template in the editor.
     </head>
     <body>
         <?php include("../header.php"); ?>
-        <!--Google Maps API-->
+        <!--Google Maps API--> 
+        <!--<div style="height: 4%;"></div>-->
         <div id="map"></div>
 
         <div class="container-fluid text-center"> 
