@@ -8,7 +8,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Evento Creacion</title>
         <?php include("../stylesheets.php"); ?>
         <!--Importes MAPS -->
         <link rel="stylesheet" type="text/css" href="../../css/maps.css"/>

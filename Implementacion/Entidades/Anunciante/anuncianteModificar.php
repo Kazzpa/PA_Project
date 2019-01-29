@@ -115,7 +115,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Modificacion</title>
+    <title>Anunciante Modificar</title>
     <link rel="stylesheet" type="text/css" href="CSS/hojaestilo.css"/>
     <?php include("../stylesheets.php"); ?>
 </head>
