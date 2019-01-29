@@ -169,10 +169,13 @@ function printSuscritos($suscritos) {
                         <div id="comentsWapos" style="background-color: white; color:black;">
                             <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
-                                <form action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
+                                <form id="loginForm" maxlength="100" action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
+                                <script>
+                                    $("#loginForm").validate();
+                                </script>
                             <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">

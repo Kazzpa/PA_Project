@@ -34,6 +34,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
             include("../../conexion.php");
             $consulta = "INSERT INTO gallery ( id , grupo, rutaImagen, encabezado) VALUES ( 'NULL' , '" . $idGrupo . "' , '" . $nombreRuta . "' , '" . $encabezado . "')";
             $resultado = mysqli_query($con, $consulta);
+            include("../Logro/logros_admin.php");
             checkFotos($idGrupo);
             echo "<br> consulta: <br/>" . $consulta . "<br/>";
             if ($resultado) {

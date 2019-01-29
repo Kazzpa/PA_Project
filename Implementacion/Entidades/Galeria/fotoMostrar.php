@@ -29,18 +29,27 @@ if ($bol) {
         for ($i = 0; $i < sizeof($image['URL']); $i++) {
             if (isset($_SESSION['username']) && isset($_GET['grupo'])) {
                 include('../Grupo/grupoIsAdmin.php');
+                //si es admin
                 if ($admin) {
                     ?>
-                    <li class="gallery" data-src="<?php echo $image['URL'][$i]; ?>" data-responsive="<?php echo $image['URL'][$i]; ?>" 
+                    <li class="gallery" data-src="../Galeria/<?php echo $image['URL'][$i]; ?>" data-responsive="../Galeria/<?php echo $image['URL'][$i]; ?>" 
                         data-sub-html="<p id='img<?php echo $image['ID'][$i]; ?>'><?php echo $image["encabezado"][$i]; ?></p><div class='edit' id='<?php echo $image['ID'][$i]; ?>'>Editar encabezado</div><div class='delete' id='<?php echo $image['ID'][$i]; ?>'>Eliminar foto</div>">
-                    <?php }
-                } else {
-                    ?>
-                <li class="gallery" data-src="<?php echo $image['URL'][$i]; ?>" data-responsive="<?php echo $image['URL'][$i]; ?>" 
+                            <?php
+                        } else {
+                            //si no es admin
+                            ?>
+                    <li class="gallery" data-src="../Galeria/<?php echo $image['URL'][$i]; ?>" data-responsive="../Galeria/<?php echo $image['URL'][$i]; ?>" 
+                        data-sub-html="<p id='img<?php echo $image['ID'][$i]; ?>'><?php echo $image["encabezado"][$i]; ?></p>">
+                            <?php
+                        }
+                    } else {
+                        //si no esta logueado el usuario
+                        ?>
+                <li class="gallery" data-src="../Galeria/<?php echo $image['URL'][$i]; ?>" data-responsive="../Galeria/<?php echo $image['URL'][$i]; ?>" 
                     data-sub-html="<p id='img<?php echo $image['ID'][$i]; ?>'><?php echo $image["encabezado"][$i]; ?></p>">
-            <?php } ?>
-                <a href="<?php echo $image['URL'][$i]; ?>">
-                    <img src="<?php echo $image['URL'][$i]; ?>" alt="" title="<?php echo $image["encabezado"][$i]; ?>"  class ="img-responsive"/>
+                    <?php } ?>
+                <a href="../Galeria/<?php echo $image['URL'][$i]; ?>">
+                    <img src="../Galeria/<?php echo $image['URL'][$i]; ?>" alt="" title="<?php echo $image["encabezado"][$i]; ?>"  class ="img-responsive"/>
                 </a>
             </li>
 
@@ -49,4 +58,4 @@ if ($bol) {
         echo "</ul></div>";
     }
 }
-        
+    
