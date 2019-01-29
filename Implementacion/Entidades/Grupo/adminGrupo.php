@@ -47,7 +47,7 @@ function formGrupo() {
                     <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
                 </div>
                 </form>';
-        }else{
+        } else {
             $str = '<a href="../Grupo/grupo_mostrar.php">No es administrador de ningun grupo,Animate! y crea uno</a>';
         }
     }
@@ -210,15 +210,18 @@ function trataCrearGrupo() {
 // Funcion de mostrar visualmente grupos.
 //-----------------------------------------------------
 //funcion para mostrar un grupo en una carta.
-function printCardGrupo($grupoInfo) {
+function printCardGrupo($grupoInfo, $ruta) {
     $str = "";
     if ($grupoInfo !== false) {
 
         $str = '<div class="col-sm-3"><div class="panel panel-default">
-                <div class="panel-heading bg-secondary">Grupo:<br/><b>' . $grupoInfo[1]
-                . '</b></div>';
-        if (file_exists($grupoInfo[3])) {
-            $str .= ' <a href="../Grupo/grupo_mostrar.php?grupo=' . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default" ><img class="img-responsive" src="' . $grupoInfo[3]
+                <div class="panel-heading bg-secondary">Grupo:<br/><b>' 
+                . $grupoInfo[1] . '</b></div>';
+        $aux = $ruta . $grupoInfo[3];
+        if (file_exists($aux)) {
+            $str .= ' <a href="../Grupo/grupo_mostrar.php?grupo='
+                    . urlencode($grupoInfo[1]) . '" class="btn btn-sm btn-default">'
+                    . '<img class="img-responsive" src="' . $aux
                     . '" alt="imagen de grupo ' . $grupoInfo[1]
                     . '" ></img></a>';
         }

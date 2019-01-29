@@ -229,21 +229,15 @@ function addLogro($idLogro, $grupoId) {
     if ($link !== false) {
         $consulta = "SELECT * FROM logros_grupo WHERE  group_id  = "
                 . "'$grupoId' AND logro_id = '$idLogro'";
-        echo "<br/>" . $consulta;
         $resultado = mysqli_query($link, $consulta);
         if (mysqli_num_rows($resultado) == 0) {
-            echo "no hay logro asociado";
             //Hacemos una insercion en la base de datos
             $consulta = "INSERT INTO logros_grupo ( group_id , logro_id)"
                     . " VALUES ( '$grupoId' , '$idLogro' )";
-            echo "<br/>" . $consulta;
             $resultado = mysqli_query($link, $consulta);
             if ($resultado) {
-                echo "añadido logro a grupo";
                 $bol = true;
             }
-        } else {
-            echo "hay logro asociado ya";
         }
     }
     return $bol;
