@@ -35,7 +35,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Ver registro</title>
+        <title>Anunciante Borrar</title>
         <link rel="stylesheet" type="text/css" href="CSS/hojaestilo.css"/>
         <?php include("../stylesheets.php"); ?>
     </head>

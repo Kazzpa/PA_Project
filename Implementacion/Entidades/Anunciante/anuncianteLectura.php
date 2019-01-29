@@ -47,7 +47,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vista de Registro</title>
+    <title>Anunciante Lectura</title>
     <link rel="stylesheet" type="text/css" href="CSS/hojaestilo.css"/>
     <?php include("../stylesheets.php"); ?>
     

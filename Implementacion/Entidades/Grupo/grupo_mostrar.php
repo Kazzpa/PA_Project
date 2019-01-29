@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Grupo<?php
+        <title>Grupo Mostrar<?php
             if (isset($_GET['grupo'])) {
                 echo ' - ' . $_GET['grupo'];
             } else {

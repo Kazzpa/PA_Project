@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Record</title>
+    <title>Anunciante Crear</title>
     <link rel="stylesheet" type="text/css" href="CSS/hojaestilo.css"/>
     <?php include("../stylesheets.php"); ?>
 </head>
