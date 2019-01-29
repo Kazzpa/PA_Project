@@ -27,9 +27,9 @@ and open the template in the editor.
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
-                    <h1>Welcome</h1>
-                    <input id="botonEventosPatrocinados" type="button" class="btn btn-default" value="Explora" style="background-color: white; color:black"/>
-                    <input id="botonEventosUsuarios" class="btn btn-default" type="button" value="Descubre"/>
+                    <h1>Bienvenido</h1>
+                    <input id="botonEventosPatrocinados" type="button" class="btn btn-default" value="Eventos de anunciante" style="background-color: white; color:black"/>
+                    <input id="botonEventosUsuarios" class="btn btn-default" type="button" value="Eventos de usuarios"/>
                     <!-- 
                     ======================================================================
                     EVENTOS PATROCINADOS
