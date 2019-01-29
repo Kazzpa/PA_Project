@@ -22,10 +22,7 @@ function getGroup($getName) {
     $sql = "SELECT * FROM grupo WHERE name = '" . $getName . "'";
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if (!$res) {
-        mysqli_close($link);
-        die("ERROR: SELECT QUERY ERROR");
-    } else {
+    if ($res) {
         if ($row = mysqli_fetch_array($res)) {
             $i = 0;
             while ($i < 4) {
@@ -33,7 +30,6 @@ function getGroup($getName) {
                 $i++;
             }
         }
-        mysqli_close($link);
     }
     return $ret;
 }
@@ -65,10 +61,7 @@ function getAllGroups($limit, $offset) {
     }
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if (!$res) {
-        mysqli_close($link);
-        die("ERROR: SELECT QUERY ERROR");
-    } else {
+    if ($res) {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
             $j = 0;
@@ -87,8 +80,9 @@ function getAllGroups($limit, $offset) {
 // 0: ID    1:name  2:descripcion   3:rutaImagen
 function getModGroups($user) {
     $link = connectDB();
-    $sql = "SELECT * FROM grupo,suscripcion_grupo ORDER BY grupo.name WHERE grupo.id"
-            . "  = suscripcion_grupo.group_id AND suscripcion_grupo.user_id = '$user' ";
+    $sql = "SELECT * FROM grupo, suscripcion_grupo WHERE grupo.id = "
+            . "suscripcion_grupo.grupo_id AND suscripcion_grupo.user_id = '$user'"
+            . " AND suscripcion_grupo.rol = '1'  ORDER BY grupo.name";
     $res = mysqli_query($link, $sql);
     $ret = false;
     if ($res) {
@@ -220,7 +214,7 @@ function getUsersSubs($getName) {
     $link = connectDB();
     $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
             . " `grupo` WHERE users.username = suscripcion_grupo.user_id AND"
-            . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id";
+            . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id ORDER BY suscripcion_grupo.rol";
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {

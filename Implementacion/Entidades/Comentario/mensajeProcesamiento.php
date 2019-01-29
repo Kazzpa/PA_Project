@@ -18,17 +18,21 @@ include("../../conexion.php");
 
 $consulta = "INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '0', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
 $resultado = mysqli_query($con, $consulta);
-
-$sql = "SELECT events.group_id FROM events, posts WHERE "
-        . "posts.eventId = '$eventId' AND posts.eventId = events.id";
-$res = mysqli_query($link, $sql);
+$idPost = mysqli_insert_id($con);
+$sql = "SELECT events.group_id as total FROM events, posts WHERE "
+        . "posts.id = '$idPost' AND posts.eventId = events.id";
+echo "sentencia : id post '$idPost' <br/>" . $sql;
+$res = mysqli_query($con, $sql);
 $ret = false;
 if ($arr = mysqli_fetch_array($res)) {
     $ret = $arr['total'];
+    if ($ret != 0) {
+        echo "<br/> id grupo=".$ret;
+        checkComentarios($ret);
+    }
 }
-checkComentarios($ret);
 mysqli_close($con); // Cerramos la base de datos
 
-header("Location: ../Evento/eventoMostrar.php?id=$eventId");
+//header("Location: ../Evento/eventoMostrar.php?id=$eventId");
 exit();
 
