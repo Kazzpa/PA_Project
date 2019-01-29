@@ -36,17 +36,20 @@ and open the template in the editor.
                     </div>
                     <div class="col-md-6 login-form-1">
                         <h3>Formulario de login</h3>
-                        <form action = "cuentaLoginProcesamiento.php" method = "post">
+                        <form id="loginForm" action = "cuentaLoginProcesamiento.php" method = "post">
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control" placeholder="Username" required />
+                                <input type="text" maxlength="20" name="username" class="form-control" placeholder="Username" required />
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                                <input type="password" minlength="5" maxlength="20" name="password" class="form-control" placeholder="Password" required/>
                             </div>
                             <div class="form-group">
                                 <input type="submit"  value="Acceso" name= "login" class="btnSubmit"/>
                             </div>
                         </form>
+                        <script>
+                            $("#loginForm").validate();
+                        </script>
                         <a href="cuentaRegistro.php">Registrate</a>
                     </div>
                     <div class="col-md-3">
@@ -95,7 +98,7 @@ and open the template in the editor.
                                     ?>
                                     <!-- Campo select modificacion de usuario -->
                                     <p> Si quiere modificar un dato seleccionelo del campo a continuacion e introduzca el nuevo valor: </p>
-                                    <form action = "cuentaModificar.php" method = "post" enctype="multipart/form-data">
+                                    <form id="accountModify" action = "cuentaModificar.php" method = "post" enctype="multipart/form-data">
                                         <div id="zonaModificacionDatos">
                                             <select id="opcionModificacionCuenta" name="selectCuentaModificar" onchange="comprobarFormularioDatos()">
                                                 <option value="email">E-mail</option>
@@ -104,11 +107,14 @@ and open the template in the editor.
                                             </select>
                                             <br />
                                             <br />
-                                            <input type="text" name="campoTexto" placeholder="E-mail" id="datoACambiar">
+                                            <input type="email" name="campoTexto" placeholder="E-mail" maxlength="255" id="datoACambiar" required>
                                         </div>
                                         <br />
                                         <input id="botonModificacionDatos" type="submit" value="Modificar Dato" name="modificarDato" /> <!--Boton que al pulsar te redirecciona a registro-->
                                     </form>
+                                    <script>
+                                        $("#accountModify").validate();
+                                    </script>
                                     <!-- Boton para el borrado de la cuenta-->
                                     <input type="submit" value="Eliminar cuenta" name="registro" onClick="avisarBorradoCuenta()"/> <!--Eliminamos la cuenta del usuario si asi lo pide-->
                                 </div>
@@ -172,7 +178,7 @@ and open the template in the editor.
                                             </select>
                                             <br />
                                             <br />
-                                            <input type="text" name="campoTexto" placeholder="Nombre Evento" id="eventoACambiar">
+                                            <input type="text" minlength="3" maxlength="50" name="campoTexto" placeholder="Nombre Evento" id="eventoACambiar" required>
 
                                             <!--Bloque Google Maps mostrado al elegir la modificacion Localizacion-->
                                             <div id = "location" style="display:none">
@@ -221,6 +227,9 @@ and open the template in the editor.
                                         <br />
                                         <input id="botonEventoModificar" type="submit" value="Modificar Evento" name="botonEventoModificar" />
                                     </form>
+                                    <script>
+                                        $("#formModificacionEvento").validate();
+                                    </script>
                                 </div>
                             </div>
 

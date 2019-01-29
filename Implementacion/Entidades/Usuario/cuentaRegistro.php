@@ -22,18 +22,18 @@ and open the template in the editor.
                 </div>
                 <div class="col-md-6 login-form-1">
                     <h3>Formulario de registro</h3>
-                    <form action = "cuentaRegistroProcesamiento.php" method = "post" enctype="multipart/form-data">
+                    <form id="registerForm" action = "cuentaRegistroProcesamiento.php" method = "post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre y Primer apellido" required />
+                            <input type="text" maxlength="20" name="nombre" class="form-control" placeholder="Nombre y Primer apellido" required />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="username" class="form-control" placeholder="Username" required />
+                            <input type="text" maxlength="20" name="username" class="form-control" placeholder="Username" required />
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="E-mail" required />
+                            <input type="email" maxlength="255" name="email" class="form-control" placeholder="E-mail" required />
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                            <input type="password" maxlength="20" minlength="5" name="password" class="form-control" placeholder="Password" required/>
                         </div>
                         <div class="form-group">
                             <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
@@ -42,6 +42,9 @@ and open the template in the editor.
                             <input type="submit"  value="Registro" name= "registroProcesamiento" class="btnSubmit" />
                         </div>
                     </form>
+                    <script>
+                        $("#registerForm").validate();
+                    </script>
                 </div>
                 <div class="col-md-3">
                 </div>

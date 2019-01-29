@@ -8,9 +8,11 @@ function comprobarFormularioDatos() {
         }
         var dato = document.createElement("input");
         dato.id = "datoACambiar";
-        dato.type = "text";
+        dato.type = "email";
+        dato.maxlength="255";
         dato.placeholder = "E-mail";
         dato.name = "campoTexto";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var boton = document.getElementById("botonModificacionDatos");
@@ -25,6 +27,7 @@ function comprobarFormularioDatos() {
         dato.type = "password";
         dato.placeholder = "Password";
         dato.name = "campoTexto";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var boton = document.getElementById("botonModificacionDatos");
@@ -38,6 +41,7 @@ function comprobarFormularioDatos() {
         dato.id = "datoACambiar";
         dato.type = "file";
         dato.name = "imagen";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var boton = document.getElementById("botonModificacionDatos");
@@ -65,8 +69,11 @@ function comprobarFormularioEventos() {
         var dato = document.createElement("input");
         dato.id = "eventoACambiar";
         dato.type = "text";
+        dato.maxlength="50";
+        dato.minlength="3";
         dato.placeholder = "Nombre evento";
         dato.name = "campoTexto";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var formulario = document.getElementById("formModificacionEvento");
@@ -90,10 +97,12 @@ function comprobarFormularioEventos() {
         dato.id = "eventoACambiar";
         dato.rows = "10";
         dato.cols = "60";
+        dato.maxlength="500";
         dato.style = "resize: none;";
         dato.type = "password";
         dato.placeholder = "Introduzca la nueva descripccion";
         dato.name = "campoTexto";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var formulario = document.getElementById("formModificacionEvento");
@@ -120,6 +129,7 @@ function comprobarFormularioEventos() {
         dato.id = "eventoACambiar";
         dato.type = "file";
         dato.name = "imagen";
+        dato.required= "True";
         zonaAdicion.appendChild(dato);
 
         var boton = document.getElementById("botonEventoModificar");

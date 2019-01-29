@@ -35,15 +35,15 @@ and open the template in the editor.
             <span id="place-address"></span>
         </div>
         <div class="container login-container">
-            <form action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
+            <form id="eventCreationForm" action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 login-form-1">
                         <h3>Datos del evento</h3>
                         <div class="form-group">
-                            <input type="text" class="form-control" name= "nameEvent" placeholder="Nombre evento" value="" required/>
+                            <input type="text" minlength="3" maxlength="50" class="form-control" name= "nameEvent" placeholder="Nombre evento" value="" required/>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name = "description" rows="6" style="resize: none;" id="comment" placeholder="Introduce una descripcion" required></textarea>
+                            <textarea class="form-control" maxlength="500" name = "description" rows="6" style="resize: none;" id="comment" placeholder="Introduce una descripcion" required></textarea>
                         </div>
                         <div class="form-group">
                             <input type = "datetime-local" name = "date-celebration" required placeholder="2018-06-12T19:30"/>
@@ -72,6 +72,9 @@ and open the template in the editor.
                             <input type="submit" class="btnSubmit" value="Crear" />
                         </div>
                     </div>
+                    <script>
+                        $("#eventCreationForm").validate();
+                    </script>
                     <div class="col-md-6 login-form-2">
                         <h3>Localizacion</h3>
                         <div class="form-group">
