@@ -60,8 +60,6 @@ function printSuscritos($suscritos) {
             $descripcion = $fila['description'];
             $evento_id = $fila['id'];
             $rutaimagen = $fila['rutaimagen'];
-            if (file_exists($rutaimagen))
-                ;
             $grupoEvento = $fila['group_id'];
             $grupoInfo = false;
             if ($grupoEvento != 0) {
