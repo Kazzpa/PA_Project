@@ -1,6 +1,5 @@
 <?php
 
-//session_start();
 //guardamos datos del comentario
 $postId = $_POST['comment'];
 $newMessage = $_POST['newComment'];

@@ -267,7 +267,7 @@
                 });
                 $(document).on("click", ".delete", function () {
                     if (confirm("¿Seguro que quieres eliminar esta imagen?")) {
-                        var foto = $(this).attr('id    ');
+                        var foto = $(this).attr('id');
                         $.ajax({
                             type: "POST",
                             url: "../Galeria/fotoEliminar.php",
