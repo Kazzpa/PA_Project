@@ -28,8 +28,8 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                     <h1>Welcome</h1>
-                    <input id="botonEventosPatrocinados" type="button" value="Explora" style="background-color: white; color:black"/>
-                    <input id="botonEventosUsuarios" type="button" value="Descubre"/>
+                    <input id="botonEventosPatrocinados" type="button" class="btn btn-default" value="Explora" style="background-color: white; color:black"/>
+                    <input id="botonEventosUsuarios" class="btn btn-default" type="button" value="Descubre"/>
                     <!-- 
                     ======================================================================
                     EVENTOS PATROCINADOS
