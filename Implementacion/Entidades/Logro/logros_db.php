@@ -10,6 +10,7 @@ function conectarDB() {
     if ($GLOBALS['conexion'] == false) {
         include("../../conexion.php");
         $conexion = $con;
+        echo "<br/>conexion db nueva";
     } else {
         $con = $conexion;
     }
@@ -194,12 +195,14 @@ function numFotos($grupoId) {
 //devuelve el numero de eventos relacionadas con ese grupo
 function numEvents($grupoId) {
     $link = conectarDB();
-    $sql = "SELECT COUNT(gallery.id) as total FROM gallery WHERE "
-            . "grupo = '$grupoId'";
+    $sql = "SELECT COUNT(events.group_id) as total FROM events WHERE "
+            . "group_id = '$grupoId'";
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if ($arr = mysqli_fetch_array($res)) {
-        $ret = $arr['total'];
+    if ($res !== false) {
+        if ($arr = mysqli_fetch_array($res)) {
+            $ret = $arr['total'];
+        }
     }
     return $ret;
 }
@@ -209,9 +212,7 @@ function getLogros($tipo) {
     $sql = "SELECT * FROM logro where logro.tipo = '$tipo'";
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if (!$res) {
-        die("ERROR: SELECT QUERY ERROR");
-    } else {
+    if ($res) {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
             $ret[$i][0] = $row['id'];
@@ -229,15 +230,21 @@ function addLogro($idLogro, $grupoId) {
     if ($link !== false) {
         $consulta = "SELECT * FROM logros_grupo WHERE  group_id  = "
                 . "'$grupoId' AND logro_id = '$idLogro'";
+        echo "<br/>" . $consulta;
         $resultado = mysqli_query($link, $consulta);
         if (mysqli_num_rows($resultado) == 0) {
+            echo "no hay logro asociado";
             //Hacemos una insercion en la base de datos
             $consulta = "INSERT INTO logros_grupo ( group_id , logro_id)"
                     . " VALUES ( '$grupoId' , '$idLogro' )";
+            echo "<br/>" . $consulta;
             $resultado = mysqli_query($link, $consulta);
             if ($resultado) {
+                echo "añadido logro a grupo";
                 $bol = true;
             }
+        } else {
+            echo "hay logro asociado ya";
         }
     }
     return $bol;
