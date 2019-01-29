@@ -5,7 +5,6 @@
  * Comprobamos si la localizacion del evento a eliminar tiene mas de un evento asociado
  */
 
-
 // Para ello primero obtenemos la id de la localizacion del evento que se quiere modificar
 $query = "SELECT `idLocation` FROM `events` WHERE `id` =" . $evento_id;
 $result = mysqli_query($con, $query);

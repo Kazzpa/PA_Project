@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <?php
 session_start();
 
@@ -22,12 +28,7 @@ function printSuscritos($suscritos) {
     return $str;
 }
 ?>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <title>home</title>
@@ -168,13 +169,13 @@ and open the template in the editor.
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
-    <?php if (isset($_SESSION['username'])) { ?>
+                            <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
                                 <form action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
-    <?php } ?>
+                            <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">
                                 <tbody id="tbodyComments">
@@ -194,6 +195,11 @@ and open the template in the editor.
             <?php
         }
         ?>
+        <!--
+        -----------------------------------------------------
+        Google maps API
+        -----------------------------------------------------
+        -->
         <script type="text/javascript">
             function initMap() {
                 downloadUrl('../Localizacion/localizacionMostrar.php?id=<?php echo $evento_id; ?>', function (data) {
@@ -235,7 +241,13 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
-<?php include("../Localizacion/mapsScript.php"); ?>
+        <!--Declaracion del google Maps-->
+        <?php include("../Localizacion/mapsScript.php"); ?>
+        <!--
+        -----------------------------------------------------
+        Tabla de comentarios
+        -----------------------------------------------------
+        -->
         <script type="text/javascript">
             $(document).ready(function () {
                 mostrarTabla();
@@ -249,11 +261,15 @@ and open the template in the editor.
                         success: function (data) {
                             console.log(data);
                             data = JSON.parse(data);
-                            //FORMATO DE DATA:
-                            // $data = ['posts' => $posts, 'imagenes' => $fila_imagen_format];
-                            //donde $fila_posts contiene todos los datos del post
-                            //y $fila_imagen_format contiene en un array asociativo 
-                            //username => rutaImagen los datos de cada usuario participante en la conversacion
+                            /*
+                             * FORMATO DE DATA:
+                             * $data = ['posts' => $posts, 'imagenes' => $fila_imagen_format];
+                             * donde:
+                             *      $fila_posts contiene todos los datos del post
+                             *      $fila_imagen_format contiene en un array asociativo 
+                             *      username => rutaImagen los datos de cada usuario participante en la conversacion
+                             */
+
 
                             var tbodyComments = document.getElementById("tbodyComments");
                             var table = document.getElementById("tableComments");
@@ -278,7 +294,7 @@ and open the template in the editor.
                                 //obtenemos cada imagen de usuario
                                 var name = data['posts'][i]['postedBy'];
                                 console.log(name);
-                                img.src = "../Usuario/"+data['imagenes'][data['posts'][i]['postedBy']];
+                                img.src = "../Usuario/" + data['imagenes'][data['posts'][i]['postedBy']];
                                 img.style = "width:50%;";
                                 img.alt = "imagen de usuario";
                                 td0.appendChild(img);
@@ -309,11 +325,11 @@ and open the template in the editor.
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-if (isset($_SESSION['username']))
-    echo $_SESSION['username'];
-else
-    echo '';
-?>") {
+        if (isset($_SESSION['username']))
+            echo $_SESSION['username'];
+        else
+            echo '';
+        ?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";
@@ -382,6 +398,7 @@ else
                 });
             });
         </script>
+        <!--Plugin para el text area de los comentarios-->
         <script type="text/javascript" src="../../js/resize-textarea.js"></script>
     </body>
 </html>

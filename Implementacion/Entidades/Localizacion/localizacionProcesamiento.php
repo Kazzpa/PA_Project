@@ -33,5 +33,5 @@ if ($datos['name'] == "" || $datos['address'] == "" || $datos['city'] == "" || $
 }
 
 function redireccionLogin(){
-    header("Refresh: 5; URL = ../Usuario/cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+    header("Refresh: 1; URL = ../Usuario/cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
 }
