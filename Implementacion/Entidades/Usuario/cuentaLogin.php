@@ -236,70 +236,72 @@ and open the template in the editor.
                             </div>
 
 
-                        </div>
-                        <div class="col-sm-2 sidenav">
-                        </div>
-                </div>
-                <?php
-            } else {    //Mensaje mostrado si no existen eventos creados
-                echo "No tiene eventos creados, animate y crea el tuyo!";
-            }
-        }
-        if (isset($_SESSION['username'])) {
-            ?>
-
-            <!--
-            -----------------------------------------------------
-            Panel de administrar grupos
-            -----------------------------------------------------
-            -->
-            <div class="row">
-                <h4> Panel grupos </h4>
-                <div class="col-sm-12 text-left well">
-                    <?php
-                    panelLoginGrupo();
-                    ?>
-
-                </div>
-            </div>
-            <?php if ($_SESSION['tipo'] == 1) { ?>
-                <!--
-                -----------------------------------------------------
-                Panel de administrar logros
-                -----------------------------------------------------
-                -->
-                <div class="row">
-                    <h4> Panel Logros </h4>
-                    <div class="col-sm-12 text-left well">
-                        <?php
-                        panelLogrosLogin();
+                            <?php
+                        } else {    //Mensaje mostrado si no existen eventos creados
+                            echo "No tiene eventos creados, animate y crea el tuyo!";
+                        }
+                    }
+                    if (isset($_SESSION['username'])) {
                         ?>
 
-                    </div>
+                        <!--
+                        -----------------------------------------------------
+                        Panel de administrar grupos
+                        -----------------------------------------------------
+                        -->
+                        <div class="col-sm-12">
+                            <h4> <b>Panel grupos</b></h4>
+                            <div class="col-sm-12 text-left well">
+                                <?php
+                                panelLoginGrupo();
+                                ?>
+
+                            </div>
+                        </div>
+                        <?php if ($_SESSION['tipo'] == 1) { ?>
+                            <!--
+                            -----------------------------------------------------
+                            Panel de administrar logros
+                            -----------------------------------------------------
+                            -->
+                            <div class="col-sm-12">
+                                <h4> <b>Panel Logros </b></h4>
+                                <div class="col-sm-12 text-left well">
+                                    <?php
+                                    panelLogrosLogin();
+                                    ?>
+
+                                </div>
+                            </div>
+                        <?php
+                        }
+                    }
+                    ?>
                 </div>
-            <?php }
-        } ?>
-        <!--
-        -----------------------------------------------------
-        Google maps API
-        -----------------------------------------------------
-        -->
-        <script type="text/javascript" src="../../js/localizacionCreacionModificacion.js"></script>
-        <script type="text/javascript">
-                                /*
-                                 * La localizacion modifica el valor de los campos del formulario en 
-                                 * base a la informacion introducida en el autocompletar de Google. 
-                                 * Para ello, ante la llamada de modificar una localizacion, se inicia
-                                 * un intervalo (funcion lookForCityChange) que comprueba si hay 
-                                 * cambios en el valor introducido en el campo del mapa de google.
-                                 */
-                                function modificarLocalizacion() {
-                                    setInterval(lookForCityChange, 100);
-                                }
-        </script>
-        <!--Declaracion del google Maps-->
-        <?php include("../Localizacion/mapsScript.php"); ?>
-        <!--Plugin para mostrar un placeholder emergente en los inputs text-->
-        <?php include("../../placeholder.php"); ?>
+            </div>
+            <div class="col-sm-2 sidenav">
+            </div>
+            <!--
+            -----------------------------------------------------
+            Google maps API
+            -----------------------------------------------------
+            -->
+            <script type="text/javascript" src="../../js/localizacionCreacionModificacion.js"></script>
+            <script type="text/javascript">
+                                        /*
+                                         * La localizacion modifica el valor de los campos del formulario en 
+                                         * base a la informacion introducida en el autocompletar de Google. 
+                                         * Para ello, ante la llamada de modificar una localizacion, se inicia
+                                         * un intervalo (funcion lookForCityChange) que comprueba si hay 
+                                         * cambios en el valor introducido en el campo del mapa de google.
+                                         */
+                                        function modificarLocalizacion() {
+                                            setInterval(lookForCityChange, 100);
+                                        }
+            </script>
+            <!--Declaracion del google Maps-->
+            <?php include("../Localizacion/mapsScript.php"); ?>
+            <!--Plugin para mostrar un placeholder emergente en los inputs text-->
+<?php include("../../placeholder.php"); ?>
     </body>
 </html>
