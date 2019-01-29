@@ -10,7 +10,6 @@ if (isset($_POST['event_id'])) {
     $evento = $_POST['event_id'];
 }
 
-include("../../conexion.php");
 $consulta = "DELETE FROM `reserva` WHERE `username` = '$usuario' AND `id_evento` = '$evento'"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
 $resultado = mysqli_query($con, $consulta);

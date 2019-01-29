@@ -27,16 +27,18 @@
 
         //Mostrar informacion de un grupo
         function printGrupoExpanded($group, $logrosInfo, $suscritos) {
-            $str = '<div class="col-md-12"><h1>' . $group[1] . '</h1>';
+            $str = '<div id="grupo" class="col-md-12"><h1>' . $group[1] . '</h1>';
 
             if (isset($_SESSION["login"])) {
                 //Ahora mismo el boton no hace nada
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
+                $str .= '<form action="" method="GET"><input type="hidden" name="grupo" value="'.$_GET['grupo'].'">';
                 if ($estaSuscrito !== false) {
                     $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary"></input>';
                 } else {
                     $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary"></input>';
                 }
+                $str .= "</form>";
             }
             if (file_exists($group[3])) {
                 $str .= '<img class="col-md-9 img-fluid" src="' . $group[3]
@@ -162,6 +164,11 @@
                 $logrosInfo = getGroupLogros($groupInfo[0]);
                 $infoSubscribers = getUsersSubs($entradas['grupo']);
                 //Grupo valido pero no registrado
+                if (isset($_GET['suscribirse'])) {
+                    suscribirseGrupo($_SESSION['username'], $groupInfo[0], false);
+                } else if (isset($_GET['desuscribir'])) {
+                    deSuscribirseGrupo($_SESSION['username'], $groupInfo[0]);
+                }
             } else {
                 $bol = false;
             }
@@ -199,7 +206,7 @@
                                 echo "<h4 class='alert alert-warning' width='30%'>No encontrado el grupo</h2>";
                             }
                             echo (printCreacion());
-                                $select = false;
+                            $select = false;
                             echo (printSelect($select));
                             echo (printGrupos());
                         }

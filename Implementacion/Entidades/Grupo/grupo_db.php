@@ -156,19 +156,33 @@ function suscribirseGrupo($user, $grupo, $bCreador) {
     $con = connectDB();
     $bol = false;
     if (!isSubbedToGroup($user, $grupo)) {
-        $sql = "INSERT INTO suscripcion_grupo (user_id, grupo_id, id, rol) "
-                . " VALUES ( '$user','$grupo', 'NULL', '";
+        $sql = "INSERT INTO suscripcion_grupo (user_id, grupo_id, id, rol)"
+                . " VALUES ( '$user','$grupo', NULL, '";
         if ($bCreador) {
             $sql .= "1";
         } else {
             $sql .= "0";
         }
-        $sql .= "'";
+        $sql .= "')";
         $resultado = mysqli_query($con, $sql);
         if ($resultado) {
             $bol = true;
         }
-        mysqli_close($con);
+    }
+    return $bol;
+}
+
+//elimina la relacion de un usuario con un grupo
+function deSuscribirseGrupo($user, $grupo) {
+    $con = connectDB();
+    $bol = false;
+    if (isSubbedToGroup($user, $grupo)) {
+        $sql = "DELETE FROM suscripcion_grupo WHERE user_id = '$user' AND"
+                . " grupo_id = '$grupo'";
+        $resultado = mysqli_query($con, $sql);
+        if ($resultado) {
+            $bol = true;
+        }
     }
     return $bol;
 }
@@ -182,8 +196,7 @@ function getUsersSubs($getName) {
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
-        mysqli_close($link);
-        $ret = false;
+        
     } else {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
@@ -196,7 +209,6 @@ function getUsersSubs($getName) {
             }
             $i++;
         }
-        mysqli_close($link);
     }
     return $ret;
 }
@@ -211,8 +223,7 @@ function getGroupsSubbed($userName) {
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
-        mysqli_close($link);
-        die("ERROR: SELECT QUERY ERROR");
+        
     } else {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
@@ -223,7 +234,6 @@ function getGroupsSubbed($userName) {
             }
             $i++;
         }
-        mysqli_close($link);
     }
     return $ret;
 }
@@ -238,9 +248,7 @@ function getGroupLogros($groupId) {
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
-        mysqli_close($link);
-//No deberia haber un die
-        die("ERROR: SELECT QUERY ERROR");
+        
     } else {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
@@ -251,7 +259,6 @@ function getGroupLogros($groupId) {
             }
             $i++;
         }
-        mysqli_close($link);
     }
     return $ret;
 }
