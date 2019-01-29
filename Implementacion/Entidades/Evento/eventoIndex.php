@@ -20,7 +20,9 @@ and open the template in the editor.
     </head>
     <body>
         <?php include("../header.php"); ?>
+        <!--Google Maps API-->
         <div id="map"></div>
+
         <div class="container-fluid text-center"> 
             <div class="col-sm-2 sidenav">
             </div>
@@ -93,13 +95,17 @@ and open the template in the editor.
                     } else {
                         echo "No hay eventos creados, animate y crea el tuyo!";
                     }
-                    include("../Localizacion/mapsScript.php");
                     ?>
                 </div>
                 <div class="col-sm-2 sidenav">
                 </div>
             </div>
         </div>
+        <!--
+        -----------------------------------------------------
+        Google maps API
+        -----------------------------------------------------
+        -->
         <script type="text/javascript">
             function initMap() {
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -175,5 +181,7 @@ and open the template in the editor.
             function doNothing() {}
 
         </script>
+        <!--Declaracion del google Maps-->
+        <?php include("../Localizacion/mapsScript.php"); ?>
     </body>
 </html>

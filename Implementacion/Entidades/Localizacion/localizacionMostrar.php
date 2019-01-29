@@ -56,8 +56,7 @@ while ($row_markers = mysqli_fetch_assoc($resultado_markers)) {
 header("Content-type: text/xml");
 
 echo '<markers>';
-// Iterate through the rows, printing XML nodes for each
-// Add to XML document node
+// Iteramos por las filas, imprimiendo el XML para cada 
 foreach ($arrayLocalizacion as $localizacion) {
     $i = 0;
     echo '<marker ';
@@ -77,5 +76,5 @@ foreach ($arrayLocalizacion as $localizacion) {
     echo '/>';
 }
 
-// End XML file
+// Fin del fichero XML
 echo '</markers>';
