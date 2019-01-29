@@ -2,6 +2,7 @@
 
 //crea la conexion con la base de datos y no la cierra.
 $conexion = false;
+include_once '../Logro/logros_admin.php';
 
 //Patron singleton para conexion
 function connectDB() {
@@ -194,6 +195,7 @@ function suscribirseGrupo($user, $grupo, $bCreador) {
         if ($resultado) {
             $bol = true;
         }
+        checkMiembros($grupo);
     }
     return $bol;
 }
@@ -270,12 +272,10 @@ function getGroupLogros($groupId) {
     $link = connectDB();
     $sql = "SELECT logro.name, logro.icon_path, logro.descripcion, logro.puntos"
             . " FROM logro, logros_grupo, grupo WHERE   logro.id=logros_grupo.logro_id "
-            . "  AND logros_grupo.group_id = " . $groupId;
+            . "  AND logros_grupo.group_id = " . $groupId . " AND logros_grupo.group_id = grupo.id";
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if (!$res) {
-        
-    } else {
+    if ($res) {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
             $j = 0;

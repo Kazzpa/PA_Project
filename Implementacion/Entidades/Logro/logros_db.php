@@ -4,6 +4,7 @@
 //logroname  logrodesc logroicon logrotipo logrovalor logropuntos
 //crea la conexion con la base de datos y no la cierra.
 $conexion = false;
+
 //Patron singleton para conexion
 function conectarDB() {
     if ($GLOBALS['conexion'] == false) {
@@ -21,6 +22,7 @@ function cerrarDB() {
         $con = $conexion;
     }
 }
+
 //Insertamos un logro en la DB
 function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
     $link = conectarDB();
@@ -139,6 +141,9 @@ function eliminarLogro($id) {
     $con = conectarDB();
     //Eliminamos el grupo con el id especificado
     $consulta = 'DELETE FROM logro WHERE id ="' . $id . '"';
+
+    $resultado = mysqli_query($con, $consulta);
+    $consulta = "DELETE FROM logros_grupo WHERE logro_id = '$id'";
     $resultado = mysqli_query($con, $consulta);
     if (!$resultado) {
         $bol = false;

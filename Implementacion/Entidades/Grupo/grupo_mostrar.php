@@ -34,16 +34,16 @@
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
                 $str .= '<form action="" method="GET"><input type="hidden" name="grupo" value="'.$_GET['grupo'].'">';
                 if ($estaSuscrito !== false) {
-                    $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary"></input>';
+                    $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary">';
                 } else {
-                    $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary"></input>';
+                    $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary">';
                 }
                 $str .= "</form>";
             }
             if (file_exists($group[3])) {
                 $str .= '<img class="col-md-9 img-fluid" src="' . $group[3]
                         . '" alt="imagen de ' . $group[1]
-                        . '" style="height:auto;max-width: 100%;"></img>';
+                        . '" style="height:auto;max-width: 100%;">';
             }
             $str .= '<div class="col-md-3" >'
                     . printLogros($logrosInfo) . printSuscritos($suscritos)
@@ -121,7 +121,7 @@
             if ($logrosInfo !== false) {
                 $str .= '<h5>Logros del grupo:</h5>';
                 for ($i = 0; $i < sizeof($logrosInfo); $i++) {
-                    $str .= '<img src="' . $logrosInfo[$i][1] . '" alt="' . $logrosInfo[$i][0] . '"/>';
+                    $str .= '<img class="img-responsive" src="../Usuario/' . $logrosInfo[$i][1] . '" alt="' . $logrosInfo[$i][0] . '"/>';
                 }
             }
             return $str;

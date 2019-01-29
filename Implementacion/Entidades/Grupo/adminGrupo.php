@@ -70,7 +70,7 @@ function formModGrupo() {
     <div class="form-group">
         <b>Modificar Imagen: </b><br/>';
     if (file_exists($_SESSION['grupo'][3])) {
-        $str .= '<img src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . 'width="10%"></img><br/>';
+        $str .= '<img class="img-responsive" src="' . $_SESSION['grupo'][3] . '" alt="imagen de ' . $_SESSION['grupo'][1] . 'width="10%"></img><br/>';
     }
     $str .= '<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
     </div>

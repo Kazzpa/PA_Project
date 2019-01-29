@@ -53,39 +53,46 @@ function panelLogrosLogin() {
 function formCrearLogro() {
     return '
                 <form action="" method="POST" enctype="multipart/form-data" >
-            
-            <div class="form-group col-md-4">
-                <b>Nombre logro: </b>
-                <input type="text" class="form-control" name="logroname" placeholder="Nombre icono" required><br/>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <b>Nombre logro: </b>
+                    <input type="text" class="form-control" name="logroname" required><br/>
+                </div>
+                <div class="form-group col-md-8 custom-file">
+                    <b>Icono del logro: </b><br/>
+                    <input type="file" class="custom-file-input " id="customFile" name="logroicon" accept="image/x-png,image/gif,image/jpeg" required>
+                </div>
             </div>
-            <div class="form-group col-md-4 custom-file">
-                <b>Icono del logro: </b><br/>
-                <input type="file" class="custom-file-input" id="customFile" name="logroicon" accept="image/x-png,image/gif,image/jpeg" required>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <b>Descripcion del logro</b>
+                    <input type="text" class="form-control" name="logrodesc"  required><br/>
+                </div>
+                <div class="form-group col-md-4">
+                    <b>Tipo de logro</b>
+                    <select class="custom-select" name="logrotipo" required>
+                    <option value="0" selected>N&uacute;mero de miembros</option>
+                    <option value="1">N&uacute;mero de comentarios</option>
+                    <option value="2">N&uacute;mero de fotos</option>
+                    <option value="3">N&uacute;mero de eventos</option>
+                    <option value="4">N&uacute;mero de puntos</option>
+                    <option value="5">Rey de la web o especial</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <b>Valor necesario para conseguirlo</b>
+                    <input type="number" class="form-control" name="logrovalor" min="1" required><br/>
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <b>Descripcion del logro</b>(ej: 100 miembros en el grupo):
-                <input type="text" class="form-control" name="logrodesc" placeholder="Descripcion" required><br/>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <b>Puntos a obtener</b>
+                    <input type="number" class="form-control" name="logropuntos" required><br/>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="submit" class="btn btn-primary" name="logrocrear" value="Crear">
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <b>Tipo de logro</b>
-                <select class="custom-select" name="logrotipo" required>
-                <option value="0" selected>N&uacute;mero de miembros</option>
-                <option value="1">N&uacute;mero de comentarios</option>
-                <option value="2">N&uacute;mero de fotos</option>
-                <option value="3">N&uacute;mero de eventos</option>
-                <option value="4">N&uacute;mero de puntos</option>
-                <option value="5">Rey de la web o especial</option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-                <b>Valor necesario para conseguirlo</b>
-                <input type="number" class="form-control" name="logrovalor" min="1" placeholder="valor" required><br/>
-            </div>
-            <div class="form-group col-md-4">
-                <b>Puntos a obtener</b>
-                <input type="number" class="form-control" name="logropuntos" placeholder="puntos" required><br/>
-            </div>
-            <input type="submit" class="btn btn-primary" name="logrocrear" value="Crear">
             </form>
                 ';
 }
@@ -93,12 +100,13 @@ function formCrearLogro() {
 //Formulario para seleccionar un logro especifico por nombre
 function formBuscarLogro() {
     return '<h4> Buscar logro a tratar </h4>
+        <div >
             <form action="" method="POST">
                 <div class="form-group">
-                    <b>Nombre: </b><input type="text" class="form-control" name="logro" placeholder="Nombre logro">
+                    <b>Nombre: </b><input type="text" class="form-control" name="logro">
                     <input type="submit" class="btn btn-primary" name="BuscarLogro" value="Buscar">
                 </div>
-            </form>';
+            </form></div>';
 }
 
 //Comprueba si existe el logro especificado
@@ -109,17 +117,17 @@ function formModLogro() {
                 <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['logro'][1]) . '"</i><br/>
-                    <input type="text" class="form-control" name="logroName" placeholder="Nombre"><br/>
+                    <input type="text" class="form-control" name="logroName"><br/>
                     </div>';
     $str .= '<b>Modificar Imagen: </b><br/>';
     if (file_exists($_SESSION['logro'][2])) {
-        $str .= '<img src="' . $_SESSION['logro'][2] . '" alt = "imagen de logro:' . $_SESSION['logro'][1] . '"><br/>';
+        $str .= '<img class="img-responsive preview"  src="' . $_SESSION['logro'][2] . '" alt = "imagen de logro:' . $_SESSION['logro'][1] . '"><br/>';
     }
-    $str .= '<div class="form-group"><input type="file" class="form-control" name="logroImg" placeholder="ruta imagen"><br/></div>
+    $str .= '<div class="form-group"><input type="file" class="form-control" name="logroImg"><br/></div>
                     <div class="form-group">
                         <b>Modificar descripcion: </b>
                         <br/><i>"' . $_SESSION['logro'][3] . '" </i><br/>
-                        <input type="text" class="form-control" name="logroDesc" placeholder="Descripcion"><br/>
+                        <input type="text" class="form-control" name="logroDesc"><br/>
                     </div>
                     <div class="form-group">
                         <div class="form-group col-md-4">
@@ -247,8 +255,8 @@ function checkEnviadoAdmin() {
             }
         }
     } else if (isset($_SESSION['logro']) && isset($_POST['EliminarLogro'])) {
-        $bol = eliminarLogro($_SESSION['grupo'][0]);
-        unset($_SESSION['grupo']);
+        $bol = eliminarLogro($_SESSION['logro'][0]);
+        unset($_SESSION['logro']);
         if ($bol) {
             $bol = 1;
         }
@@ -311,7 +319,7 @@ function checkMiembros($groupId) {
                 //comprobamos si excede el valor del logro
                 // si es asi añadimos el logro en caso de que aun no lo tenga
                 // eso estara controlado en addLogro
-                if ($numMiembros > $logros_miembros[$i][1]) {
+                if ($numMiembros >= $logros_miembros[$i][1]) {
                     if (addLogro($logros_miembros[$i][0], $groupId)) {
                         //logro añadido
                     }
@@ -333,7 +341,7 @@ function checkComentarios($groupId) {
                 //comprobamos si excede el valor del logro
                 // si es asi añadimos el logro en caso de que aun no lo tenga
                 // eso estara controlado en addLogro
-                if ($numComentarios > $logros_comentarios[$i][1]) {
+                if ($numComentarios >= $logros_comentarios[$i][1]) {
                     if (addLogro($logros_comentarios[$i][0], $groupId)) {
                         //logro añadido
                     }
@@ -355,7 +363,7 @@ function checkFotos($groupId) {
                 //comprobamos si excede el valor del logro
                 // si es asi añadimos el logro en caso de que aun no lo tenga
                 // eso estara controlado en addLogro
-                if ($numFotos > $logros_fotos[$i][1]) {
+                if ($numFotos >= $logros_fotos[$i][1]) {
                     if (addLogro($logros_fotos[$i][0], $groupId)) {
                         //logro añadido
                     }
@@ -377,7 +385,7 @@ function checkEventos($groupId) {
                 //comprobamos si excede el valor del logro
                 // si es asi añadimos el logro en caso de que aun no lo tenga
                 // eso estara controlado en addLogro
-                if ($numEventos > $logros_eventos[$i][1]) {
+                if ($numEventos >= $logros_eventos[$i][1]) {
                     if (addLogro($logros_eventos[$i][0], $groupId)) {
                         //logro añadido
                     }
@@ -401,7 +409,7 @@ function checkPuntos($groupId) {
                 //comprobamos si excede el valor del logro
                 // si es asi añadimos el logro en caso de que aun no lo tenga
                 // eso estara controlado en addLogro
-                if ($numEventos > $logros_eventos[$i][1]) {
+                if ($numEventos >= $logros_eventos[$i][1]) {
                     if (addLogro($logros_eventos[$i][0], $groupId)) {
                         //logro añadido
                     }

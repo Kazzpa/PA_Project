@@ -23,8 +23,8 @@ and open the template in the editor.
     <body> 
         <?php
         include("../header.php");
-        include '../Grupo/adminGrupo.php';
-        include '../Logro/logros_admin.php';
+        include_once '../Grupo/adminGrupo.php';
+        include_once '../Logro/logros_admin.php';
         //======================================================================
         // LOGIN INICIO SESION
         //======================================================================
@@ -78,7 +78,7 @@ and open the template in the editor.
                     <div class="col-sm-2 sidenav">
                     </div>
                     <div class="col-sm-8 text-center well">
-                        <div class="row">
+                        <div class="row ">
                             <!--
                             -----------------------------------------------------
                             Panel de control, datos personales
@@ -247,7 +247,6 @@ and open the template in the editor.
         }
         if (isset($_SESSION['username'])) {
             ?>
-                    </div>
 
             <!--
             -----------------------------------------------------
