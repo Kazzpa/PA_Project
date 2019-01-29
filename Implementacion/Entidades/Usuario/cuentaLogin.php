@@ -232,14 +232,15 @@ and open the template in the editor.
                                     <script>
                                         $("#formModificacionEvento").validate();
                                     </script>
-                                </div>
-                            </div>
 
 
-                            <?php
-                        } else {    //Mensaje mostrado si no existen eventos creados
-                            echo "No tiene eventos creados, animate y crea el tuyo!";
-                        }
+
+                                    <?php
+                                } else {    //Mensaje mostrado si no existen eventos creados
+                                    echo "No tiene eventos creados, animate y crea el tuyo!";
+                                }
+                                ?> </div>
+                        </div><?php
                     }
                     if (isset($_SESSION['username'])) {
                         ?>
@@ -249,6 +250,7 @@ and open the template in the editor.
                         Panel de administrar grupos
                         -----------------------------------------------------
                         -->
+
                         <div class="col-sm-12">
                             <h4> <b>Panel grupos</b></h4>
                             <div class="col-sm-12 text-left well">
@@ -273,7 +275,7 @@ and open the template in the editor.
 
                                 </div>
                             </div>
-                        <?php
+                            <?php
                         }
                     }
                     ?>
@@ -288,20 +290,20 @@ and open the template in the editor.
             -->
             <script type="text/javascript" src="../../js/localizacionCreacionModificacion.js"></script>
             <script type="text/javascript">
-                                        /*
-                                         * La localizacion modifica el valor de los campos del formulario en 
-                                         * base a la informacion introducida en el autocompletar de Google. 
-                                         * Para ello, ante la llamada de modificar una localizacion, se inicia
-                                         * un intervalo (funcion lookForCityChange) que comprueba si hay 
-                                         * cambios en el valor introducido en el campo del mapa de google.
-                                         */
-                                        function modificarLocalizacion() {
-                                            setInterval(lookForCityChange, 100);
-                                        }
+                                            /*
+                                             * La localizacion modifica el valor de los campos del formulario en 
+                                             * base a la informacion introducida en el autocompletar de Google. 
+                                             * Para ello, ante la llamada de modificar una localizacion, se inicia
+                                             * un intervalo (funcion lookForCityChange) que comprueba si hay 
+                                             * cambios en el valor introducido en el campo del mapa de google.
+                                             */
+                                            function modificarLocalizacion() {
+                                                setInterval(lookForCityChange, 100);
+                                            }
             </script>
             <!--Declaracion del google Maps-->
             <?php include("../Localizacion/mapsScript.php"); ?>
             <!--Plugin para mostrar un placeholder emergente en los inputs text-->
-<?php include("../../placeholder.php"); ?>
+            <?php include("../../placeholder.php"); ?>
     </body>
 </html>
