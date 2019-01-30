@@ -212,8 +212,6 @@
                         }
                     }
                     ?>
-
-
                     <!--GALERIA DEL GRUPO-->
                     <?php if ($bol) { ?>
                         <div class="container">
@@ -222,11 +220,10 @@
                     <?php } ?>
                     <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
                     <?php
-                    if (isset($_SESSION['username']) && isset($_GET['grupo'])) {
+                    if ($bol) {
                         include('grupoIsAdmin.php');
                         if ($admin) {
                             ?>
-
                             <h3>Sube una imagen: </h3>
                             <form action = "../Galeria/fotosIncluir.php" method = "post" enctype="multipart/form-data">          
                                 <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->

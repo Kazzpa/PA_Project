@@ -52,6 +52,5 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
     $nombreRuta = "groupPhotos/default.jpg";
 }
 
-
 header('Location: ../Grupo/grupo_mostrar.php' . "?grupo=" . $_POST['grupoId']);
 ?>

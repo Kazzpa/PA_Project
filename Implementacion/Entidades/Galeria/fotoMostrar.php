@@ -18,7 +18,7 @@ if ($bol) {
     $image['URL'] = Array();
     $image['ID'] = Array();
     $image['encabezado'] = Array();
-    if ($query->num_rows > 0) {
+    if ($query->num_rows >= 0) {
         echo "<h2 class='align-center'>Galería de fotos</h2><div class='demo-gallery'><ul id='lightgallery' class='list-unstyled row'>";
         while ($row = $query->fetch_assoc()) {
             array_push($image['URL'], $row["rutaImagen"]);
@@ -30,7 +30,6 @@ if ($bol) {
             include('../Grupo/grupoIsAdmin.php');
         }
         for ($i = 0; $i < sizeof($image['URL']); $i++) {
-
             //si es admin
             if (isset($_SESSION['username']) && isset($_GET['grupo']) && $admin) {
                 ?>
