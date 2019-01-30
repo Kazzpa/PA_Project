@@ -169,12 +169,13 @@ function printSuscritos($suscritos) {
                         <div id="comentsWapos" style="background-color: white; color:black;">
                             <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
-                                <form id="loginForm" action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
-                                    <textarea name="msgTextArea" id="commentTextArea" placeholder="¿Qué opinas?" required></textarea>
-                                    <p class="caracteres_disponibles"></p>
+                                <form id="loginForm" maxlength="100" action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
+                                    <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
                                     <input type="submit" value="Publicar" name="publishComment" />
                                 </form>
-
+                                <script>
+                                    $("#loginForm").validate();
+                                </script>
                             <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">
@@ -372,14 +373,13 @@ function printSuscritos($suscritos) {
                         editClick = true;
                         $(this).addClass("clicked");
                         var comment = $(this).attr('id');
-                        $("#li" + comment).replaceWith('<textarea id="textArea' + comment + '">' + $("#li" + comment).text() + '</textarea><p id="caracteres_disponibles"></p>');
+                        $("#li" + comment).replaceWith('<textarea id="textArea' + comment + '">' + $("#li" + comment).text() + '</textarea>');
                         var button = document.createElement('input');
                         button.type = "submit";
                         button.id = "editButton" + comment;
-                        button.value = "Editar";
+                        button.value = "Editar"
                         $("#textArea" + comment).after(button);
                         $("#editButton" + comment).before("<br/>");
-                        validarCaracteres($('#caracteres_disponibles'), $('textarea'));
 
                         $(document).on("click", "#editButton" + comment, function () {
                             var newComment = $("#textArea" + comment).val();
@@ -397,26 +397,6 @@ function printSuscritos($suscritos) {
 
                     }
                 });
-                validarCaracteres($('.caracteres_disponibles'), $('#commentTextArea'));
-                function validarCaracteres(caracteres_disponibles, texto) {
-                    caracteres_disponibles.text('Máximo 500 caracteres por mensaje.');
-                    texto.keyup(function () {
-                        var max = 500;
-                        var len = $(this).val().length;
-                        if (len == 0) {
-                            caracteres_disponibles.text('Máximo 500 caracteres por mensaje.');
-                            caracteres_disponibles.addClass('red');
-                        } else if (len >= max) {
-                            caracteres_disponibles.text('Máximo 500 caracteres por mensaje.');
-                            caracteres_disponibles.addClass('red');
-                            this.value = this.value.substring(0, max);
-                        } else {
-                            var ch = max - len;
-                            caracteres_disponibles.text(ch + ' caracteres');
-                            caracteres_disponibles.removeClass('red');
-                        }
-                    });
-                }
             });
         </script>
         <!--Plugin para el text area de los comentarios-->

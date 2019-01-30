@@ -32,7 +32,7 @@
             if (isset($_SESSION["login"])) {
                 //Ahora mismo el boton no hace nada
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
-                $str .= '<form action="" method="GET"><input type="hidden" name="grupo" value="' . $_GET['grupo'] . '">';
+                $str .= '<form action="" method="GET"><input type="hidden" name="grupo" value="'.$_GET['grupo'].'">';
                 if ($estaSuscrito !== false) {
                     $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary">';
                 } else {
@@ -226,13 +226,11 @@
                         include('grupoIsAdmin.php');
                         if ($admin) {
                             ?>
-
                             <h3>Sube una imagen: </h3>
                             <form action = "../Galeria/fotosIncluir.php" method = "post" enctype="multipart/form-data">          
                                 <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                                 <p>Descripci&oacute;n de la imagen:</p>
-                                <input type = "text" id="encabezado" name = "encabezado" class="form-control-file" />
-                                <p class="caracteres_disponibles"></p>
+                                <input type = "text" name = "encabezado" class="form-control-file" />
                                 <input type="hidden"  value="<?php echo $_GET['grupo']; ?>" name= "grupoId"  />
                                 <input type="submit"  value="Subir" name= "fotosIncluir" class = "brn btn-primary" />
                             </form> 
@@ -246,42 +244,34 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                editClick = false;
-
                 $("#lightgallery").lightGallery();
-
                 $(document).on("click", ".edit", function () {
-                    if (editClick === false) {
-                        editClick = true;
-                        $(this).addClass("clicked");
-                        var encabezado = $(this).attr('id');
-                        $(this).hide();
-                        $("#img" + encabezado).replaceWith('<textarea id = "textArea' + encabezado + '" style = "color:black;">' + $("#img" + encabezado).text() + '</textarea><p id="caracteres_disponibles"></p>');
-                        var button = document.createElement('input');
-                        button.type = "submit";
-                        button.id = "editButton";
-                        button.value = "Editar";
-                        button.style = "color:black;";
-                        $("#textArea" + encabezado).after(button);
-                        $("#editButton").before("<br/>");
-                        validarCaracteres($('#caracteres_disponibles'), $('textarea'));
 
-                        $(document).on("click", "#editButton", function () {
-                            var newEncabezado = $("#textArea" + encabezado).val();
-                            $.ajax({
-                                type: "POST",
-                                url: "../Galeria/fotoModificar.php",
-                                data: {"encabezado": encabezado, "newEncabezado": newEncabezado},
-                                cache: false,
-                                success: function (data) {
-                                    location.reload();
-                                }
-                            });
-                            editClick = false;
+                    $(this).addClass("clicked");
+                    var encabezado = $(this).attr('id');
+                    $("#img" + encabezado).replaceWith('<textarea id = "textArea' + encabezado + '" style = "color:black;">' + $("#img" + encabezado).text() + '</textarea>');
+                    var button = document.createElement('input');
+                    button.type = "submit";
+                    button.id = "editButton" + encabezado;
+                    button.value = "Editar"
+                    button.style = "color:black;"
+                    $("#textArea" + encabezado).after(button);
+                    $("#editButton" + encabezado).before("<br/>");
+
+                    $(document).on("click", "#editButton" + encabezado, function () {
+                        var newEncabezado = $("#textArea" + encabezado).val();
+                        $.ajax({
+                            type: "POST",
+                            url: "../Galeria/fotoModificar.php",
+                            data: {"encabezado": encabezado, "newEncabezado": newEncabezado},
+                            cache: false,
+                            success: function (data) {
+                                location.reload();
+                            }
                         });
-                    }
-                });
 
+                    });
+                });
                 $(document).on("click", ".delete", function () {
                     if (confirm("¿Seguro que quieres eliminar esta imagen?")) {
                         var foto = $(this).attr('id');
@@ -296,34 +286,8 @@
                         });
                     }
                 });
-                
-                validarCaracteres($('.caracteres_disponibles'), $('#encabezado'));
-
-                function validarCaracteres(caracteres_disponibles, texto) {
-                    caracteres_disponibles.text(100 - texto.val().length + " caracteres");
-                    texto.keyup(function () {
-                        var max = 100;
-                        var len = $(this).val().length;
-                        if (len == 0) {
-                            caracteres_disponibles.text('Máximo 100 caracteres por mensaje.');
-                            caracteres_disponibles.addClass('red');
-                            $('#editButton').addClass('disabled');
-                            $('#editButton').attr('disabled', 'disabled');
-                        } else if (len >= max) {
-                            caracteres_disponibles.text('Máximo 100 caracteres por mensaje.');
-                            caracteres_disponibles.addClass('red');
-                            $('#editButton').addClass('disabled');
-                            this.value = this.value.substring(0, max);
-                        } else {
-                            var ch = max - len;
-                            caracteres_disponibles.text(ch + ' caracteres');
-                            $('#editButton').removeClass('disabled');
-                            $('#editButton').removeAttr('disabled');
-                            caracteres_disponibles.removeClass('red');
-                        }
-                    });
-                }
             });
+
         </script>
         <script src="../../js/picturefill.min.js"></script>
         <script src="../../js/lightgallery-all.js"></script>

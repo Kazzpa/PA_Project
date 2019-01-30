@@ -35,7 +35,7 @@ if ($bol) {
             if (isset($_SESSION['username']) && isset($_GET['grupo']) && $admin) {
                 ?>
                 <li class="gallery" data-src="../Galeria/<?php echo $image['URL'][$i]; ?>" data-responsive="../Galeria/<?php echo $image['URL'][$i]; ?>" 
-                    data-sub-html="<p id='img<?php echo $image['ID'][$i]; ?>'><?php echo $image["encabezado"][$i]; ?></p><button class='edit' id='<?php echo $image['ID'][$i]; ?>'>Editar encabezado</button><button class='delete' id='<?php echo $image['ID'][$i]; ?>'>Eliminar foto</button>">
+                    data-sub-html="<p id='img<?php echo $image['ID'][$i]; ?>'><?php echo $image["encabezado"][$i]; ?></p><div class='edit' id='<?php echo $image['ID'][$i]; ?>'>Editar encabezado</div><div class='delete' id='<?php echo $image['ID'][$i]; ?>'>Eliminar foto</div>">
                         <?php
                     } else {
                         //si no es admin
