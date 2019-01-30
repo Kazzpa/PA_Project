@@ -105,7 +105,7 @@ function printSuscritos($suscritos) {
                             if (!$resultado || !(mysqli_num_rows($resultado)) == 0) {  //Si el usuario esta apuntado le damos la oportunidad de quitarse
                                 ?>
                                 <form action="reservaBaja.php" method = "post">
-                                    <input type=' submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
+                                    <input type='submit' value="Cancelar Reserva" class='btnSubmit' style='font-weight: 600;
                                            color: #0062cc;background-color: #fff;' /><br />
                                            <?php
                                            echo "<input type='hidden' name='user' value=$user>
