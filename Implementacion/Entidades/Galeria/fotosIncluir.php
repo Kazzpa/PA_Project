@@ -7,7 +7,8 @@ $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los dato
 
 $entradas = filter_input_array(INPUT_POST, $filtros);
 $encabezado = trim($entradas["encabezado"]);
-include('../Grupo/grupo_db.php');
+include_once ('../Grupo/grupo_db.php');
+include_once ("../Logro/logros_admin.php");
 $info = getGroup($_POST['grupoId']);
 $idGrupo = $info[0];
 echo "idgrupo" . $idGrupo;
@@ -34,7 +35,6 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
             include("../../conexion.php");
             $consulta = "INSERT INTO gallery ( id , grupo, rutaImagen, encabezado) VALUES ( 'NULL' , '" . $idGrupo . "' , '" . $nombreRuta . "' , '" . $encabezado . "')";
             $resultado = mysqli_query($con, $consulta);
-            include("../Logro/logros_admin.php");
             checkFotos($idGrupo);
             echo "<br> consulta: <br/>" . $consulta . "<br/>";
             if ($resultado) {

@@ -214,7 +214,7 @@ function getUsersSubs($getName) {
     $link = connectDB();
     $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
             . " `grupo` WHERE users.username = suscripcion_grupo.user_id AND"
-            . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id ORDER BY suscripcion_grupo.rol";
+            . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id ORDER BY suscripcion_grupo.rol LIMIT 5";
     $res = mysqli_query($link, $sql);
     $ret = false;
     if (!$res) {
