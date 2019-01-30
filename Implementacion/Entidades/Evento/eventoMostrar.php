@@ -400,7 +400,6 @@ else
                 });
                 validarCaracteres($('.caracteres_disponibles'), $('#commentTextArea'));
                 function validarCaracteres(caracteres_disponibles, texto) {
-                    caracteres_disponibles.text('Máximo 500 caracteres por mensaje.');
                     texto.keyup(function () {
                         var max = 500;
                         var len = $(this).val().length;
