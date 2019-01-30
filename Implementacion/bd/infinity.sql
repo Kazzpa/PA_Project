@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2019 a las 03:36:14
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 30-01-2019 a las 16:33:01
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,10 +42,10 @@ CREATE TABLE `advertisers` (
 --
 
 INSERT INTO `advertisers` (`id`, `name`, `organization`, `alias`) VALUES
-(1, 'javier', 'organizacion1', 'alias1'),
-(8, 'Andres', 'organizacion2', 'alias2'),
+(1, 'javier', 'Sngular', 'Sr. Javi'),
+(8, 'Andres', 'Ayesa', 'Sr. Andrés'),
 (9, 'Ander', 'The Coca Cola Company', 'alias3'),
-(10, 'Irene', 'organizacion4', 'alias4');
+(10, 'Irene', 'Oracle', 'Sra. Irene');
 
 -- --------------------------------------------------------
 
@@ -71,12 +71,6 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`, `group_id`) VALUES
-(2, 'Fiestecilla en la playa', 'A disfrutar del veranito gente!', '2018-12-25 16:17:50', '2019-01-14 23:00:00', 'irelia', 'eventPhotos/1546308720pexels-photo-1117256.jpeg', 1, 0, 0),
-(5, 'El cielo del mes de enero 2019', 'Charla sobre las efemÃ©rides del mes de enero de 2019', '2018-12-30 04:24:45', '2019-01-18 18:00:00', 'irelia', 'eventPhotos/1546143885nebula_pequeÃ±a.jpg', 16, 0, 0),
-(6, 'Concierto Musica Clasica', 'Temazos Beethoven', '2018-12-30 16:13:14', '2019-01-04 18:00:00', 'irene', 'eventPhotos/1546186394dopany91na411_reduc.jpg', 18, 0, 0),
-(9, 'qwe asd', 'qweqweqwe', '2018-12-30 16:20:48', '2019-01-06 02:03:00', 'irene', 'eventPhotos/1546186848dopany91na411_reduc.jpg', 21, 0, 0),
-(18, 'Fiesta Santuario', 'Fiestecilla en santuario', '2019-01-13 21:58:05', '2018-12-31 23:00:00', 'irelia', 'eventPhotos/default.jpg', 24, 0, 0),
-(19, 'Coca Cola Sevilla', 'Disfruta de una coca colita fresquita', '2019-01-13 22:47:11', '2019-01-19 23:01:00', 'irelia', 'eventPhotos/1547419631signs-1638668_960_720.jpg', 25, 9, 0),
 (20, 'Hack and Beers #SVQ10FEB', 'Evento  de Hack and Beers en Sevilla.', '2019-01-21 11:05:45', '2019-02-10 16:30:00', 'irene', 'eventPhotos/default.jpg', 26, 0, 3),
 (21, 'Hack and Beers #SVQ20FEB', 'Vamos a quedar para hablar sobre seguridad informatica en IOT', '2019-01-21 12:48:55', '2019-02-20 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 0),
 (22, 'Hack and Beers #SVQ10MAR', 'bebemo servesa', '2019-01-21 13:39:51', '2019-03-10 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 3);
@@ -118,7 +112,7 @@ INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
 CREATE TABLE `grupo` (
   `id` int(11) NOT NULL,
   `name` varchar(140) COLLATE utf8_spanish_ci NOT NULL COMMENT 'nombe grupo',
-  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `image_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -127,7 +121,8 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
-(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png');
+(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png'),
+(7, 'DataBeers Sevilla', 'Si eres programador, adicto a los datos, curioso innato, fisgón de la tecnología, amante de las charlas, futurólogo de la tecnología', 'img/600_467439404.jpg');
 
 -- --------------------------------------------------------
 
@@ -174,9 +169,16 @@ CREATE TABLE `logro` (
   `icon_path` varchar(260) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `tipo` int(2) NOT NULL COMMENT 'especificar que relacion consultar',
-  `valor` int(10) NOT NULL COMMENT 'limite para activar el logro',
-  `puntos` int(10) NOT NULL COMMENT 'añadidos para medalla especial tiers'
+  `valor` int(10) NOT NULL COMMENT 'limite para activar el logro'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `logro`
+--
+
+INSERT INTO `logro` (`id`, `name`, `icon_path`, `descripcion`, `tipo`, `valor`) VALUES
+(1, 'medalla oro fotos', 'img/trophy.png', 'obtener 2 fotos en la galeria', 2, 2),
+(2, 'test', 'img/trophy.png', 'test', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,8 @@ CREATE TABLE `logros_grupo` (
 --
 
 INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
-(3, 1);
+(3, 1),
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -216,27 +219,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES
-(13, 0, 'Linger', 0, '2018-12-26 17:36:45', 'ni idea '),
-(34, 0, 'irene', 0, '2018-12-27 00:28:41', 'Funciona?'),
-(41, 0, 'irene', 0, '2018-12-26 22:54:44', 'no se que opinar'),
-(46, 0, 'irene', 0, '2018-12-27 00:42:49', 'funciona por fin'),
-(48, 0, 'irene', 0, '2018-12-27 00:59:43', 'me quedo por aqui'),
-(51, 0, 'irene', 0, '2018-12-27 17:31:41', 'no se'),
-(52, 0, 'irene', 0, '2018-12-28 02:19:23', 'ashdasdkahsdkahsdkahdkasjhdaksdhaksdÃ§jashÃ§\nÃ§ashdaksjdha\n\n\najsdhaksdha\n\n\nahsdjkasdha\njhsdkjas\n\n\nashdaksjda'),
-(53, 0, 'irene', 0, '2018-12-30 14:41:16', 'pasaba por aqui'),
-(54, 0, 'irene', 0, '2018-12-30 15:19:35', 'suena bien'),
-(55, 0, 'irene', 0, '2018-12-30 15:24:19', 'pasaba por aqui'),
-(56, 0, 'irelia', 0, '2018-12-30 15:26:29', 'algo'),
-(58, 0, 'irelia', 2, '2018-12-30 15:37:51', 'buenas'),
-(59, 0, 'irelia', 2, '2018-12-30 15:45:22', 'asdasa'),
-(60, 0, 'irelia', 2, '2018-12-30 15:46:34', 'asdadas'),
-(61, 0, 'irelia', 2, '2018-12-30 15:53:54', 'asd'),
-(62, 0, 'irelia', 3, '2018-12-30 15:56:54', 'buenasss esto es una prueba'),
-(63, 0, 'irelia', 5, '2018-12-30 15:58:25', 'me apunto'),
-(64, 0, 'irene', 2, '2018-12-30 16:00:02', 'me apunto'),
-(65, 0, 'irene', 5, '2018-12-30 16:06:02', 'heyyy que pasa'),
-(66, 0, 'irene', 6, '2018-12-30 16:13:48', 'espero la 5Âª sinfonia'),
-(67, 0, 'irene', 19, '2019-01-19 18:09:29', 'hey');
+(70, 0, 'andres', 20, '2019-01-30 15:16:52', 'Podemos quedar un rato antes y tomar una cerveza! quien se apunta?');
 
 -- --------------------------------------------------------
 
@@ -255,7 +238,11 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES
-(1, 'irelia', 20);
+(1, 'irelia', 20),
+(3, 'german', 20),
+(4, 'irene', 20),
+(5, 'javi', 20),
+(6, 'paco', 20);
 
 -- --------------------------------------------------------
 
@@ -275,7 +262,10 @@ CREATE TABLE `suscripcion_grupo` (
 --
 
 INSERT INTO `suscripcion_grupo` (`user_id`, `grupo_id`, `id`, `rol`) VALUES
-('irene', 3, 1, 1);
+('irene', 3, 1, 1),
+('german', 3, 2, 0),
+('andres', 3, 16, 0),
+('andres', 7, 24, 1);
 
 -- --------------------------------------------------------
 
@@ -298,7 +288,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`, `rutaimagen`) VALUES
-('irelia', 'Pepe Lolo', '$2y$10$rgxbLk/J7MesYi3gZkyY0Oon1i3WS7Lp0QHBOfn54ixQjG4JtmGhK', 'pepeyu@hotmail.com', '2018-12-24 23:41:32', 0, 'userPhotos/default.png'),
+('andres', 'andres loco', '$2y$10$IG59GcIikLNPfFTuUJ8w8eOkXUEbQDLZsIXrtXLmtDdJZJEQ1rIZq', 'andres97cb@hotmail.com', '2019-01-30 11:36:14', 0, 'userPhotos/default.png'),
 ('irene', 'Irene Glez', '$2y$10$GpTL5a3SmldpvhC8ZY/a4OzUE0nhIcpeLuuphI8XhGNHX02AsocWC', 'irene@irene.com', '2018-12-30 15:59:42', 1, 'userPhotos/default.png');
 
 --
@@ -344,6 +334,13 @@ ALTER TABLE `logro`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indices de la tabla `logros_grupo`
+--
+ALTER TABLE `logros_grupo`
+  ADD UNIQUE KEY `group_id` (`group_id`,`logro_id`),
+  ADD KEY `group_id_2` (`group_id`,`logro_id`);
+
+--
 -- Indices de la tabla `posts`
 --
 ALTER TABLE `posts`
@@ -360,7 +357,8 @@ ALTER TABLE `reserva`
 -- Indices de la tabla `suscripcion_grupo`
 --
 ALTER TABLE `suscripcion_grupo`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`grupo_id`);
 
 --
 -- Indices de la tabla `users`
