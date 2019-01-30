@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Grupo<?php
+        <title>Infinity-Grupo<?php
             if (isset($_GET['grupo'])) {
                 echo ' - ' . $_GET['grupo'];
             } else {
@@ -34,9 +34,9 @@
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
                 $str .= '<form action="#" method="GET"><input type="hidden" name="grupo" value="' . $_GET['grupo'] . '">';
                 if ($estaSuscrito !== false) {
-                    $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary">';
+                    $str .= '<input type="submit" name="desuscribir" value="Desuscribirse" class="btn btn-secondary">';
                 } else {
-                    $str .= '<input type="submit" name="suscribirse" value="suscribirse" class="btn btn-primary">';
+                    $str .= '<input type="submit" name="suscribirse" value="Suscribirse">';
                 }
                 $str .= "</form>";
             }

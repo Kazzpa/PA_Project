@@ -28,7 +28,7 @@ function formGrupo() {
 <form id="nombreGrupo" action="#modGrupo" method="POST">
     <div class="form-group">
         <b>Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo"required>
-        <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
+        <input type="submit" name="BuscarGrupo" value="Buscar">
     </div>
     </form>';
     }
@@ -44,7 +44,7 @@ function formGrupo() {
         }
         $str .= '
                     </select>
-                    <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Seleccionar">
+                    <input type="submit" name="BuscarGrupo" value="Seleccionar">
                 </div>
                 </form>';
     } else {
@@ -74,7 +74,7 @@ function formModGrupo() {
     }
     $str .= '<input type="file" class="form-control" name="grupoImg" placeholder="ruta imagen"><br/>
     </div>
-    <input type="submit" class="btn btn-primary" name="ModGrupo" value="Modificar">';
+    <input type="submit" name="ModGrupo" value="Modificar">';
     if ($_SESSION['tipo'] == 1) {
         $str .= '<input type="submit" class="btn btn-danger" name="EliminarGrupo" value="Eliminar">';
     }
@@ -104,7 +104,7 @@ function formCrearGrupo() {
         <b>Imagen: </b><br/>
         <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen"><br/>
     </div>
-    <input type="submit" class="btn btn-primary" name="crearGrupo" value="Crear">
+    <input type="submit" name="crearGrupo" value="Crear">
 
 </form>';
     return $str;

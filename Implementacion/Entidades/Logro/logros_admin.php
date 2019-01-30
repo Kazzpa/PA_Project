@@ -86,7 +86,7 @@ function formCrearLogro() {
             </div>
             <div class="row">
                 <div class="form-group col-md-4">
-                    <input type="submit" class="btn btn-primary" name="logrocrear" value="Crear">
+                    <input type="submit" name="logrocrear" value="Crear">
                 </div>
             </div>
             </form>
@@ -100,7 +100,7 @@ function formBuscarLogro() {
             <form id="buscarLogro"action="" method="POST">
                 <div class="form-group">
                     <b>Nombre: </b><input type="text" class="form-control" name="logro" required>
-                    <input type="submit" class="btn btn-primary" name="BuscarLogro" value="Buscar">
+                    <input type="submit" name="BuscarLogro" value="Buscar">
                 </div>
             </form></div>';
 }
@@ -166,7 +166,7 @@ function formModLogro() {
                         "<i>' . $_SESSION['logro'][5] . ' </i>"
                         <input type="number" class="form-control" name="logrovalor" min="1" placeholder="valor"><br/>
                     </div>
-                    <input type="submit" class="btn btn-primary" name="modLogro" value="Modificar">
+                    <input type="submit" name="modLogro" value="Modificar">
                     <input type="submit" class="btn btn-danger" name="EliminarLogro" value="Eliminar">
             </form>';
     return $str;
