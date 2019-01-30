@@ -9,7 +9,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login <?php
+        <title>Infinity-Login <?php
             if (isset($_SESSION['name'])) {
                 echo '-' . $_SESSION['name'];
             }

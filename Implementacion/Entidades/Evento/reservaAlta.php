@@ -26,7 +26,7 @@ if ($resultado) {
     $message = "
 <html>
 <head>
-  <title>Recordatorio de tu reserva en Infinity</title>
+  <title>Infinity-Recordatorio de tu reserva en Infinity</title>
 </head>
 <body>
   <p>¡Gracias por reservar plaza para un evento!</p><br />

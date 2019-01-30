@@ -35,27 +35,39 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Anunciante Borrar</title>
+        <title>Infinity-Anunciante Borrar</title>
         <link rel="stylesheet" type="text/css" href="CSS/hojaestilo.css"/>
         <?php include("../stylesheets.php"); ?>
     </head>
     <body>
-        <div class = "envoltura">
-            <div class = "container-fluid">                  
-                <div class = "page-header">
-                    <h1>Borrar registro</h1>
-                </div>
-                <form action = " <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> " method="post">
-                    <div class="alert alert-danger fade in">
-                        <input type = "hidden" name = "id" value = "<?php echo trim($_GET["id"]); ?>" />
-                        <p>¿Estás seguro?</p>
-                        <p>
-                            <input type = "submit" value = "Si" class = "btn btn-danger">
-                            <a href = "../../index.php" class = "btn btn-default">No</a>
-                        </p>
+        <?php
+        if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
+            if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
+                ?>
+                <div class = "envoltura">
+                    <div class = "container-fluid">                  
+                        <div class = "page-header">
+                            <h1>Borrar registro</h1>
+                        </div>
+                        <form action = " <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> " method="post">
+                            <div class="alert alert-danger fade in">
+                                <input type = "hidden" name = "id" value = "<?php echo trim($_GET["id"]); ?>" />
+                                <p>¿Estás seguro?</p>
+                                <p>
+                                    <input type = "submit" value = "Si" class = "btn btn-danger">
+                                    <a href = "anunciante.php" class = "btn btn-default">No</a>
+                                </p>
+                            </div>
+                        </form>                            
                     </div>
-                </form>                            
-            </div>
-        </div>
+                </div>
+                <?php
+            } else {
+                echo "<p>Lo sentimos no tiene permisos para acceder a esta pagina</p>";
+            }
+        } else {
+            echo "<p>Lo sentimos no tiene permisos para acceder a esta pagina</p>";
+        }
+        ?>
     </body>
 </html>
