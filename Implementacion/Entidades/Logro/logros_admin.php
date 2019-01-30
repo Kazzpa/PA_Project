@@ -205,10 +205,14 @@ function trataModLogro() {
         }
     }
     if (isset($_POST['logrotipo'])) {
-        $tipo = $entradas['logrotipo'];
+        if (is_numeric($_POST['logrotipo'])) {
+            $tipo = $entradas['logrotipo'];
+        }
     }
     if (isset($_POST['logrovalor'])) {
-        $valor = $entradas['logrovalor'];
+        if (is_numeric($_POST['logrovalor'])) {
+            $valor = $entradas['logrovalor'];
+        }
     }
     $guardadoDB = modificarLogro($_SESSION['logro'][0], $name, $img, $desc, $tipo, $valor);
     if ($guardadoDB && $img !== false) {
@@ -276,7 +280,7 @@ function validarCrearLogro() {
         );
         $entradas = filter_input_array(INPUT_POST, $filtros);
         //no valido a fondo tipo,valor y puntos WIP
-        if (validarString($entradas['logroname'], 50) && validarString($entradas['logrodesc'], 200) && validarImg($_FILES['logroicon'])) {
+        if (validarString($entradas['logroname'], 50) && validarString($entradas['logrodesc'], 200) && validarImg($_FILES['logroicon']) && is_numeric($_POST['logrotipo']) && is_numeric($_POST['logrovalor'])) {
             $name = $entradas['logroname'];
             $desc = $entradas['logrodesc'];
             $img = $_FILES['logroicon'];
