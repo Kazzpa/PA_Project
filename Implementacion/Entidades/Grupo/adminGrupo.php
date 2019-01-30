@@ -24,40 +24,40 @@ function panelLoginGrupo() {
 function formGrupo() {
     $str = '';
     if ($_SESSION['tipo'] == 1) {
-        $str = '<h4> Buscar Grupo a tratar </h4>
-<form action="" method="POST">
+        $str .= '<h4> Buscar Grupo a tratar </h4>
+<form id="nombreGrupo" action="#modGrupo" method="POST">
     <div class="form-group">
-        <b>Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo">
+        <b>Nombre: </b><input type="text" class="form-control" name="grupo" placeholder="Nombre grupo"required>
         <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
     </div>
     </form>';
-    } else {
-        $grupos = getModGroups($_SESSION['username']);
-        if ($grupos !== false) {
-            $str = '<h4> Seleccione grupo a tratar </h4>
+    }
+    $grupos = getModGroups($_SESSION['username']);
+    if ($grupos !== false) {
+        $str .= '<h4> Seleccione grupo a tratar </h4>
                 <form action="" method="POST">
                 <div class="form-group">
-                    <b>Grupo: </b><select class="form-control" name="grupo">
+                    <b>Grupo: </b><select name="grupo">
                     ';
-            for ($i = 0; $i < sizeof($grupos); $i++) {
-                $str .= '<option value="' . $grupos[$i][1] . '">' . $grupos[$i][1] . '</option>';
-            }
-            $str .= '
+        for ($i = 0; $i < sizeof($grupos); $i++) {
+            $str .= '<option value="' . $grupos[$i][1] . '">' . $grupos[$i][1] . '</option>';
+        }
+        $str .= '
                     </select>
-                    <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Buscar">
+                    <input type="submit" class="btn btn-primary" name="BuscarGrupo" value="Seleccionar">
                 </div>
                 </form>';
-        } else {
-            $str = '<a href="../Grupo/grupo_mostrar.php">No es administrador de ningun grupo,Animate! y crea uno</a>';
-        }
+    } else {
+        $str = '<a href="../Grupo/grupo_mostrar.php">No es administrador de ningun grupo,Animate! y crea uno</a>';
     }
+
     return $str;
 }
 
 //Comprueba si existe el grupo especificado
 function formModGrupo() {
     $str = '<h4> Panel Modificar grupo </h4>
-<form action="" method="POST" enctype="multipart/form-data">
+<form id="modGrupo" action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['grupo'][1]) . '"</i><br/>
         <input type="text" class="form-control" name="grupoName" placeholder=""><br/>
@@ -85,7 +85,7 @@ function formModGrupo() {
 //Formulario de creacion de grupo
 function formCrearGrupo() {
     $str = '<h4> Panel Creacion de Grupo </h4>
-<form action="" method="POST" enctype="multipart/form-data">
+<form id="crearGrupo" action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <b>Nombre: </b><br/>
         <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"';
@@ -215,7 +215,7 @@ function printCardGrupo($grupoInfo, $ruta) {
     if ($grupoInfo !== false) {
 
         $str = '<div class="col-sm-3"><div class="panel panel-default">
-                <div class="panel-heading bg-secondary">Grupo:<br/><b>' 
+                <div class="panel-heading bg-secondary">Grupo:<br/><b>'
                 . $grupoInfo[1] . '</b></div>';
         $aux = $ruta . $grupoInfo[3];
         if (file_exists($aux)) {

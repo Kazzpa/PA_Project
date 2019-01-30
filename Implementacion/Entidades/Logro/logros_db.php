@@ -19,12 +19,12 @@ function conectarDB() {
 function cerrarDB() {
     if ($GLOBALS['conexion'] != false) {
         mysqli_close($con);
-        $con = $conexion;
+        $conexion = false;
     }
 }
 
 //Insertamos un logro en la DB
-function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
+function crearLogro($name, $icon, $desc, $tipo, $valor) {
     $link = conectarDB();
     $bol = false;
     if ($link !== false) {
@@ -32,15 +32,14 @@ function crearLogro($name, $icon, $desc, $tipo, $valor, $puntos) {
         $icon = mysqli_real_escape_string($link, $icon['name']);
         $desc = mysqli_real_escape_string($link, $desc);
         //Hacemos una insercion en la base de datos, la fecha de registro es automatica
-        $consulta = "INSERT INTO logro ( id , name, icon_path, descripcion, tipo, valor, puntos)"
+        $consulta = "INSERT INTO logro ( id , name, icon_path, descripcion, tipo, valor)"
                 . " VALUES ( 'NULL' , '" . $name . "' , '" . $GLOBALS['rutaImg']
                 . $icon . "' , '" . $desc . "', '" . $tipo . "', '" . $valor
-                . "', '" . $puntos . "'  )";
+                . "' )";
         $resultado = mysqli_query($link, $consulta);
         if ($resultado) {
             $bol = true;
         }
-        mysqli_close($link);
     }
     return $bol;
 }
@@ -51,27 +50,24 @@ function getLogro($name) {
     $ret = false;
     if ($link !== false) {
         //Hacemos una insercion en la base de datos, la fecha de registro es automatica
-        $consulta = 'SELECT id, name, icon_path, descripcion, tipo, valor, puntos FROM logro WHERE name = "' . $name . '"';
+        $consulta = 'SELECT id, name, icon_path, descripcion, tipo, valor '
+                . 'FROM logro WHERE name = "' . $name . '"';
         $resultado = mysqli_query($link, $consulta);
-        if (!$resultado) {
-            mysqli_close($link);
-            die("ERROR: SELECT QUERY ERROR");
-        } else {
+        if ($resultado) {
             if ($row = mysqli_fetch_array($resultado)) {
                 $i = 0;
-                while ($i < 7) {
+                while ($i < 6) {
                     $ret[] = $row[$i];
                     $i++;
                 }
             }
         }
-        mysqli_close($link);
     }
     return $ret;
 }
 
 //modificamos los campos de un logro
-function modificarLogro($id, $name, $img, $desc, $tipo, $valor, $puntos) {
+function modificarLogro($id, $name, $img, $desc, $tipo, $valor) {
     $bol = false;
     $con = conectarDB();
     //Hacemos una insercion en la base de datos, la fecha de registro es automatica
@@ -114,21 +110,12 @@ function modificarLogro($id, $name, $img, $desc, $tipo, $valor, $puntos) {
             $consulta .= " valor = '" . $valor . "'";
             $bol2 = true;
         }
-        if ($puntos !== false) {
-            if ($bol2) {
-                $consulta = $consulta . ",";
-            }
-            //usamos variable global por si queremos cambiar la ruta donde guardar las imagenes
-            $consulta .= " puntos = '" . $puntos . "'";
-            $bol2 = true;
-        }
         $consulta = $consulta . " WHERE id = '" . $id . "'";
         $resultado = mysqli_query($con, $consulta);
 
         if ($resultado) {
             $bol = true;
         }
-        mysqli_close($con);
     } else {
         
     }
@@ -148,7 +135,6 @@ function eliminarLogro($id) {
     if (!$resultado) {
         $bol = false;
     }
-    mysqli_close($con);
     return $bol;
 }
 

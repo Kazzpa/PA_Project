@@ -46,13 +46,14 @@ function panelLogrosLogin() {
                 echo (formModLogro());
             }
         }
+        cerrarDB();
     }
 }
 
 //Formulario para crear logro
 function formCrearLogro() {
     return '
-                <form action="" method="POST" enctype="multipart/form-data" >
+                <form id="crearLogro" action="" method="POST" enctype="multipart/form-data" >
             <div class="row">
                 <div class="form-group col-md-4">
                     <b>Nombre logro: </b>
@@ -75,8 +76,7 @@ function formCrearLogro() {
                     <option value="1">N&uacute;mero de comentarios</option>
                     <option value="2">N&uacute;mero de fotos</option>
                     <option value="3">N&uacute;mero de eventos</option>
-                    <option value="4">N&uacute;mero de puntos</option>
-                    <option value="5">Rey de la web o especial</option>
+                    <option value="4">Rey de la web o especial</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
@@ -85,10 +85,6 @@ function formCrearLogro() {
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-4">
-                    <b>Puntos a obtener</b>
-                    <input type="number" class="form-control" name="logropuntos" required><br/>
-                </div>
                 <div class="form-group col-md-4">
                     <input type="submit" class="btn btn-primary" name="logrocrear" value="Crear">
                 </div>
@@ -101,9 +97,9 @@ function formCrearLogro() {
 function formBuscarLogro() {
     return '<h4> Buscar logro a tratar </h4>
         <div >
-            <form action="" method="POST">
+            <form id="buscarLogro"action="" method="POST">
                 <div class="form-group">
-                    <b>Nombre: </b><input type="text" class="form-control" name="logro">
+                    <b>Nombre: </b><input type="text" class="form-control" name="logro" required>
                     <input type="submit" class="btn btn-primary" name="BuscarLogro" value="Buscar">
                 </div>
             </form></div>';
@@ -114,7 +110,7 @@ function formBuscarLogro() {
 //0:id 1:name 2:icon_path 3:descripcion 4:tipo 5:valor 6:puntos
 function formModLogro() {
     $str = '<h4> Panel Modificar logro </h4>
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form id="modBorrarLogro" action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <b>Modificar Nombre: </b><i>"' . utf8_decode($_SESSION['logro'][1]) . '"</i><br/>
                     <input type="text" class="form-control" name="logroName"><br/>
@@ -129,10 +125,10 @@ function formModLogro() {
                         <br/><i>"' . $_SESSION['logro'][3] . '" </i><br/>
                         <input type="text" class="form-control" name="logroDesc"><br/>
                     </div>
-                    <div class="form-group">
-                        <div class="form-group col-md-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
                         <b>Modificar tipo: </b>
-                        <select class="custom-select" name="logrotipo">
+                        <select class="" name="logrotipo">
                         <option value="0"';
     if ($_SESSION['logro'][4] == 0) {
         $str .= ' selected';
@@ -165,15 +161,10 @@ function formModLogro() {
     $str .= '>Rey de la web o especial</option>
                         </select>
                     </div></div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <b>Valor necesario para conseguirlo</b>
                         "<i>' . $_SESSION['logro'][5] . ' </i>"
                         <input type="number" class="form-control" name="logrovalor" min="1" placeholder="valor"><br/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <b>Puntos a obtener</b>
-                        "<i>' . $_SESSION['logro'][6] . ' </i>"
-                        <input type="number" class="form-control" name="logropuntos" placeholder="puntos"><br/>
                     </div>
                     <input type="submit" class="btn btn-primary" name="modLogro" value="Modificar">
                     <input type="submit" class="btn btn-danger" name="EliminarLogro" value="Eliminar">
@@ -189,7 +180,6 @@ function trataModLogro() {
         'logroDesc' => FILTER_SANITIZE_STRING,
         'logrotipo' => FILTER_SANITIZE_NUMBER_INT,
         'logrovalor' => FILTER_SANITIZE_NUMBER_INT,
-        'logropuntos' => FILTER_SANITIZE_NUMBER_INT,
     );
     $entradas = filter_input_array(INPUT_POST, $filtros);
     //no valido a fondo tipo,valor y puntos WIP
@@ -198,7 +188,6 @@ function trataModLogro() {
     $img = false;
     $tipo = false;
     $valor = false;
-    $puntos = false;
     if (isset($_POST['logroName'])) {
         if (validarString($entradas['logroName'], 50)) {
             $name = $entradas['logroName'];
@@ -221,10 +210,7 @@ function trataModLogro() {
     if (isset($_POST['logrovalor'])) {
         $valor = $entradas['logrovalor'];
     }
-    if (isset($_POST['logropuntos'])) {
-        $puntos = $entradas['logropuntos'];
-    }
-    $guardadoDB = modificarLogro($_SESSION['logro'][0], $name, $img, $desc, $tipo, $valor, $puntos);
+    $guardadoDB = modificarLogro($_SESSION['logro'][0], $name, $img, $desc, $tipo, $valor);
     if ($guardadoDB && $img !== false) {
         saveToDisk($img);
     }
@@ -244,7 +230,7 @@ function checkEnviadoAdmin() {
             $bol = 3;
         }
     } else if (isset($_SESSION['logro']) && isset($_POST['modLogro'])) {
-        if (isset($_POST['logroName']) || isset($_FILES['logroImg']) || isset($_POST['logroDesc']) || isset($_POST['logrotipo']) || isset($_POST['logrovalor']) || isset($_POST['logropuntos'])) {
+        if (isset($_POST['logroName']) || isset($_FILES['logroImg']) || isset($_POST['logroDesc']) || isset($_POST['logrotipo']) || isset($_POST['logrovalor'])) {
             $bol = trataModLogro();
             if ($bol) {
                 $bol = 4;
@@ -281,13 +267,12 @@ function checkEnviadoAdmin() {
 //Devolvemos true si son validos, falso si no
 function validarCrearLogro() {
     $bol = false;
-    if (isset($_POST['logroname']) && isset($_POST['logrodesc']) && isset($_FILES['logroicon']) && isset($_POST['logrotipo']) && isset($_POST['logrovalor']) && isset($_POST['logropuntos'])) {
+    if (isset($_POST['logroname']) && isset($_POST['logrodesc']) && isset($_FILES['logroicon']) && isset($_POST['logrotipo']) && isset($_POST['logrovalor'])) {
         $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
             'logroname' => FILTER_SANITIZE_STRING,
             'logrodesc' => FILTER_SANITIZE_STRING,
             'logrotipo' => FILTER_SANITIZE_NUMBER_INT,
             'logrovalor' => FILTER_SANITIZE_NUMBER_INT,
-            'logropuntos' => FILTER_SANITIZE_NUMBER_INT,
         );
         $entradas = filter_input_array(INPUT_POST, $filtros);
         //no valido a fondo tipo,valor y puntos WIP
@@ -297,8 +282,7 @@ function validarCrearLogro() {
             $img = $_FILES['logroicon'];
             $tipo = $entradas['logrotipo'];
             $valor = $entradas['logrovalor'];
-            $puntos = $entradas['logropuntos'];
-            $guardadoDB = crearLogro($name, $img, $desc, $tipo, $valor, $puntos);
+            $guardadoDB = crearLogro($name, $img, $desc, $tipo, $valor);
             if ($guardadoDB) {
                 saveToDisk($img);
                 $bol = true;

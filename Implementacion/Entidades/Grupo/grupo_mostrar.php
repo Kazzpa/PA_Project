@@ -56,13 +56,13 @@
             $str = "";
             $offset = "0";
             if (isset($_GET['pag'])) {
-                $offset = $_GET['pag'];
+                $offset = $_GET['pag'] * 4;
             }
             $ret = getAllGroups(4, $offset);
             $numGrupos = getNumGrupos();
             $str .= '<div class="col-sm-12">';
             for ($i = 0; $i < sizeof($ret); $i++) {
-                $str .= printCardGrupo($ret[$i],'');
+                $str .= printCardGrupo($ret[$i], '');
             }
             if ($numGrupos > 4) {
                 $str .= '</div>
@@ -71,7 +71,11 @@
                             <li>
                             <a href="?pag=';
                 if (isset($_GET['pag'])) {
-                    $str .= (string) ($_GET['pag'] - 1);
+                    if ($_GET['pag'] - 1 >= 0) {
+                        $str .= (string) ($_GET['pag'] - 1);
+                    } else {
+                        $str .= "0";
+                    }
                 }
                 $str .= '" aria-label="Previous">
                                   <span aria-hidden = "true">&laquo;</span>
@@ -83,7 +87,11 @@
                 $str .= '<li>
                                 <a href = "?pag=';
                 if (isset($_GET['pag'])) {
-                    $str .= (string) ($_GET['pag'] + 1);
+                    if ($_GET['pag'] + 1 < ($numGrupos / 4)) {
+                        $str .= (string) ($_GET['pag'] + 1);
+                    } else {
+                        $str .= "1";
+                    }
                 }
                 $str .= '" aria-label = "Next">
                                     <span aria-hidden = "true">&raquo;</span>
@@ -212,6 +220,10 @@
                         }
                     }
                     ?>
+
+                    <script>
+                        $("#crearGrupo").validate();
+                    </script>
                     <!--GALERIA DEL GRUPO-->
                     <?php if ($bol) { ?>
                         <div class="container">
@@ -293,7 +305,7 @@
                         });
                     }
                 });
-                
+
                 validarCaracteres($('.caracteres_disponibles'), $('#encabezado'));
 
                 function validarCaracteres(caracteres_disponibles, texto) {

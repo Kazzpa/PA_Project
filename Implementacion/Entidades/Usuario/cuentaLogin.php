@@ -260,6 +260,10 @@ and open the template in the editor.
 
                             </div>
                         </div>
+                        <script>
+                            $("#nombreGrupo").validate();
+                            $("#modGrupo").validate();
+                        </script>
                         <?php if ($_SESSION['tipo'] == 1) { ?>
                             <!--
                             -----------------------------------------------------
@@ -275,6 +279,11 @@ and open the template in the editor.
 
                                 </div>
                             </div>
+                            <script>
+                                $("#crearLogro").validate();
+                                $("#buscarLogro").validate();
+                                $("#modBorrarLogro").validate();
+                            </script>
                             <?php
                         }
                     }
@@ -290,16 +299,16 @@ and open the template in the editor.
             -->
             <script type="text/javascript" src="../../js/localizacionCreacionModificacion.js"></script>
             <script type="text/javascript">
-                                            /*
-                                             * La localizacion modifica el valor de los campos del formulario en 
-                                             * base a la informacion introducida en el autocompletar de Google. 
-                                             * Para ello, ante la llamada de modificar una localizacion, se inicia
-                                             * un intervalo (funcion lookForCityChange) que comprueba si hay 
-                                             * cambios en el valor introducido en el campo del mapa de google.
-                                             */
-                                            function modificarLocalizacion() {
-                                                setInterval(lookForCityChange, 100);
-                                            }
+                        /*
+                         * La localizacion modifica el valor de los campos del formulario en 
+                         * base a la informacion introducida en el autocompletar de Google. 
+                         * Para ello, ante la llamada de modificar una localizacion, se inicia
+                         * un intervalo (funcion lookForCityChange) que comprueba si hay 
+                         * cambios en el valor introducido en el campo del mapa de google.
+                         */
+                        function modificarLocalizacion() {
+                            setInterval(lookForCityChange, 100);
+                        }
             </script>
             <!--Declaracion del google Maps-->
             <?php include("../Localizacion/mapsScript.php"); ?>
