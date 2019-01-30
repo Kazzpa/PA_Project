@@ -62,7 +62,7 @@
             $numGrupos = getNumGrupos();
             $str .= '<div class="col-sm-12">';
             for ($i = 0; $i < sizeof($ret); $i++) {
-                $str .= printCardGrupo($ret[$i]);
+                $str .= printCardGrupo($ret[$i],'');
             }
             if ($numGrupos > 4) {
                 $str .= '</div>
@@ -119,7 +119,7 @@
         function printLogros($logrosInfo) {
             $str = "";
             if ($logrosInfo !== false) {
-                $str .= '<h5>Logros del grupo:</h5>';
+                $str .= '<h5><b>Logros del grupo:</b></h5>';
                 for ($i = 0; $i < sizeof($logrosInfo); $i++) {
                     $str .= '<img class="img-responsive" src="../Usuario/' . $logrosInfo[$i][1] . '" alt="' . $logrosInfo[$i][0] . '"/>';
                 }

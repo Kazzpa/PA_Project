@@ -156,18 +156,20 @@ function printSuscritos($suscritos) {
                                 echo printSuscritos($filareserva);
                                 ?>
                             </div>
+                            <?php
+                            if ($grupoEvento != 0) {
+                                echo (printCardGrupo($grupoInfo,'../Grupo/'));
+                            }
+                            ?>
                         </div>
                         <?php
                         echo "Creado el dia: $fechaCreacion<br />";
                         echo "Su host sera: $creador y se celebrara el dia: $fechaCelebracion<br />";
                         echo "Su host cree que necesitara saber lo siguiente: $descripcion <br/>";
-                        if ($grupoEvento != 0) {
-                            echo (printCardGrupo($grupoInfo));
-                        }
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
-                            <?php if (isset($_SESSION['username'])) { ?>
+    <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
                                 <form id="loginForm" maxlength="100" action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" placeholder="¿Qué opinas?" required></textarea>
@@ -176,7 +178,7 @@ function printSuscritos($suscritos) {
                                 <script>
                                     $("#loginForm").validate();
                                 </script>
-                            <?php } ?>
+    <?php } ?>
                             <h2>Comentarios</h2>
                             <table id="tableComments" style="margin: auto;">
                                 <tbody id="tbodyComments">
@@ -243,7 +245,7 @@ function printSuscritos($suscritos) {
 
         </script>
         <!--Declaracion del google Maps-->
-        <?php include("../Localizacion/mapsScript.php"); ?>
+<?php include("../Localizacion/mapsScript.php"); ?>
         <!--
         -----------------------------------------------------
         Tabla de comentarios
@@ -326,11 +328,11 @@ function printSuscritos($suscritos) {
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-        if (isset($_SESSION['username']))
-            echo $_SESSION['username'];
-        else
-            echo '';
-        ?>") {
+if (isset($_SESSION['username']))
+    echo $_SESSION['username'];
+else
+    echo '';
+?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";

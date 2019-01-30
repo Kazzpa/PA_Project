@@ -183,7 +183,7 @@ table tr td:last-child a{
     margin-right: 15px;
 }
 
-.card{
-    background: rgb(36,182,148);
+.panel{
+    color:black;
     padding: 1%;
 }
