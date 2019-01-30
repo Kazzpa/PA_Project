@@ -1,6 +1,5 @@
 <?php
 
-//session_start();
 //guardamos datos del evento actual
 $eventId = $_GET['id'];
 

@@ -32,7 +32,7 @@ if ($resultado) {
   <p>¡Gracias por reservar plaza para un evento!</p><br />
   <p>A continuacion te dejamos un QR code por si quieres compartir este evento con tus amigos. Recuerda que si quieres darte de baja del evento
   solo tienes que hacerlo desde el mismo sitio donde te apuntaste</p> <br/>
-  <img src='https://chart.googleapis.com/chart?cht=qr&chl=http://infinity-events.dx.am/$paginaActual?id=$evento&chs=160x160&chld=L|0' alt='Logo' title='Logo' style='display:block' width='300' height='300'> </img><br />
+  <img src='https://chart.googleapis.com/chart?cht=qr&chl=http://infinity-events.dx.am/Entidades/Evento/$paginaActual?id=$evento&chs=160x160&chld=L|0' alt='Logo' title='Logo' style='display:block' width='300' height='300'> </img><br />
 <p>Muchas gracias por confiar en Infinity, de parte de todo nuestro equipo esperamos que sigas usando nuestro servicio</p>
 </body>
 </html>
@@ -48,7 +48,7 @@ if ($resultado) {
     mail($to, $subject, $message, $headers);
 
 // Enviarlo
-    header("Refresh: 3; URL = ../$paginaActual?id=$evento");
+    header("Refresh: 3; URL = http://infinity-events.dx.am/Entidades/Evento/$paginaActual?id=$evento");
     echo "Se ha enviado un QR por si quiere compartir el evento";
     exit();
 } else {

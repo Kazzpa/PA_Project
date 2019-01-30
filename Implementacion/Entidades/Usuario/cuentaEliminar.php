@@ -1,10 +1,9 @@
 <?php
+
+session_start();
 //======================================================================
 // OPERACION ELIMINACION USUARIO
 //======================================================================
-
-session_start();
-
 //Realizamos la conexion a la base de datos
 include("../../conexion.php");
 
@@ -17,7 +16,7 @@ $resultado = mysqli_query($con, $consulta);
 mysqli_close($con);
 
 //Si la consulta ha tenido exito redireccionamos al usuario y mostramos un mensaje por pantalla del exito
-if ($resultado) { 
+if ($resultado) {
     header('Refresh: 1; URL = ../Usuario/cuentaLogout.php');
     echo "Estamos muy tristes de que hayas decidido irte ¡Estaremos aqui esperándote!";
     exit();

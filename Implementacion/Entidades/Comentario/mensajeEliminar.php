@@ -1,6 +1,5 @@
 <?php
 
-//session_start();
 $post = $_POST['comment'];
 
 include("../../conexion.php");

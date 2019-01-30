@@ -14,7 +14,7 @@
         <?php include '../stylesheets.php';
         ?>
         <link type='text/css' rel='stylesheet' href='../../css/gallery.css'>
-        <link type="text/css" rel="stylesheet" href="../../css/lightGallery.css" /> 
+        <link type="text/css" rel="stylesheet" href="../../css/lightgallery.css" /> 
     </head>
     <body>
         <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
