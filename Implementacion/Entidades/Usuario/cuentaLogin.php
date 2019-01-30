@@ -312,7 +312,5 @@ and open the template in the editor.
             </script>
             <!--Declaracion del google Maps-->
             <?php include("../Localizacion/mapsScript.php"); ?>
-            <!--Plugin para mostrar un placeholder emergente en los inputs text-->
-            <?php include("../../placeholder.php"); ?>
     </body>
 </html>
