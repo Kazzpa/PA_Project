@@ -32,7 +32,7 @@
             if (isset($_SESSION["login"])) {
                 //Ahora mismo el boton no hace nada
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
-                $str .= '<form action="" method="GET"><input type="hidden" name="grupo" value="' . $_GET['grupo'] . '">';
+                $str .= '<form action="#" method="GET"><input type="hidden" name="grupo" value="' . $_GET['grupo'] . '">';
                 if ($estaSuscrito !== false) {
                     $str .= '<input type="submit" name="desuscribir" value="desuscribirse" class="btn btn-secondary">';
                 } else {
@@ -174,8 +174,10 @@
                 //Grupo valido pero no registrado
                 if (isset($_GET['suscribirse'])) {
                     suscribirseGrupo($_SESSION['username'], $groupInfo[0], false);
+                    header("Location: grupo_mostrar.php?grupo=".$_GET['grupo']);
                 } else if (isset($_GET['desuscribir'])) {
                     deSuscribirseGrupo($_SESSION['username'], $groupInfo[0]);
+                    header("Location: grupo_mostrar.php?grupo=".$_GET['grupo']);
                 }
             } else {
                 $bol = false;
