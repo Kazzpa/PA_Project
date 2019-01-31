@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2019 a las 16:33:01
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.2.5
+-- Tiempo de generación: 31-01-2019 a las 05:36:32
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `infinity`
 --
-CREATE DATABASE IF NOT EXISTS `infinity` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `infinity`;
 
 -- --------------------------------------------------------
 
@@ -42,10 +40,10 @@ CREATE TABLE `advertisers` (
 --
 
 INSERT INTO `advertisers` (`id`, `name`, `organization`, `alias`) VALUES
-(1, 'javier', 'Sngular', 'Sr. Javi'),
-(8, 'Andres', 'Ayesa', 'Sr. Andrés'),
-(9, 'Ander', 'The Coca Cola Company', 'alias3'),
-(10, 'Irene', 'Oracle', 'Sra. Irene');
+(11, 'Javier', 'Sngular', 'Sr. Javi'),
+(12, 'Andres', 'Ayesa', 'Sr. Andres'),
+(13, 'Ander', 'The Coca Cola Company', 'Sr. Lak'),
+(14, 'Irene', 'Oracle', 'Sra. Irene');
 
 -- --------------------------------------------------------
 
@@ -71,9 +69,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `date_creation`, `date_celebration`, `host`, `rutaimagen`, `idLocation`, `idAdvertisers`, `group_id`) VALUES
-(20, 'Hack and Beers #SVQ10FEB', 'Evento  de Hack and Beers en Sevilla.', '2019-01-21 11:05:45', '2019-02-10 16:30:00', 'irene', 'eventPhotos/default.jpg', 26, 0, 3),
-(21, 'Hack and Beers #SVQ20FEB', 'Vamos a quedar para hablar sobre seguridad informatica en IOT', '2019-01-21 12:48:55', '2019-02-20 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 0),
-(22, 'Hack and Beers #SVQ10MAR', 'bebemo servesa', '2019-01-21 13:39:51', '2019-03-10 18:30:00', 'irene', 'eventPhotos/default.jpg', 0, 0, 3);
+(23, 'Festival On the Beach', 'asd', '2019-01-31 02:59:43', '2019-07-08 10:00:00', 'admin', 'eventPhotos/1548903583Horarios OTB.jpg', 27, 13, 0),
+(24, 'BootCamp AYESA', 'Qué tecnología debes aprender? HTML y CSS son las obvias, pero... qué estudiar luego? Javascript, Ruby, PHP...? Qué tecnología te conviene aprender? Ven a nuestro bootcamp y descúbrelo!', '2019-01-31 03:04:49', '2019-02-13 16:00:00', 'admin', 'eventPhotos/1548903889pexels-photo-711009.jpeg', 28, 12, 0),
+(25, 'Charla Blockchain', 'Descubre las últimas novedades', '2019-01-31 03:07:32', '2019-02-07 17:00:00', 'admin', 'eventPhotos/1548904052pexels-photo-942418.jpeg', 29, 0, 0),
+(26, 'Fiesta online', 'Despues del examen', '2019-01-31 03:57:42', '2019-02-02 23:00:00', 'andresloko', 'eventPhotos/default.jpg', 0, 0, 0),
+(27, 'El cielo del mes de febrero de 2019', 'Conoce los eventos astronómicos mas importantes del febrero', '2019-01-31 04:09:33', '2019-02-14 18:30:00', 'irene', 'eventPhotos/1548907773night-photograph-starry-sky-night-sky-star-957040.jpeg', 30, 0, 8),
+(28, 'Primeros pasos en la creación de un website', 'Conoce todo lo que necesitas saber para tener el mejor sitede internet', '2019-01-31 04:20:45', '2019-02-28 17:00:00', 'pedrog', 'eventPhotos/1548908445pexels-photo-1181622.jpeg', 31, 0, 9);
 
 -- --------------------------------------------------------
 
@@ -93,15 +94,20 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
-(20, 3, 'groupPhotos/3/1547581417201279_ml.jpg', 'Charla de Steve Jobs'),
-(41, 3, 'groupPhotos/3/1547941321pexels-photo-716276.jpeg', 'Charla sobre arte'),
-(42, 3, 'groupPhotos/3/1547941332pexels-photo-1530313.jpeg', 'Descanso'),
-(43, 3, 'groupPhotos/3/1547941368pexels-photo-711009.jpeg', 'conociendo gente'),
-(44, 3, 'groupPhotos/3/1547941379pexels-photo-1181622.jpeg', 'nuevas tecnologias'),
-(45, 3, 'groupPhotos/3/1547941405pexels-photo-942418.jpeg', 'tazas gratis'),
-(46, 3, 'groupPhotos/3/1547941435pexels-photo-1595385.jpeg', 'se alargo la reunion'),
-(47, 3, 'groupPhotos/3/1547941531pexels-photo-1015568.jpeg', 'de risas'),
-(48, 3, 'groupPhotos/3/1547941589pexels-photo-1054974.jpeg', 'sala de descanso');
+(49, 4, 'groupPhotos/4/1548906573pexels-photo-1015568.jpeg', 'Descanso'),
+(50, 4, 'groupPhotos/4/1548906592pexels-photo-1595385.jpeg', 'Se nos alargó la reunion'),
+(51, 4, 'groupPhotos/4/1548906606pexels-photo-1054974.jpeg', 'Hablando de blockchain'),
+(52, 4, 'groupPhotos/4/1548906653pexels-photo-1407472.jpeg', 'En la playa'),
+(53, 5, 'groupPhotos/5/1548906953pexels-photo-1530313.jpeg', 'Descanso tras la charla'),
+(54, 5, 'groupPhotos/5/1548906993black-and-white-city-crosswalk-842339.jpg', 'Anonymous people'),
+(55, 5, 'groupPhotos/5/1548907134workplace-1245776_1280.jpg', 'Divagando'),
+(56, 6, 'groupPhotos/6/1548907228pexels-photo-716276.jpeg', 'Gran ponente'),
+(57, 7, 'groupPhotos/7/1548907494pexels-photo-910330.jpeg', 'Torneo y programacion'),
+(58, 7, 'groupPhotos/7/1548907519pexels-photo-951229.jpeg', 'Concentracion'),
+(59, 7, 'groupPhotos/7/1548907560pexels-photo-1376866.jpeg', 'Jejeje'),
+(60, 8, 'groupPhotos/8/1548907632nebula_pequeña.jpg', 'Nebulosa de Orión'),
+(61, 8, 'groupPhotos/8/1548907676pexels-photo-1567069.jpeg', 'Salida 4/1/2019'),
+(62, 8, 'groupPhotos/8/1548907702pexels-photo-712067.jpeg', 'Acampada');
 
 -- --------------------------------------------------------
 
@@ -121,8 +127,12 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`id`, `name`, `descripcion`, `image_path`) VALUES
-(3, 'Hack and Beers', 'Ponencias gratuitas para interesados en la seguridad informática. Ambiente distendido y acompañando las charlas con unas Beers. ¡Únete a la comunidad H&B!', 'img/hackandbeers.png'),
-(7, 'DataBeers Sevilla', 'Si eres programador, adicto a los datos, curioso innato, fisgón de la tecnología, amante de las charlas, futurólogo de la tecnología', 'img/600_467439404.jpg');
+(4, 'Databeers - Sevilla', 'Si eres programador, adicto a los datos, curioso innato', 'img/600_467439404.jpeg'),
+(5, 'Hacking Sevilla', 'Grupo organizado por personas que son apasionadas de la tecnología y la seguridad informática en Sevilla. El objetivo es crear un comunidad local que permita realizar formación, charlas, quedadas y sobre todo aprender uno de los otros.', 'img/600_459134084.jpeg'),
+(6, 'PHP Sevilla', 'En PHP Sevilla queremos crear una comunidad de desarrolladores en Sevilla que utilicen la tecnología relacionada con PHP para crear aplicaciones, herramientas y sitios web.', 'img/600_449416250.jpeg'),
+(7, 'Ajedrez Sevilla', 'Vente a nuestros torneos', 'img/pexels-photo-1040157.jpeg'),
+(8, 'Astronomía Sevilla', 'Conoce las efemérides de cada mes con nosotros', 'img/cosmos-1866583_1920.jpg'),
+(9, 'Sunrise Blog Club', 'Sunrise Blog Club es una iniciativa de Nativo Social desarrollada para la creación de una comunidad de profesionales que quieran desarrollar técnicas y hábitos de redacción de posts y para la elaboración de blogs personales.', 'img/600_434867119.jpeg');
 
 -- --------------------------------------------------------
 
@@ -144,18 +154,11 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`id`, `name`, `address`, `city`, `lat`, `lng`) VALUES
-(1, 'FIBES - Palacio de Congresos', 'Av. Alcalde Luis Uruñuela', 'Sevilla', 37.403526, -5.936950),
-(9, 'WiZink Center', 'S/N Av. Felipe II', 'Madrid', 40.423878, -3.671750),
-(10, 'CafeterÃ­a HD', '67 Calle de GuzmÃ¡n el Bueno', 'Madrid', 40.436001, -3.713221),
-(12, 'Sevilla (Plaza de Armas)', 's/n Puente del Cristo de la ExpiraciÃ³n el Cachorro', 'Sevilla', 37.391872, -6.003953),
-(15, 'Bar Galleta', '31 Calle Corredera Baja de San Pablo', 'Madrid', 40.422684, -3.703638),
-(16, 'Casa de la Ciencia', '8 Av. de MarÃ­a Luisa', 'Sevilla', 37.377518, -5.991264),
-(21, 'Sala X', '7 Calle JosÃ© DÃ­az', 'Sevilla', 37.408699, -5.990033),
-(22, 'Ashford', 'Ashford Ashford', 'Kent', 51.146465, 0.875019),
-(23, 'Principado de Asturias', 'Principado de Asturias O', 'ES', 43.361397, -5.859327),
-(24, 'Leonberg', 'Leonberg BB', 'SÃ¼d', 48.796043, 9.009571),
-(25, 'Torre del Oro', 's/n Paseo de CristÃ³bal ColÃ³n', 'Sevilla', 37.382412, -5.996490),
-(26, 'Tea&Coffee', '2 Av. de Ramón y Cajal', 'Sevilla', 37.377411, -5.976763);
+(27, 'Sacaba Beach', 'Sacaba Beach Málaga', 'Málaga', 36.678787, -4.446992),
+(28, 'AYESA', '2 Calle Marie Curie', 'Sevilla', 37.405357, -6.005651),
+(29, 'Bitnami', '31B Av. de la República Argentina', 'Sevilla', 37.376968, -6.002842),
+(30, 'Casa de la Ciencia', '8 Av. de María Luisa', 'Sevilla', 37.377518, -5.991264),
+(31, 'Bar Sevilla Cádiz', '15 Av. de Cádiz', 'Sevilla', 37.382996, -5.985318);
 
 -- --------------------------------------------------------
 
@@ -172,14 +175,6 @@ CREATE TABLE `logro` (
   `valor` int(10) NOT NULL COMMENT 'limite para activar el logro'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `logro`
---
-
-INSERT INTO `logro` (`id`, `name`, `icon_path`, `descripcion`, `tipo`, `valor`) VALUES
-(1, 'medalla oro fotos', 'img/trophy.png', 'obtener 2 fotos en la galeria', 2, 2),
-(2, 'test', 'img/trophy.png', 'test', 3, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -191,14 +186,6 @@ CREATE TABLE `logros_grupo` (
   `logro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `logros_grupo`
---
-
-INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
-(3, 1),
-(4, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -207,7 +194,6 @@ INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
 
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL COMMENT 'id del post',
-  `idReply` int(11) NOT NULL COMMENT '0 si es comentario normal, >1 si es una respuesta a un comentario (y aqui se mostrara el id del comentario que responde)',
   `postedBy` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'id usuario que realiza el comentario',
   `eventId` int(11) NOT NULL,
   `postedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'fecha del comentario',
@@ -218,8 +204,14 @@ CREATE TABLE `posts` (
 -- Volcado de datos para la tabla `posts`
 --
 
-INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES
-(70, 0, 'andres', 20, '2019-01-30 15:16:52', 'Podemos quedar un rato antes y tomar una cerveza! quien se apunta?');
+INSERT INTO `posts` (`id`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES
+(68, 'andresloko', 25, '2019-01-31 04:14:41', 'Me apunto'),
+(69, 'andresloko', 27, '2019-01-31 04:15:01', 'Me vereis por alli'),
+(70, 'irene', 27, '2019-01-31 04:16:12', 'Nos encantará verte por allí Andres'),
+(71, 'irene', 23, '2019-01-31 04:16:31', 'Me flipa esto!!!'),
+(72, 'pedrog', 26, '2019-01-31 04:17:44', 'yo estaré por ahi'),
+(73, 'pedrog', 23, '2019-01-31 04:17:55', 'y a mi!!!!'),
+(74, 'pedrog', 28, '2019-01-31 04:21:13', 'Me gustaría mucho participar, estaré por allí');
 
 -- --------------------------------------------------------
 
@@ -238,11 +230,12 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES
-(1, 'irelia', 20),
-(3, 'german', 20),
-(4, 'irene', 20),
-(5, 'javi', 20),
-(6, 'paco', 20);
+(3, 'andresloko', 27),
+(4, 'andresloko', 25),
+(5, 'pedrog', 28),
+(6, 'pedrog', 25),
+(7, 'pedrog', 27),
+(8, 'irene', 27);
 
 -- --------------------------------------------------------
 
@@ -262,10 +255,15 @@ CREATE TABLE `suscripcion_grupo` (
 --
 
 INSERT INTO `suscripcion_grupo` (`user_id`, `grupo_id`, `id`, `rol`) VALUES
-('irene', 3, 1, 1),
-('german', 3, 2, 0),
-('andres', 3, 16, 0),
-('andres', 7, 24, 1);
+('andresloko', 0, 2, 1),
+('admin', 0, 6, 1),
+('admin', 4, 9, 1),
+('andresloko', 5, 10, 1),
+('javig', 6, 11, 1),
+('javig', 0, 12, 1),
+('javig', 7, 14, 1),
+('irene', 8, 15, 1),
+('pedrog', 9, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -288,8 +286,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `name`, `password`, `email`, `date_register`, `tipo`, `rutaimagen`) VALUES
-('andres', 'andres loco', '$2y$10$IG59GcIikLNPfFTuUJ8w8eOkXUEbQDLZsIXrtXLmtDdJZJEQ1rIZq', 'andres97cb@hotmail.com', '2019-01-30 11:36:14', 0, 'userPhotos/default.png'),
-('irene', 'Irene Glez', '$2y$10$GpTL5a3SmldpvhC8ZY/a4OzUE0nhIcpeLuuphI8XhGNHX02AsocWC', 'irene@irene.com', '2018-12-30 15:59:42', 1, 'userPhotos/default.png');
+('admin', 'Admin Infinity', '$2y$10$89WyLwCqq4YeaYB3hCOdkOg3sA3S44FQ4xx3ddkXc4.JpFir/QOui', 'infinity-no-reply@infinityevents.es', '2019-01-31 02:32:12', 1, 'userPhotos/1548901932pexels-photo-374720.jpeg'),
+('andresloko', 'Andres Carvajal', '$2y$10$ocL0P4RWGJBa0qPLPe/f5.B4u2RqTBKewQFRAyTcFgMcOoX0uoisW', 'andresloko@fakemail.com', '2019-01-31 02:42:38', 0, 'userPhotos/1548902558pexels-photo-105017.jpeg'),
+('carlosbar', 'Carlos Barroso', '$2y$10$AEGelmmG.6QXB5SoLQy0buD.NWyJ9FwwVFOB4PEDqk9n2ChOiGvvG', 'carlosbarr@fakemail.com', '2019-01-31 02:36:55', 0, 'userPhotos/1548902215pexels-photo-1308625.jpeg'),
+('irene', 'Irene Ruiz', '$2y$10$JGEh2wLWgC8Mr/Ve8RPw5OKPO2DI3b149LJhL7Jnrnr8MoT/.tFZu', 'lapizrojo13@gmail.com', '2019-01-31 02:40:21', 0, 'userPhotos/1548902421pexels-photo-96886.jpeg'),
+('javig', 'Javi G', '$2y$10$ZzbBxbXj4OQZJZqLl7U8QOVW.fSRw4X32QlEKMjXyIQyTFhU0jM3G', 'javiG@fakemail.com', '2019-01-31 02:43:44', 0, 'userPhotos/1548902624pexels-photo-845457.jpeg'),
+('pedrog', 'Pedro Gomez', '$2y$10$tzTXJaZom34CLFXgEnnn3eCzwsqMe5Il1jQqQQBACzNY7GaiXZbzq', 'pedrog@fakemail.com', '2019-01-31 04:17:07', 0, 'userPhotos/1548908227pexels-photo-845457.jpeg');
 
 --
 -- Índices para tablas volcadas
@@ -374,31 +376,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `advertisers`
 --
 ALTER TABLE `advertisers`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador', AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la localizacion', AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `logro`
@@ -410,19 +412,19 @@ ALTER TABLE `logro`
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del post', AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `suscripcion_grupo`
 --
 ALTER TABLE `suscripcion_grupo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la relación', AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la relación', AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
