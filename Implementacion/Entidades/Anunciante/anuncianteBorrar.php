@@ -8,7 +8,6 @@ session_start();
 -->
 <?php
 //Borrado
-session_start();
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     //-----------------------------------------------------
     // Consulta a la base de datos
