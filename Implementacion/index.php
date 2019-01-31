@@ -56,18 +56,18 @@ and open the template in the editor.
                             //Retiramos las filas de la consulta realizada
                             while ($auxiliar = mysqli_fetch_array($resultado)) {
                                 //Este auxiliar es para evitar que se meta la ultima iteracion vacia
-                                $fila[$i] = $auxiliar;
+                                $filaAd[$i] = $auxiliar;
                                 $i++;
                             }
                             //Iteramos las filas obtenidas para mostrarlas por pantalla
-                            for ($i = 0; $i < sizeof($fila); $i++) {
+                            for ($i = 0; $i < sizeof($filaAd); $i++) {
                                 //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
-                                $nombreEvento = $fila[$i][1];
-                                $fechaCelebracion = $fila[$i]['date_celebration'];
-                                $organization = $fila[$i]['organization'];
-                                $descripcion = $fila[$i]['description'];
-                                $evento_id = $fila[$i][0];
-                                $rutaimagen = $fila[$i]['rutaimagen'];
+                                $nombreEvento = $filaAd[$i][1];
+                                $fechaCelebracion = $filaAd[$i]['date_celebration'];
+                                $organization = $filaAd[$i]['organization'];
+                                $descripcion = $filaAd[$i]['description'];
+                                $evento_id = $filaAd[$i][0];
+                                $rutaimagen = $filaAd[$i]['rutaimagen'];
 
                                 //Mostramos por pantalla la informacion del evento en forma de tabla
                                 echo "<div class='text-center well'>
