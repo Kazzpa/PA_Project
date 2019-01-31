@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 //======================================================================
@@ -15,7 +14,6 @@ include_once ('../Grupo/grupo_db.php');
 include_once ("../Logro/logros_admin.php");
 $info = getGroup($_POST['grupoId']);
 $idGrupo = $info[0];
-echo "idgrupo" . $idGrupo;
 
 if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
     if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
@@ -36,10 +34,6 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
             $consulta = "INSERT INTO gallery ( id , grupo, rutaImagen, encabezado) VALUES ( 'NULL' , '" . $idGrupo . "' , '" . $nombreRuta . "' , '" . $encabezado . "')";
             $resultado = mysqli_query($con, $consulta);
             checkFotos($idGrupo);
-            echo "<br> consulta: <br/>" . $consulta . "<br/>";
-            if ($resultado) {
-                echo "exito";
-            }
             if (!$resultado) {
                 $bol = false;
             }
@@ -52,5 +46,5 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
     $nombreRuta = "groupPhotos/default.jpg";
 }
 
-header('Location: ../Grupo/grupo_mostrar.php' . "?grupo=" . $_POST['grupoId']);
+header('Location: ../Grupo/grupo_mostrar.php'."?grupo=".$_POST['grupoId']);
 ?>
