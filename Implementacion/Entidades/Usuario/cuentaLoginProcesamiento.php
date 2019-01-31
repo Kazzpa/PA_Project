@@ -2,7 +2,9 @@
 
 session_start();
 
-/* HACE FALTA AÑADIR LAS VALIDACIONES */
+//======================================================================
+//PROCESAMIENTO DEL LOGIN
+//======================================================================
 
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'password' => FILTER_SANITIZE_STRING,

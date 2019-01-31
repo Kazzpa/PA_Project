@@ -1,7 +1,9 @@
 <?php
 
-//Comprobar que tenga acceso
-//logroname  logrodesc logroicon logrotipo logrovalor logropuntos
+//======================================================================
+//LIBRERIA DE FUNCIONES PARA LOGROS
+//======================================================================
+        
 //crea la conexion con la base de datos y no la cierra.
 $conexion = false;
 
@@ -192,6 +194,7 @@ function numEvents($grupoId) {
     return $ret;
 }
 
+//devuelve los logros que son del tipo que le pasamos
 function getLogros($tipo) {
     $link = conectarDB();
     $sql = "SELECT * FROM logro where logro.tipo = '$tipo'";
@@ -209,6 +212,7 @@ function getLogros($tipo) {
     return $ret;
 }
 
+//funcion para añadir un logro
 function addLogro($idLogro, $grupoId) {
     $link = conectarDB();
     $bol = false;

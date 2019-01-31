@@ -14,10 +14,18 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="../../css/maps.css"/>
     </head>
     <body>
+        <!--
+        ======================================================================
+        VENTANA DE CREACION DE UN EVENTO
+        ======================================================================
+        -->
         <?php
         include("../header.php");
         if (isset($_SESSION["login"])) {
             ?>
+            <!--
+            Div donde mostraremos el mapa
+            -->
             <div id="map"></div>
             <div class="pac-card" id="pac-card">
                 <div>
@@ -35,6 +43,10 @@ and open the template in the editor.
                 <span id="place-name"  class="title"></span><br>
                 <span id="place-address"></span>
             </div>
+            <!--
+            Mostramos dos contenedores, el primero contendra informacion del evento,
+            el segundo contendra la localizacion del evento, que es opcional
+            -->
             <div class="container login-container">
                 <form id="eventCreationForm" action = "eventoCreacionProcesamiento.php" method = "post" enctype="multipart/form-data">
                     <div class="row">

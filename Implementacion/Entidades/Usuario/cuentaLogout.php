@@ -1,5 +1,4 @@
 <?php
-
 //Limpiamos todas las variables de sesion al hacer logout
 session_start(); //Hay que llamar a session_start en cada pagina php que vayamos a querer trabajar con algo relacionado con la session actual
 session_unset();
@@ -14,4 +13,10 @@ header('Refresh: 5; URL = ../../index.php'); /* El refresh son los segundos que 
 echo 'Ha limpiado sesion si no le redirige el navegador pulsa <a href="../../index.php"> aqui <a>';
 exit();
 ?>
+
+<!--
+======================================================================
+LIMPIEZA DE SESION
+======================================================================
+-->
 

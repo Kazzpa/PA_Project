@@ -1,8 +1,21 @@
+<?php 
+session_start();
+?>
+<!--
+//======================================================================
+//BORRADO DE UN ANUNCIANTE
+//======================================================================
+-->
 <?php
 //Borrado
 session_start();
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
+    //-----------------------------------------------------
+    // Consulta a la base de datos
+    //-----------------------------------------------------
+    //Realizamos una conexion a la base de datos
     require_once "../../conexion.php";
+    
     //Prepara sentencia sql de borrado
     $consulta = "DELETE FROM advertisers WHERE id = ?";
     if ($declaracion = mysqli_prepare($con, $consulta)) {
@@ -41,6 +54,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         <?php include("../stylesheets.php"); ?>
     </head>
     <body>
+        <!-- 
+        ----------------------------------------------------------------------
+        Muestra por pantalla de la opción de borrado
+        ----------------------------------------------------------------------
+        -->
         <?php
         if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
             if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
@@ -50,6 +68,8 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                         <div class = "page-header">
                             <h1>Borrar registro</h1>
                         </div>
+                        <!-- Pedimos una confirmación antes de borrar los datos presentando un formulario
+                        , si se pulsa que sí se activa la petición de eliminación-->
                         <form action = " <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> " method="post">
                             <div class="alert alert-danger fade in">
                                 <input type = "hidden" name = "id" value = "<?php echo trim($_GET["id"]); ?>" />

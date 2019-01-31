@@ -17,7 +17,6 @@
         <link type="text/css" rel="stylesheet" href="../../css/lightgallery.css" /> 
     </head>
     <body>
-        <!-- Por ahora funciona la preview del grupo y los usuarios suscritos -->
         <?php
         include '../header.php';
         include_once 'grupo_db.php';
@@ -30,7 +29,6 @@
             $str = '<div id="grupo" class="col-md-12"><h1>' . $group[1] . '</h1>';
 
             if (isset($_SESSION["login"])) {
-                //Ahora mismo el boton no hace nada
                 $estaSuscrito = isSubbedToGroup($_SESSION['username'], $group[0]);
                 $str .= '<form action="#" method="GET"><input type="hidden" name="grupo" value="' . $_GET['grupo'] . '">';
                 if ($estaSuscrito !== false) {
@@ -184,14 +182,18 @@
             }
         }
         ?>
-
+        <!-- 
+        ======================================================================
+        VISTA DE GRUPO
+        ======================================================================
+        -->
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center well" >
                     <?php
-//Comprobamos que haya un grupo registrado
+                    //Comprobamos que haya un grupo registrado
                     if ($bol) {
                         echo (printGrupoExpanded($groupInfo, $logrosInfo, $infoSubscribers));
                     } else {

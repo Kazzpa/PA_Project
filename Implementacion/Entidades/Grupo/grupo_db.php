@@ -1,5 +1,9 @@
 <?php
 
+//======================================================================
+//COLECCION DE LIBRERIAS PARA GRUPO
+//======================================================================
+
 //crea la conexion con la base de datos y no la cierra.
 $conexion = false;
 include_once '../Logro/logros_admin.php';

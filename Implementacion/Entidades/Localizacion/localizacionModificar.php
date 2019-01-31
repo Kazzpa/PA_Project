@@ -1,5 +1,11 @@
 <?php
-
+//======================================================================
+//MODIFICACION DE UNA LOCALIZACION
+//======================================================================
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 
 //Recibimos los datos del formulario

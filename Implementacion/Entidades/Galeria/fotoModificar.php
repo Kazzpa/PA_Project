@@ -1,5 +1,8 @@
 <?php
 
+//======================================================================
+//MODIFICACION DE UNA FOTO DE GRUPO
+//======================================================================
 
 //guardamos datos de la foto
 
@@ -13,6 +16,10 @@ $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los 
 $saneado = filter_input_array(INPUT_POST, $saneamiento);
 $encabezado = $saneado["encabezado"];
 
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 
 

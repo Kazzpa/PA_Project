@@ -53,21 +53,23 @@ and open the template in the editor.
                             $("#loginForm").validate();
                         </script>
                         <a href="cuentaRegistro.php">Registrate</a>
+                        <?php
+                        //Control de fallo de logueo
+                        if (isset($_SESSION["fallido"])) {
+                            echo "Error al logearse";
+                        }
+                        //Si el usuario se acaba de registrar mandamos un mensaje.
+                        if (isset($_SESSION["exito"])) {
+                            unset($_SESSION["exito"]);
+                            echo "Se ha registrado correctamente, pruebe a logearse con la cuenta creada";
+                        }
+                        ?>
                     </div>
                     <div class="col-md-3">
                     </div>
                 </div>
             </div>
             <?php
-            //Control de fallo de logueo
-            if (isset($_SESSION["fallido"])) {
-                echo "Error al logearse";
-            }
-            //Si el usuario se acaba de registrar mandamos un mensaje.
-            if (isset($_SESSION["exito"])) {
-                unset($_SESSION["exito"]);
-                echo "Se ha registrado correctamente, pruebe a logearse con la cuenta creada";
-            }
         } else {
             //======================================================================
             // PANEL DE CONTROL ESTANDO YA LOGUEADO

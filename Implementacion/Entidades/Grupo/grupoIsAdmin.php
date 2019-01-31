@@ -1,7 +1,10 @@
 <?php
 
-//guardamos datos del grupo actual
+//======================================================================
+//COMPROBACION DEL ROL DE UNA PERSONA EN UN GRUPO CONCRETO
+//======================================================================
 
+//guardamos datos del grupo actual
 $info = getGroup($entradas['grupo']);
 $grupoId = $info[0];
 

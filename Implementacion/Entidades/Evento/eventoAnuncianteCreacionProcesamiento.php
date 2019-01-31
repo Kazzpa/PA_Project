@@ -36,7 +36,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
         if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
-            if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
+            if ($_FILES["imagen"]["size"] > 5 * 1024 * 1024) {   //5MB porque esta en bytes en principio
                 $errores[] = "Hay un error con el size de imagen";
             } else {
                 $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];

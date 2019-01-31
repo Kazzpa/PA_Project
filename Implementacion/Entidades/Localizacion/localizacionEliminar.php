@@ -1,5 +1,8 @@
 <?php
-
+//======================================================================
+// Eliminacion de una localización: 
+// Comprobamos si la localizacion del evento a eliminar tiene mas de un evento asociado
+//======================================================================
 /*
  * Eliminacion de una localización: 
  * Comprobamos si la localizacion del evento a eliminar tiene mas de un evento asociado
