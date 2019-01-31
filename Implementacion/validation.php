@@ -1,14 +1,19 @@
 <?php
+//======================================================================
+//VALIDACION DE UNA IMAGEN
+//======================================================================
 
 //variable global ruta de la carpeta donde guardar las imagenes
 $rutaImg = "img/";
 $limite = 5 * 1024 * 1024; #5MB limite imagen
 
+//Funcion para validar un string
 function validarString($name, $size) {
     //regexp normal /^[0-9a-zñáéíóúü]+(.*|\s)*$/
     return preg_match("/^[[:alnum:]]+/", $name) && strlen($name) < $size && !empty(trim($name));
 }
 
+//Comprobacion de que la imagen  cumple todas las validaciones
 function validarImg($img) {
     //comprueba si no hubo un error en la subida
     if ($img["error"] == 0 && soloImg($img) && limiteTamanyo($img, $GLOBALS['limite'])) {
@@ -18,6 +23,7 @@ function validarImg($img) {
     }
 }
 
+//Comprobacion del tipo de imagen
 function soloImg($archivo) {
     $bool = False;
     if ($archivo["type"] == "image/png" || $archivo["type"] == "image/jpeg") {
@@ -27,6 +33,7 @@ function soloImg($archivo) {
     return $bool;
 }
 
+//Comprobacion del tamaño de imagenes
 function limiteTamanyo($archivo) {
     $bool = False;
     if (isset($archivo)) {
@@ -37,7 +44,7 @@ function limiteTamanyo($archivo) {
     return $bool;
 }
 
-//guarda en ficheros la foto
+//Guarda en ficheros la foto
 function saveToDisk($archivo) {
     $bol = False;
 

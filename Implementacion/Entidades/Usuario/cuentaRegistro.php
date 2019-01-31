@@ -15,6 +15,11 @@ and open the template in the editor.
         <?php include("../stylesheets.php"); ?>
     </head>
     <body>
+        <!--
+        ======================================================================
+        FORMULARIO DE REGISTRO
+        ======================================================================
+        -->
         <?php include("../header.php") ?>
         <div class="container login-container">
             <div class="row">
@@ -42,7 +47,13 @@ and open the template in the editor.
                             <input type="submit"  value="Registro" name= "registroProcesamiento" class="btnSubmit" />
                         </div>
                     </form>
+                    <?php
+                    if (isset($_SESSION["rechazado"])) {
+                        echo "Error al registrarse, es posible que el usuario que intenta crear ya exista";
+                    }
+                    ?>
                     <script>
+                        //Validacion del formulario
                         $("#registerForm").validate();
                     </script>
                 </div>
@@ -50,20 +61,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <!--
-        <form action = "cuentaRegistroProcesamiento.php" method = "post" enctype="multipart/form-data">
-            Nombre y primer apellido: <input type = "text" name = "nombre" required/><br />
-            Usuario: <input type = "text" name = "username" required/><br />
-            Email: <input type = "email" name = "email" required /><br />
-            Password: <input type = "password" name = "password" required /><br />
-            Foto: <input type="file" name="imagen" /> <br />
-            <input type = "submit" value="Registro" name = "registroProcesamiento" />
-        </form>-->
     </body>
 </html>
-
-<?php
-if (isset($_SESSION["rechazado"])) {
-    echo "Error al registrarse, es posible que el usuario que intenta crear ya exista";
-}
 

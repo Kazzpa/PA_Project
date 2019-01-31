@@ -9,11 +9,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 
-<!--Importe PLACEHOLDER-->
-<link rel="stylesheet" type="text/css" href="../../css/placeholder.css"/>
-
-
-
 <!-- Importe javascript-->
 <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
 

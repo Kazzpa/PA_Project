@@ -1,7 +1,17 @@
 <?php
 session_start();
+
+//======================================================================
+//VISTA EXTENDIDA ANUNCIANTE
+//======================================================================
+
 //Chequea que exista parametro id
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    
+    //-----------------------------------------------------
+    // Consulta a la base de datos
+    //-----------------------------------------------------
+    //Realizamos una conexion a la base de datos
     require_once "../../conexion.php";
 
     //Preparacion sentencia 
@@ -58,6 +68,11 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
         if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
             if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
                 ?>
+                <!-- 
+                ----------------------------------------------------------------------
+                Muestra por pantalla de la opción de vista extendida
+                ----------------------------------------------------------------------
+                -->
                 <div class="envoltura">
                     <div class="container-fluid">
                         <div class="col-md-12">

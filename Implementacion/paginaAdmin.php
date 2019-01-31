@@ -14,6 +14,11 @@ include("header.php");
 if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
     if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
         ?>
+        <!--
+        -----------------------------------------------------
+        Muestra por pantalla de las opciones de administrador
+        -----------------------------------------------------
+        -->
         <div class="col-sm-2 sidenav">
         </div>
         <div class="col-sm-8 text-center well">

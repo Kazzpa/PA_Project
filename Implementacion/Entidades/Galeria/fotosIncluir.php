@@ -2,6 +2,10 @@
 
 session_start();
 
+//======================================================================
+//ALTA DE LA IMAGEN DE UN GRUPO
+//======================================================================
+
 $filtros = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'encabezado' => FILTER_SANITIZE_STRING);
 
@@ -20,10 +24,6 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
         if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
-            /* if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
-              $errores[] = "Hay un error con el size de imagen";
-              echo  "Hay un error con el size de imagen";
-              }else{ */
             $nombreRuta = "groupPhotos/" . $idGrupo . "/" . time() . $_FILES["imagen"]["name"];
             if (!file_exists("groupPhotos")) {
                 mkdir("groupPhotos");

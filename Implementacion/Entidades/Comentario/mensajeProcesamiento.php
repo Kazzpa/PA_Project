@@ -1,6 +1,9 @@
 <?php
-
 session_start();
+
+//======================================================================
+//PROCESAMIENTO DE MENSAJES
+//======================================================================
 include '../Logro/logros_admin.php';
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'msgTextArea' => FILTER_SANITIZE_STRING,
@@ -14,8 +17,13 @@ $message = $saneado['msgTextArea'];
 $postedBy = $_SESSION['username'];
 $eventId = $_GET['id'];
 
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 
+//Realizamos la insercion del mensaje en la Base de Datos con todos los atributos correspondientes
 $consulta = "INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '0', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
 $resultado = mysqli_query($con, $consulta);
 $idPost = mysqli_insert_id($con);

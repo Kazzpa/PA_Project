@@ -2,11 +2,9 @@
 
 session_start();
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//======================================================================
+//PROCESAMIENTO DE UN EVENTO A CREAR
+//======================================================================
 
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'nameEvent' => FILTER_SANITIZE_STRING,
@@ -43,7 +41,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
         if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
-            if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
+            if ($_FILES["imagen"]["size"] > 5 * 1024 * 1024) {   //5MB porque esta en bytes en principio
                 $errores[] = "Hay un error con el size de imagen";
             } else {
                 $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];

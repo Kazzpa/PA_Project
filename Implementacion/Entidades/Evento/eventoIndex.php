@@ -22,7 +22,11 @@ and open the template in the editor.
         <?php include("../header.php"); ?>
         <!--Google Maps API--> 
         <div id="map"></div>
-
+        <!--
+        ======================================================================
+        MOSTRAMOS EN VISTA DE TARJETAS LOS EVENTOS FUTUROS
+        ======================================================================
+        -->
         <div class="container-fluid text-center"> 
             <div class="col-sm-2 sidenav">
             </div>
@@ -46,7 +50,8 @@ and open the template in the editor.
                 <div class="col-sm-8 text-center well" style="background-color: black; color:white">  <!--text-center, text-left... se puede cambiar, well le da el toque de redondez a los bordes-->
                     <?php
                     include("../../conexion.php");
-
+                    
+                    //Recogemos los eventos mostrando primero los que mas cerca en el tiempo estan
                     $consulta = "SELECT * FROM `events` WHERE date_celebration>CURRENT_TIMESTAMP ORDER BY date_celebration"; //consulta SQL para obtener el usuario, luego comprobamos la password
                     $resultado = mysqli_query($con, $consulta);
 
@@ -68,7 +73,8 @@ and open the template in the editor.
                             $descripcion = $fila[$i]['description'];
                             $evento_id = $fila[$i]['id'];
                             $rutaimagen = $fila[$i]['rutaimagen'];
-
+                            
+                            //Muestra de los atributos correspondientes a un evento
                             echo "<div class='text-center well'>
                                 <table style='color:black; margin:auto;'> 
                                         <tr>

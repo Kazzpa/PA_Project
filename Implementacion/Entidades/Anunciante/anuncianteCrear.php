@@ -1,7 +1,13 @@
 <?php
 session_start();
 
-//Conexion
+//======================================================================
+//CREACION DE UN ANUNCIANTE
+//======================================================================
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 require_once "../../conexion.php";
 
 //Definir e inicializar variables
@@ -71,6 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include("../stylesheets.php"); ?>
     </head>
     <body>
+        <!-- 
+        ----------------------------------------------------------------------
+        Muestra por pantalla de la opción de creación
+        ----------------------------------------------------------------------
+        -->
         <?php
         if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
             if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
@@ -80,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="page-header">
                             <h2>Crear Anunciante</h2>
                         </div>
+                        <!-- Formulario y entradas-->
                         <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div <?php echo (!empty($nombre_error)) ? 'Error' : ''; ?>">
                                 <label>Nombre</label>

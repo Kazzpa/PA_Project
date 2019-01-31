@@ -2,6 +2,10 @@
 
 session_start();
 
+//======================================================================
+//PROCESAMIENTO DEL REGISTRO
+//======================================================================
+
 $saneamiento = Array(//Evitamos la inyeccion sql haciendo un saneamiento de los datos que nos llegan
     'nombre' => FILTER_SANITIZE_STRING,
     'password' => FILTER_SANITIZE_STRING,
@@ -33,7 +37,7 @@ if (isset($_FILES["imagen"]) && !empty($_FILES['imagen']['tmp_name'])) {
         $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
         if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
-            if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
+            if ($_FILES["imagen"]["size"] > 5 * 1024 * 1024) {   //5MB porque esta en bytes en principio
                 $errores[] = "Hay un error con el size de imagen";
             } else {
                 $nombreRuta = "userPhotos/" . time() . $_FILES["imagen"]["name"];
@@ -79,6 +83,9 @@ if (key_exists(0, $errores)) {  //Si hay algun error
         if ($resultado) {   //Comprobamos si la insercion ha sido un exito
             if (isset($_SESSION["rechazado"])) {  //Si el usuario habia fallado eliminamos la clave asociativa del fallo una vez se ha logueado correctamente
                 unset($_SESSION["rechazado"]);
+            }
+            if (isset($_SESSION["fallido"])) {
+                unset($_SESSION["fallido"]);
             }
             $_SESSION["exito"] = TRUE;
             header("Location: cuentaLogin.php");

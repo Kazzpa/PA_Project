@@ -1,11 +1,21 @@
 <?php
 
+//======================================================================
+//ELIMINACION DE MENSAJE
+//======================================================================
+//Obtenemos el id del mensaje a eliminar
 $post = $_POST['comment'];
 
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 
-$consulta = "DELETE FROM `posts` WHERE `posts`.`id` = '$post'"; //consulta SQL para obtener el usuario, luego comprobamos la password
+//Sentencia para la eliminacion de un mensaje a traves del id
+$consulta = "DELETE FROM `posts` WHERE `posts`.`id` = '$post'";
 $resultado = mysqli_query($con, $consulta);
 
-mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace falta
+//Cerramos la conexion a la base de datos ya que no nos hace falta
+mysqli_close($con);
 

@@ -19,14 +19,27 @@
         if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {
             if ($_SESSION['tipo'] == 1) {   //Si el usuario que accede tiene permisos, le mostramos el panel de usuario
                 ?>
+                <!-- 
+                ======================================================================
+                LISTA DE ANUNCIANTES Y SUS DISTINTAS OPCIONES
+                ======================================================================
+                -->
                 <div class="envoltura">
                     <div class="container-fluid">
                         <h2>Lista de Anunciantes</h2>                                      
                         <?php
+                        //-----------------------------------------------------
+                        // Consulta a la base de datos
+                        //-----------------------------------------------------
+                        //Realizamos una conexion a la base de datos
                         require_once "../../conexion.php";
-
+                        
+                        //Seleccionamos todos los anunciantes 
                         $consulta = "SELECT * FROM advertisers";
 
+                        //-----------------------------------------------------
+                        // Iteracion consulta y muestra por pantalla
+                        //-----------------------------------------------------
                         if ($resultado = mysqli_query($con, $consulta)) {
                             if (!(mysqli_num_rows($resultado)) == 0) {
                                 echo "<table class='table table-bordered table-striped'>";

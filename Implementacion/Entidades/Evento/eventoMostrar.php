@@ -8,6 +8,7 @@ and open the template in the editor.
 -->
 
 <?php
+//Funcion que devuelve una tabla con los usuarios suscritos al evento
 function printSuscritos($suscritos) {
     $str = "";
     if (sizeof($suscritos) > 0) {
@@ -112,6 +113,7 @@ function printSuscritos($suscritos) {
                                            echo "<input type='hidden' name='user' value=$user>
                                 <input type='hidden' name='event_id' value=$evento_id>";
                                            $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
+                                           echo basename($_SERVER['PHP_SELF']);
                                            ?>
                                 </form>
                                 <?php
@@ -123,6 +125,7 @@ function printSuscritos($suscritos) {
                                     echo "<input type='hidden' name='user' value=$user>
                                 <input type='hidden' name='event_id' value=$evento_id>";
                                     $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
+                                    echo basename($_SERVER['PHP_SELF']);
                                     ?>
                                 </form>
                                 <?php

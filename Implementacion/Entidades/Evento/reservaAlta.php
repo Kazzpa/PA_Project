@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+//======================================================================
+//DAMOS DE ALTA UNA RESERVA
+//======================================================================
 
 if (isset($_POST['user'])) {
     $usuario = $_POST['user'];
@@ -8,7 +11,10 @@ if (isset($_POST['user'])) {
 if (isset($_POST['event_id'])) {
     $evento = $_POST['event_id'];
 }
-
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 $consulta = "INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES (NULL, '$usuario', '$evento')"; //consulta SQL para obtener el usuario, luego comprobamos la password
 
@@ -18,6 +24,9 @@ mysqli_close($con); //Cerramos la conexion a la base de datos ya que no nos hace
 $paginaActual = $_SESSION['webRedirect'];
 
 if ($resultado) {
+    //-----------------------------------------------------
+    // Envio de correo electronico
+    //-----------------------------------------------------
     $from = "infinity-no-reply@infinityevents.es";
     $to = $_SESSION["email"];
     $subject = "Recordatorio de tu reserva en Infinity";
@@ -38,7 +47,7 @@ if ($resultado) {
 </html>
 ";
 
-// Para enviar un correo HTML, debe establecerse la cabecera Content-type
+    // Debemos establecer unas cabeceras para evitar que el correo termine en la carpeta de spam
     $headers = "From: Infinity infinity-no-reply@infinityevents.es" . "\r\n" ;
     $headers .="Reply-To: infinity-no-reply@infinityevents.es\r\n" ;
     $headers .="X-Mailer: PHP/" . phpversion();
@@ -48,11 +57,11 @@ if ($resultado) {
     mail($to, $subject, $message, $headers);
 
 // Enviarlo
-    header("Refresh: 3; URL = http://infinityevents.es/Entidades/Evento/$paginaActual?id=$evento");
+    header("Refresh: 3; URL = $paginaActual?id=$evento");
     echo "Se ha enviado un QR por si quiere compartir el evento";
     exit();
 } else {
-    header("Refresh: 3; URL = ../$paginaActual?id=$evento");
+    header("Refresh: 3; URL = $paginaActual?id=$evento");
     echo "Hubo un error al dar de alta la reserva";
     exit();
 }

@@ -14,6 +14,11 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="../../css/maps.css"/>
     </head>
     <body>
+        <!--
+        ======================================================================
+        CREACION DE UN EVENTO PATROCINADO
+        ======================================================================
+        -->
         <?php
         include("../header.php");
         if (isset($_SESSION['username']) && isset($_SESSION['tipo'])) {

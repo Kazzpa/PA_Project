@@ -1,12 +1,18 @@
 <?php
 
+//======================================================================
+//MUESTRA DE MENSAJES
+//======================================================================
 //guardamos datos del evento actual
 $eventId = $_GET['id'];
 
-
+//-----------------------------------------------------
+// Consulta a la base de datos
+//-----------------------------------------------------
+//Realizamos una conexion a la base de datos
 include("../../conexion.php");
 
-//seleccionamos los mensajes del evento
+//Seleccionamos los mensajes del evento ordenaos por fecha de posteo
 $consulta_posts = "SELECT * FROM `posts` WHERE `eventId`='$eventId' ORDER BY `postedDate` DESC";
 $resultado_posts = mysqli_query($con, $consulta_posts);
 $username = array();

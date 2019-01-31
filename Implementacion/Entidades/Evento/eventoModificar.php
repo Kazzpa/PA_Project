@@ -2,6 +2,10 @@
 
 session_start();
 
+//======================================================================
+//MODIFICACION DE UN EVENTO
+//======================================================================
+
 if (isset($_POST["modificarFoto"])) {
     if (isset($_FILES["imagen"])) {
         if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
@@ -11,7 +15,7 @@ if (isset($_POST["modificarFoto"])) {
             $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
             if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
-                if ($_FILES["imagen"]["size"] > 400 * 1024) {   //200 kb porque esta en bytes en principio
+                if ($_FILES["imagen"]["size"] > 5 * 1024 * 1024) {   //5MB porque esta en bytes en principio
                     echo "Hay un error con el size de imagen";
                     redireccionLogin();
                 } else {
