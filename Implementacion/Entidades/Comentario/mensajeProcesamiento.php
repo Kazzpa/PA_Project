@@ -24,7 +24,7 @@ $eventId = $_GET['id'];
 include("../../conexion.php");
 
 //Realizamos la insercion del mensaje en la Base de Datos con todos los atributos correspondientes
-$consulta = "INSERT INTO `posts` (`id`, `idReply`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '0', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
+$consulta = "INSERT INTO `posts` (`id`, `postedBy`, `eventId`, `postedDate`, `message`) VALUES ('NULL', '$postedBy', '$eventId', CURRENT_TIMESTAMP, '$message')";
 $resultado = mysqli_query($con, $consulta);
 $idPost = mysqli_insert_id($con);
 $sql = "SELECT events.group_id as total FROM events, posts WHERE "

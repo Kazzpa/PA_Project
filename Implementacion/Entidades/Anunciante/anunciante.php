@@ -59,6 +59,7 @@
                                 echo "<a href='anuncianteCrear.php' class='btn btn-primary pull-right'>Añadir Anunciante</a>";
                                 mysqli_free_result($resultado);
                             } else {
+                                echo "<a href='anuncianteCrear.php' class='btn btn-primary pull-right'>Añadir Anunciante</a>";
                                 echo "<p class='lead'><em>Registros no encontrados.</em></p>";
                             }
                         } else {

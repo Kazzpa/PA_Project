@@ -56,18 +56,18 @@ and open the template in the editor.
                             //Retiramos las filas de la consulta realizada
                             while ($auxiliar = mysqli_fetch_array($resultado)) {
                                 //Este auxiliar es para evitar que se meta la ultima iteracion vacia
-                                $fila[$i] = $auxiliar;
+                                $filaAd[$i] = $auxiliar;
                                 $i++;
                             }
                             //Iteramos las filas obtenidas para mostrarlas por pantalla
-                            for ($i = 0; $i < sizeof($fila); $i++) {
+                            for ($i = 0; $i < sizeof($filaAd); $i++) {
                                 //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
-                                $nombreEvento = $fila[$i][1];
-                                $fechaCelebracion = $fila[$i]['date_celebration'];
-                                $organization = $fila[$i]['organization'];
-                                $descripcion = $fila[$i]['description'];
-                                $evento_id = $fila[$i][0];
-                                $rutaimagen = $fila[$i]['rutaimagen'];
+                                $nombreEvento = $filaAd[$i][1];
+                                $fechaCelebracion = $filaAd[$i]['date_celebration'];
+                                $organization = $filaAd[$i]['organization'];
+                                $descripcion = substr($filaAd[$i]['description'],0,50)."...";
+                                $evento_id = $filaAd[$i][0];
+                                $rutaimagen = $filaAd[$i]['rutaimagen'];
 
                                 //Mostramos por pantalla la informacion del evento en forma de tabla
                                 echo "<div class='text-center well'>
@@ -76,7 +76,7 @@ and open the template in the editor.
                                     <th style='text-align:center; font-size: 2em;'><a class='link' href='Entidades/Evento/eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                 </tr>
                                 <tr>
-                                    <td><img src='Entidades/Evento/$rutaimagen' class='img-responsive' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                    <td><img src='Entidades/Evento/$rutaimagen' class='img-responsive center-block' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                 </tr>
                                 <tr>
                                     <td>$descripcion</td>
@@ -127,7 +127,7 @@ and open the template in the editor.
                                 //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
                                 $nombreEvento = $fila[$i]['name'];
                                 $fechaCelebracion = $fila[$i]['date_celebration'];
-                                $descripcion = $fila[$i]['description'];
+                                $descripcion = substr($fila[$i]['description'],0,50)."...";
                                 $evento_id = $fila[$i]['id'];
                                 $rutaimagen = $fila[$i]['rutaimagen'];
 
@@ -138,7 +138,7 @@ and open the template in the editor.
                                     <th style='text-align:center; font-size: 2em;'><a class='link' href='Entidades/Evento/eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                 </tr>
                                 <tr>
-                                    <td><img src='Entidades/Evento/$rutaimagen' class='img-responsive' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                    <td><img src='Entidades/Evento/$rutaimagen' class='img-responsive center-block' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                 </tr>
                                 <tr>
                                     <td>$descripcion</td>

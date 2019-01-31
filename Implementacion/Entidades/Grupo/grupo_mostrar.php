@@ -46,6 +46,7 @@
             $str .= '<div class="col-md-3" >'
                     . printLogros($logrosInfo) . printSuscritos($suscritos)
                     . '</div></div><h4>' . $group[2] . "</h4>";
+            
             return $str;
         }
 
@@ -172,6 +173,7 @@
             $groupInfo = getGroup($entradas['grupo']);
             if ($groupInfo !== false) {
                 $logrosInfo = getGroupLogros($groupInfo[0]);
+                print_r($logrosInfo);
                 $infoSubscribers = getUsersSubs($entradas['grupo']);
                 //Grupo valido pero no registrado
                 if (isset($_GET['suscribirse'])) {

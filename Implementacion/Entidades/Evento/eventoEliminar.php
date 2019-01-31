@@ -23,7 +23,7 @@ if ($resultado) {    //si la consulta ha tenido exito podemos guardar en SESSION
     echo "Se elimino el evento seleccionado, esperamos que cree otro pronto";
     exit();
 } else {
-    echo "Algo salio mal al intentar borrar el evento";
     header("Refresh: 5; URL = ../Usuario/cuentaLogin.php"); //Como hemos fallado devolvemos al usuario a la pagina de login
+    echo "Algo salio mal al intentar borrar el evento";
     exit();
 }
