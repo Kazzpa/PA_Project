@@ -1,5 +1,4 @@
-<?php
-session_start();?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -8,6 +7,7 @@ and open the template in the editor.
 -->
 
 <?php
+
 //Funcion que devuelve una tabla con los usuarios suscritos al evento
 function printSuscritos($suscritos) {
     $str = "";
@@ -113,7 +113,6 @@ function printSuscritos($suscritos) {
                                            echo "<input type='hidden' name='user' value=$user>
                                 <input type='hidden' name='event_id' value=$evento_id>";
                                            $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
-                                           echo basename($_SERVER['PHP_SELF']);
                                            ?>
                                 </form>
                                 <?php
@@ -125,7 +124,6 @@ function printSuscritos($suscritos) {
                                     echo "<input type='hidden' name='user' value=$user>
                                 <input type='hidden' name='event_id' value=$evento_id>";
                                     $_SESSION['webRedirect'] = basename($_SERVER['PHP_SELF']);
-                                    echo basename($_SERVER['PHP_SELF']);
                                     ?>
                                 </form>
                                 <?php
@@ -162,7 +160,7 @@ function printSuscritos($suscritos) {
                             </div>
                             <?php
                             if ($grupoEvento != 0) {
-                                echo (printCardGrupo($grupoInfo,'../Grupo/'));
+                                echo (printCardGrupo($grupoInfo, '../Grupo/'));
                             }
                             ?>
                         </div>
@@ -173,7 +171,7 @@ function printSuscritos($suscritos) {
                         ?>
                         <!--tabla de comentarios-->
                         <div id="comentsWapos" style="background-color: white; color:black;">
-    <?php if (isset($_SESSION['username'])) { ?>
+                            <?php if (isset($_SESSION['username'])) { ?>
                                 <h3>Comenta sobre el evento</h3>
                                 <form id="loginForm" action="../Comentario/mensajeProcesamiento.php?id=<?php echo $evento_id; ?>" method = "post">
                                     <textarea name="msgTextArea" id="commentTextArea" placeholder="¿Qué opinas?" required></textarea>
@@ -247,7 +245,7 @@ function printSuscritos($suscritos) {
 
         </script>
         <!--Declaracion del google Maps-->
-<?php include("../Localizacion/mapsScript.php"); ?>
+        <?php include("../Localizacion/mapsScript.php"); ?>
         <!--
         -----------------------------------------------------
         Tabla de comentarios
@@ -330,11 +328,11 @@ function printSuscritos($suscritos) {
                                 td2.style = "text-align:left;";
                                 //si el usuario tiene la sesion iniciada, podra modificar sus comentarios
                                 if (data['posts'][i]['postedBy'] === "<?php
-if (isset($_SESSION['username']))
-    echo $_SESSION['username'];
-else
-    echo '';
-?>") {
+        if (isset($_SESSION['username']))
+            echo $_SESSION['username'];
+        else
+            echo '';
+        ?>") {
 
                                     var div1 = document.createElement('div');
                                     div1.className += "edit";

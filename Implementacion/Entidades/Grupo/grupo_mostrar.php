@@ -246,7 +246,7 @@
                             ?>
                             <h3>Sube una imagen: </h3>
                             <form action = "../Galeria/fotosIncluir.php" method = "post" enctype="multipart/form-data">          
-                                <input type="file" name="imagen" class="form-control-file" required/> <!--Para el archivo se usa file control file-->
+                                <input type="file" name="imagen" class="form-control-file"/> <!--Para el archivo se usa file control file-->
                                 <p>Descripci&oacute;n de la imagen:</p>
                                 <input type = "text" id="encabezado" name = "encabezado" class="form-control-file" />
                                 <p class="caracteres_disponibles"></p>

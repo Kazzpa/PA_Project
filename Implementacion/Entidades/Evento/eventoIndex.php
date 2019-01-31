@@ -16,7 +16,6 @@ and open the template in the editor.
          <!--Esta es una forma de hacer la otra es <head> <style type="text/css"> pero es menos recomendable-->
         <!--Importes MAPS -->
         <link rel="stylesheet" type="text/css" href="../../css/maps.css"/>
-
     </head>
     <body>
         <?php include("../header.php"); ?>
@@ -70,7 +69,7 @@ and open the template in the editor.
                             $fechaCreacion = $fila[$i]['date_creation'];
                             $fechaCelebracion = $fila[$i]['date_celebration'];
                             $creador = $fila[$i]['host'];
-                            $descripcion = substr($fila[$i]['description'],0,50).("...");
+                            $descripcion = substr($fila[$i]['description'],0,80).("...");
                             $evento_id = $fila[$i]['id'];
                             $rutaimagen = $fila[$i]['rutaimagen'];
                             
@@ -81,7 +80,7 @@ and open the template in the editor.
                                             <th style='text-align:center; font-size: 2em;'><a class='link' href='eventoMostrar.php?id=$evento_id'>$nombreEvento</th>
                                         </tr>
                                         <tr>
-                                            <td><img src='$rutaimagen' class='img-responsive' alt='imagen del evento' style='width:200px%; height:200px;'></td>
+                                            <td><img src='$rutaimagen' class='img-responsive center-block' alt='imagen del evento' style='width:200px%; height:200px;'></td>
                                         </tr>
                                         <tr>
                                             <td>$descripcion</td>
