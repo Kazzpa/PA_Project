@@ -58,8 +58,8 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
-    echo "Le redireccionaremos al registro en 3 segundos";
     header("Refresh: 3; URL = cuentaRegistro.php");
+    echo "Le redireccionaremos al registro en 3 segundos";
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $nombre = $saneado['nombre']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento
     $usuario = $saneado['username'];

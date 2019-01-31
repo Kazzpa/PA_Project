@@ -23,10 +23,10 @@ if (preg_match_all("/^[[:alnum:]]+$/", $saneado["username"]) == 0) {
 }
 
 if (key_exists(0, $errores)) {  //Si hay algun error
+    header('Refresh: 3; URL = cuentaLogin.php');
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
-    header('Refresh: 3; URL = cuentaLogin.php');
     echo "Le redireccionaremos al login en 3 segundos";
 } else {    //Si no hay errores seguimos procesando a la base de datos
     $usuario = $saneado['username']; //Rescatamos todas las variables del formulario y les hacemos un saneamiento

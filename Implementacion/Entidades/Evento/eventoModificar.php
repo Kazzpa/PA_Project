@@ -9,15 +9,15 @@ session_start();
 if (isset($_POST["modificarFoto"])) {
     if (isset($_FILES["imagen"])) {
         if ($_FILES["imagen"]["error"] > 0) {   //Comprobamos que la imagen pasa los parametros
-            echo "Hay un error con la imagen";
             redireccionLogin();
+            echo "Hay un error con la imagen";
         } else {
             $tiposAceptados = array("image/jpg", "image/jpeg", "image/png");
 
             if (array_search($_FILES["imagen"]["type"], $tiposAceptados)) {
                 if ($_FILES["imagen"]["size"] > 5 * 1024 * 1024) {   //5MB porque esta en bytes en principio
-                    echo "Hay un error con el size de imagen";
                     redireccionLogin();
+                    echo "Hay un error con el size de imagen";
                 } else {
                     $nombreRuta = "eventPhotos/" . time() . $_FILES["imagen"]["name"];
                     move_uploaded_file($_FILES["imagen"]["tmp_name"], $nombreRuta);
@@ -43,23 +43,23 @@ if (isset($_POST["modificarFoto"])) {
                         //Si se actualizo correctamente borramos la anterior
                         if ($rutaAntigua != "eventPhotos/default.jpg")
                             unlink($rutaAntigua);
-                        echo "Se hizo el cambio de imagen correctamente";
                         redireccionLogin();
+                        echo "Se hizo el cambio de imagen correctamente";
                         exit();
                     } else {
-                        echo "Algo salio mal al intentar modificar el campo seleccionado";
                         redireccionLogin();
+                        echo "Algo salio mal al intentar modificar el campo seleccionado";
                         exit();
                     }
                 }
             } else {
-                echo "Hay un error con el tipo de imagen";
                 header("Refresh: 3; URL = ../Usuario/cuentaLogin.php");
+                echo "Hay un error con el tipo de imagen";
             }
         }
     } else {
-        echo "No ha introducido ninguna imagen, le redireccionaremos ";
         redireccionLogin();
+        echo "No ha introducido ninguna imagen, le redireccionaremos ";
         exit();
     }
 } else if (isset($_POST["botonEventoModificar"])) {
@@ -87,8 +87,8 @@ if (isset($_POST["modificarFoto"])) {
         echo "Se ha actualizado el campo correctamente!";
         exit();
     } else {
-        echo "Algo salio mal al intentar modificar el campo seleccionado";
         redireccionLogin();
+        echo "Algo salio mal al intentar modificar el campo seleccionado";
         exit();
     }
 }

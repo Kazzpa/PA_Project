@@ -61,8 +61,8 @@ if (key_exists(0, $errores)) {  //Si hay algun error
     foreach ($errores as $clave => $valor) {
         echo "$valor <br/>";
     }
-    echo "Le redireccionaremos a la creacion de evento en 3 segundos";
     header("Refresh: 3; URL = eventoCreacion.php");
+    echo "Le redireccionaremos a la creacion de evento en 3 segundos";
 } else {
     //primero insertamos la localizacion del evento
     include("../Localizacion/localizacionProcesamiento.php");
