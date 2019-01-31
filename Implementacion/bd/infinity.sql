@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-01-2019 a las 05:36:32
+-- Tiempo de generación: 31-01-2019 a las 07:52:25
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.10
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `infinity`
 --
+CREATE DATABASE IF NOT EXISTS `infinity` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `infinity`;
 
 -- --------------------------------------------------------
 
@@ -107,7 +109,8 @@ INSERT INTO `gallery` (`id`, `grupo`, `rutaImagen`, `encabezado`) VALUES
 (59, 7, 'groupPhotos/7/1548907560pexels-photo-1376866.jpeg', 'Jejeje'),
 (60, 8, 'groupPhotos/8/1548907632nebula_pequeña.jpg', 'Nebulosa de Orión'),
 (61, 8, 'groupPhotos/8/1548907676pexels-photo-1567069.jpeg', 'Salida 4/1/2019'),
-(62, 8, 'groupPhotos/8/1548907702pexels-photo-712067.jpeg', 'Acampada');
+(62, 8, 'groupPhotos/8/1548907702pexels-photo-712067.jpeg', 'Acampada'),
+(63, 4, 'groupPhotos/4/1548914722pexels-photo-577585.jpeg', 'Programando');
 
 -- --------------------------------------------------------
 
@@ -175,6 +178,14 @@ CREATE TABLE `logro` (
   `valor` int(10) NOT NULL COMMENT 'limite para activar el logro'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `logro`
+--
+
+INSERT INTO `logro` (`id`, `name`, `icon_path`, `descripcion`, `tipo`, `valor`) VALUES
+(1, 'coments', 'img/cup.png', 'muchos coments', 1, 3),
+(2, 'Fotos', 'img/cup.png', 'Muchas fotos', 2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -185,6 +196,13 @@ CREATE TABLE `logros_grupo` (
   `group_id` int(11) NOT NULL,
   `logro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `logros_grupo`
+--
+
+INSERT INTO `logros_grupo` (`group_id`, `logro_id`) VALUES
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -235,7 +253,8 @@ INSERT INTO `reserva` (`id`, `username`, `id_evento`) VALUES
 (5, 'pedrog', 28),
 (6, 'pedrog', 25),
 (7, 'pedrog', 27),
-(8, 'irene', 27);
+(8, 'irene', 27),
+(9, 'admin', 24);
 
 -- --------------------------------------------------------
 
@@ -388,7 +407,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT de la tabla `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `grupo`
@@ -406,7 +425,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logro`
 --
 ALTER TABLE `logro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `posts`
@@ -418,7 +437,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `suscripcion_grupo`
