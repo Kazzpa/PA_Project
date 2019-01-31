@@ -58,45 +58,49 @@
             }
             $ret = getAllGroups(4, $offset);
             $numGrupos = getNumGrupos();
-            $str .= '<div class="col-sm-12">';
-            for ($i = 0; $i < sizeof($ret); $i++) {
-                $str .= printCardGrupo($ret[$i], '');
-            }
-            if ($numGrupos > 4) {
-                $str .= '</div>
+            if ($ret !== false) {
+                $str .= '<div class="col-sm-12">';
+                for ($i = 0; $i < sizeof($ret); $i++) {
+                    $str .= printCardGrupo($ret[$i], '');
+                }
+                if ($numGrupos != false) {
+                    if ($numGrupos > 4) {
+                        $str .= '</div>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <li>
                             <a href="?pag=';
-                if (isset($_GET['pag'])) {
-                    if ($_GET['pag'] - 1 >= 0) {
-                        $str .= (string) ($_GET['pag'] - 1);
-                    } else {
-                        $str .= "0";
-                    }
-                }
-                $str .= '" aria-label="Previous">
+                        if (isset($_GET['pag'])) {
+                            if ($_GET['pag'] - 1 >= 0) {
+                                $str .= (string) ($_GET['pag'] - 1);
+                            } else {
+                                $str .= "0";
+                            }
+                        }
+                        $str .= '" aria-label="Previous">
                                   <span aria-hidden = "true">&laquo;</span>
                             </a>
                             </li>';
-                for ($i = 0; $i < $numGrupos / 4; $i++) {
-                    $str .= '<li><a href="?pag=' . $i . '">' . $i . '</a></li>';
-                }
-                $str .= '<li>
+                        for ($i = 0; $i < $numGrupos / 4; $i++) {
+                            $str .= '<li><a href="?pag=' . $i . '">' . $i . '</a></li>';
+                        }
+                        $str .= '<li>
                                 <a href = "?pag=';
-                if (isset($_GET['pag'])) {
-                    if ($_GET['pag'] + 1 < ($numGrupos / 4)) {
-                        $str .= (string) ($_GET['pag'] + 1);
-                    } else {
-                        $str .= "1";
-                    }
-                }
-                $str .= '" aria-label = "Next">
+                        if (isset($_GET['pag'])) {
+                            if ($_GET['pag'] + 1 < ($numGrupos / 4)) {
+                                $str .= (string) ($_GET['pag'] + 1);
+                            } else {
+                                $str .= "1";
+                            }
+                        }
+                        $str .= '" aria-label = "Next">
                                     <span aria-hidden = "true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
             </nav>';
+                    }
+                }
             }
             return $str;
         }
@@ -172,10 +176,10 @@
                 //Grupo valido pero no registrado
                 if (isset($_GET['suscribirse'])) {
                     suscribirseGrupo($_SESSION['username'], $groupInfo[0], false);
-                    header("Location: grupo_mostrar.php?grupo=".$_GET['grupo']);
+                    header("Location: grupo_mostrar.php?grupo=" . $_GET['grupo']);
                 } else if (isset($_GET['desuscribir'])) {
                     deSuscribirseGrupo($_SESSION['username'], $groupInfo[0]);
-                    header("Location: grupo_mostrar.php?grupo=".$_GET['grupo']);
+                    header("Location: grupo_mostrar.php?grupo=" . $_GET['grupo']);
                 }
             } else {
                 $bol = false;
@@ -229,9 +233,9 @@
                         $("#crearGrupo").validate();
                     </script>
                     <!--GALERIA DEL GRUPO-->
-                    <?php if ($bol) { ?>
+                        <?php if ($bol) { ?>
                         <div class="container">
-                            <?php include('../Galeria/fotoMostrar.php'); ?>
+                        <?php include('../Galeria/fotoMostrar.php'); ?>
                         </div>
                     <?php } ?>
                     <!-- SUBIDA DE FOTOS, SOLO EL ADMINISTRADOR DEL GRUPO-->
