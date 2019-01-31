@@ -193,7 +193,7 @@ function numEvents($grupoId) {
 }
 
 function getLogros($tipo) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT * FROM logro where logro.tipo = '$tipo'";
     $res = mysqli_query($link, $sql);
     $ret = false;

@@ -4,21 +4,10 @@
 $conexion = false;
 include_once '../Logro/logros_admin.php';
 
-//Patron singleton para conexion
-function connectDB() {
-    if ($GLOBALS['conexion'] == false) {
-        include("../../conexion.php");
-        $conexion = $con;
-    } else {
-        $con = $conexion;
-    }
-    return $con;
-}
-
 //Devuelve un array con la informacion del grupo si existe, y si no falso
 // 0: ID    1:name  2:descripcion   3:rutaImagen
 function getGroup($getName) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT * FROM grupo WHERE name = '" . $getName . "'";
     $res = mysqli_query($link, $sql);
     $ret = false;
@@ -36,7 +25,7 @@ function getGroup($getName) {
 
 //devuelve si el usuario esta suscrito o no a ese grupo
 function isSubbedToGroup($user, $group) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
             . " `grupo` WHERE '$user' = suscripcion_grupo.user_id AND"
             . " suscripcion_grupo.grupo_id = '$group' AND users.username = "
@@ -46,7 +35,7 @@ function isSubbedToGroup($user, $group) {
     if (mysqli_num_rows($res) > 0) {
         $ret = true;
     }
-    mysqli_close($link);
+    cerrarDB();
     return $ret;
 }
 
@@ -54,7 +43,7 @@ function isSubbedToGroup($user, $group) {
 // limit y offset para que nos devuelva una serie de grupos
 // 0: ID    1:name  2:descripcion   3:rutaImagen
 function getAllGroups($limit, $offset) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT * FROM grupo ORDER BY name";
     if ($limit !== false && $offset !== false) {
         $sql .= " LIMIT " . $offset . " , " . $limit;
@@ -71,7 +60,7 @@ function getAllGroups($limit, $offset) {
             }
             $i++;
         }
-        mysqli_close($link);
+        cerrarDB();
     }
     return $ret;
 }
@@ -79,7 +68,7 @@ function getAllGroups($limit, $offset) {
 //devuelve los grupos del que el user es moderador
 // 0: ID    1:name  2:descripcion   3:rutaImagen
 function getModGroups($user) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT * FROM grupo, suscripcion_grupo WHERE grupo.id = "
             . "suscripcion_grupo.grupo_id AND suscripcion_grupo.user_id = '$user'"
             . " AND suscripcion_grupo.rol = '1'  ORDER BY grupo.name";
@@ -102,7 +91,7 @@ function getModGroups($user) {
 //modifica la imagen de un grupo existente
 function modificarGrupo($id, $name, $desc, $img) {
     $bol = true;
-    $con = connectDB();
+    $con = conectarDB();
 //Hacemos una insercion en la base de datos, la fecha de registro es automatica
     $consulta = "UPDATE grupo SET ";
 //Hacemos comprobaciones para cambiar unicamente los campos que nos interesan
@@ -131,33 +120,29 @@ function modificarGrupo($id, $name, $desc, $img) {
     if (!$resultado) {
         $bol = false;
     }
-    mysqli_close($con);
+    cerrarDB();
     return $bol;
 }
 
 //Eliminar grupo
 function eliminarGrupo($id) {
     $bol = true;
-    $con = connectDB();
+    $con = conectarDB();
 //Eliminamos el grupo con el id especificado
     $consulta = 'DELETE FROM grupo WHERE id ="' . $id . '"';
     $resultado = mysqli_query($con, $consulta);
-    if ($resultado) {
-        echo "exito";
-    }
+
     if (!$resultado) {
         $bol = false;
-        echo "<br/>" . $resultado;
-        echo "error al eliminar";
     }
-    mysqli_close($con);
+    cerrarDB();
     return $bol;
 }
 
 //crear grupo en db
 function crearGrupo($name, $desc, $img) {
     $info[0] = true;
-    $con = connectDB();
+    $con = conectarDB();
 //Hacemos una insercion en la base de datos, la fecha de registro es automatica
 
     $consulta = "INSERT INTO grupo ( id , name, descripcion, image_path) VALUES ( 'NULL' , '" . $name . "' , '" . $desc . "'"
@@ -168,13 +153,13 @@ function crearGrupo($name, $desc, $img) {
         $info[0] = false;
     }
     $info[1] = mysqli_insert_id($con);
-    mysqli_close($con);
+    cerrarDB();
     return $info;
 }
 
 //crea relacion de suscribirse a grupo
 function suscribirseGrupo($user, $grupo, $bCreador) {
-    $con = connectDB();
+    $con = conectarDB();
     $bol = false;
     if (!isSubbedToGroup($user, $grupo)) {
         $sql = "INSERT INTO suscripcion_grupo (user_id, grupo_id, id, rol)"
@@ -196,7 +181,7 @@ function suscribirseGrupo($user, $grupo, $bCreador) {
 
 //elimina la relacion de un usuario con un grupo
 function deSuscribirseGrupo($user, $grupo) {
-    $con = connectDB();
+    $con = conectarDB();
     $bol = false;
     if (isSubbedToGroup($user, $grupo)) {
         $sql = "DELETE FROM suscripcion_grupo WHERE user_id = '$user' AND"
@@ -211,7 +196,7 @@ function deSuscribirseGrupo($user, $grupo) {
 
 // 0: usuario 1: tipo
 function getUsersSubs($getName) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT users.name, suscripcion_grupo.rol FROM  users, suscripcion_grupo,"
             . " `grupo` WHERE users.username = suscripcion_grupo.user_id AND"
             . " grupo.name = '$getName' AND suscripcion_grupo.grupo_id = grupo.id ORDER BY suscripcion_grupo.rol LIMIT 5";
@@ -224,8 +209,6 @@ function getUsersSubs($getName) {
         while ($row = mysqli_fetch_array($res)) {
             $j = 0;
             while ($j < 2) {
-//DEBUG
-//echo "<br/> " . $j . ": " . $row[$j];
                 $ret[$i][] = $row[$j];
                 $j++;
             }
@@ -237,16 +220,14 @@ function getUsersSubs($getName) {
 
 //0: grupo_id 1:name
 function getGroupsSubbed($userName) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT grupo.name, grupo.id FROM suscripcion_grupo,"
             . " users, grupo WHERE suscripcion_grupo.user_id = users.username"
             . " AND suscripcion_grupo.rol = 1 AND suscripcion_grupo.grupo_id = grupo.id AND users.username= '" . $userName . "'";
 
     $res = mysqli_query($link, $sql);
     $ret = false;
-    if (!$res) {
-        
-    } else {
+    if ($res) {
         $i = 0;
         while ($row = mysqli_fetch_array($res)) {
             $j = 0;
@@ -263,7 +244,7 @@ function getGroupsSubbed($userName) {
 //devolvemos un array con los logros obtenidos icono,descripcion y nombre
 //  0:nombre_logro 1: icon_path 2:descripcion 3:puntos
 function getGroupLogros($groupId) {
-    $link = connectDB();
+    $link = conectarDB();
     $sql = "SELECT logro.name, logro.icon_path, logro.descripcion, logro.puntos"
             . " FROM logro, logros_grupo, grupo WHERE   logro.id=logros_grupo.logro_id "
             . "  AND logros_grupo.group_id = " . $groupId . " AND logros_grupo.group_id = grupo.id";

@@ -1,5 +1,6 @@
 <?php
 //Borrado
+session_start();
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     require_once "../../conexion.php";
     //Prepara sentencia sql de borrado
@@ -66,6 +67,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                 echo "<p>Lo sentimos no tiene permisos para acceder a esta pagina</p>";
             }
         } else {
+            print_r($_SESSION);
             echo "<p>Lo sentimos no tiene permisos para acceder a esta pagina</p>";
         }
         ?>
