@@ -88,21 +88,21 @@ function formCrearGrupo() {
 <form id="crearGrupo" action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <b>Nombre: </b><br/>
-        <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo"';
+        <input type="text" class="form-control" name="grupoName" placeholder="Nombre de grupo" required';
     if (isset($_POST['grupoName'])) {
         echo $_POST['grupoName'];
     }
     $str .= '><br/>
     </div><div class="form-group">
         <b>Descripcion: </b><br/>
-        <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion"';
+        <input type="text" class="form-control" name="grupoDesc" placeholder="Descripcion" required';
     if (isset($_POST['grupoDesc'])) {
         echo $_POST['grupoDesc'];
     }
     $str .= '><br/>
     </div><div class="form-group">
         <b>Imagen: </b><br/>
-        <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen"><br/>
+        <input type="file" class="form-control-file" name="grupoImg" placeholder="Seleccione imagen" required><br/>
     </div>
     <input type="submit" name="crearGrupo" value="Crear">
 
