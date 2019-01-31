@@ -70,7 +70,7 @@ and open the template in the editor.
                             $fechaCreacion = $fila[$i]['date_creation'];
                             $fechaCelebracion = $fila[$i]['date_celebration'];
                             $creador = $fila[$i]['host'];
-                            $descripcion = $fila[$i]['description'];
+                            $descripcion = substr($fila[$i]['description'],0,50).("...");
                             $evento_id = $fila[$i]['id'];
                             $rutaimagen = $fila[$i]['rutaimagen'];
                             

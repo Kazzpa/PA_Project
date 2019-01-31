@@ -65,7 +65,7 @@ and open the template in the editor.
                                 $nombreEvento = $filaAd[$i][1];
                                 $fechaCelebracion = $filaAd[$i]['date_celebration'];
                                 $organization = $filaAd[$i]['organization'];
-                                $descripcion = $filaAd[$i]['description'];
+                                $descripcion = substr($filaAd[$i]['description'],0,50)."...";
                                 $evento_id = $filaAd[$i][0];
                                 $rutaimagen = $filaAd[$i]['rutaimagen'];
 
@@ -127,7 +127,7 @@ and open the template in the editor.
                                 //Hay dos tablas por el UNION en la consulta, lo obtenemos del indice numerico que es donde se guarda
                                 $nombreEvento = $fila[$i]['name'];
                                 $fechaCelebracion = $fila[$i]['date_celebration'];
-                                $descripcion = $fila[$i]['description'];
+                                $descripcion = substr($fila[$i]['description'],0,50)."...";
                                 $evento_id = $fila[$i]['id'];
                                 $rutaimagen = $fila[$i]['rutaimagen'];
 
